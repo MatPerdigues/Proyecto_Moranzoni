@@ -1,0 +1,89 @@
+.tabProd{
+    width: 100%;
+}
+
+.tdProd{
+    border: 1px solid grey;
+    height: 25px;
+}
+
+#tdProd1{
+    width: 40%;
+    min-width: 300px;
+}
+
+#tdProd2,#tdProd3,#tdProd4,#tdProd5{
+    width: 10%;
+    min-width: 120px;
+}
+
+#tdProd6{
+    width: 3%;
+    min-width: 40px;
+    height: 30px;  
+    text-align: center;
+}
+
+#tdProd7{
+    text-align: center;
+   min-width: 40px;
+}
+
+#tdProd8{
+    width: 3%;
+    min-width: 40px;
+    height: 30px;
+    text-align: center;
+}
+
+
+#tdProd9{
+    width: 3%;
+    min-width: 40px;
+    height: 30px;
+    text-align: center;
+}
+
+
+#iconTable{
+    margin: auto;
+    color: orange;
+}
+
+#iconTable:hover{
+    cursor: pointer;
+}
+
+#iconTable1{
+    color: red;
+    cursor: pointer;
+}
+
+#iconTable2{
+    margin: auto;
+    color: orange;
+}
+
+#iconTable2:hover{
+    color: orangered;
+    cursor: pointer;
+}
+
+.iconTable,.iconTable3{
+    margin: auto;
+    color: orange;
+}
+
+.iconTable1,.iconTable3,.iconTable:hover{
+    cursor: pointer;
+}
+
+.iconTable1{
+    margin: auto;
+    color: orangered;
+}
+
+
+
+
+

@@ -1,0 +1,75 @@
+.admForm{
+    
+    width: 80%;
+    height: 220px;
+    margin: auto;
+    margin-top: 30px;
+    padding-top: 50px;
+
+ 
+}
+
+.divForm1{
+    width: 100%;
+    height: 50px;   
+    display: flex;
+    justify-content: center;
+    
+}
+
+.divForm2{
+    width: 100%;
+    height: 50px;    
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.inputForm{
+    width: 30%;
+    border-radius: 0 10px 10px 0;
+    border: 1px solid grey;
+}
+
+.iconForm{
+    width: 50px;
+    border: 1px solid grey;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px 0 0 10px;
+}
+
+.submit{
+    width: 5%;
+    border: none;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    margin-top: 60px;
+    background-color: white;
+    color: black;
+    
+}
+
+.submit:hover{
+    transition: 0.5s;
+    color: #FB923C;
+}
+
+.userCheck{
+    opacity: 100%;
+    transition: 5s;    
+    display: none;
+    justify-content: center;
+    margin-top: 50px;
+    color: #FB923C;
+
+}
+
+#userCheckIcon{
+    transition: 5s;
+    opacity: 0%;
+    margin-left: 10px;
+
+}

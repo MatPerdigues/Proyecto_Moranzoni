@@ -1,0 +1,123 @@
+.marcas{   
+    width: 85%;
+    height: auto;
+    border: 1px solid gray;
+    margin: 0 auto;
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    padding-left: 70px;
+}
+
+.imagenMarca1{
+    width:225px;
+    height: 225px;
+    background-image: url('/src/imgs/carilo.png');
+   
+    
+}
+
+.imagenMarca2{
+    width:225px;
+    height: 225px;
+    margin-top: 40px;
+    background-image: url('/src/imgs/risky.png');
+    background-repeat: no-repeat;
+  
+    
+}
+
+
+.imagenMarca3{
+    width:225px;
+    height: 225px;
+    background-image: url('/src/imgs/crackines.png');
+   
+  
+    
+}
+
+.imagenMarca4{
+    width:225px;
+    height: 225px;
+    margin-top: 40px;
+    background-image: url('/src/imgs/mondelez (2).png');
+    background-repeat: no-repeat;  
+    
+}
+
+.imagenMarca5{
+    width:225px;
+    height: 225px;
+    background-image: url('/src/imgs/muslimix.jpg');     
+}
+
+.imagenMarca6{
+    width:225px;
+    height: 225px;
+    background-image: url('/src/imgs/chef.png');     
+}
+
+.imagenMarca7{
+    width:225px;
+    height: 225px;
+    background-image: url('/src/imgs/viaVita.png');     
+}
+
+.imagenMarca8{
+    width:225px;
+    height: 225px;
+    background-image: url('/src/imgs/greenCrops.png');     
+}
+
+.imagenMarca9{
+    width:225px;
+    height: 225px;
+    background-image: url('/src/imgs/organicoops.png');     
+}
+
+.imagenMarca10{
+    width:225px;
+    height: 225px;
+    background-image: url('/src/imgs/naturalPop.png');     
+}
+
+
+.imagenMarca11{
+    width:225px;
+    height: 225px;
+    background-image: url('/src/imgs/golton.png');     
+}
+
+.imagenMarca12{
+    width:225px;
+    height: 225px;
+    background-image: url('/src/imgs/chocolatory.png');   
+}
+
+
+.imagenMarca13{
+    width:245px;
+    height: 186px;
+    background-image: url('/src/imgs/goodLive4.png');
+    transform: scale(0.7);
+    border-radius: 10%;  
+    background-repeat: no-repeat;   
+    border: px solid red;
+    position: relative;
+    top: 20px;
+}
+
+.imagenMarca14{
+    width:225px;
+    height: 225px;
+    background-image: url('/src/imgs/naquet2.png');    
+    
+}
+
+.imagenMarca15{
+    width:225px;
+    height: 225px;
+    background-image: url('/src/imgs/wik.png');    
+    transform: scale(0.8);
+}

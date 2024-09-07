@@ -1,0 +1,238 @@
+.secPanel{
+    width: 60%;
+    height: 150px;
+    margin: auto;
+    margin-top: 50px;
+    display: flex;
+    justify-content: space-around;
+
+}
+
+
+.iconPanel{
+    display: flex;
+    justify-content: center;
+    width: 70px;
+    height: 70px;
+    margin: auto;
+    margin-top: 20px;
+    
+    
+}
+
+.opcPanel{
+    display: flex;
+    justify-content: center;   
+}
+
+.grpPanel{    
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    border-radius: 10px;  
+    /* color: #FFB900;  */
+    color: #F59E0B;
+    border: 2px solid #D97706;   
+}
+
+.grpPanel:hover{
+    cursor: pointer;
+}
+
+.secProductos{
+    display: none;
+    width: 60%;
+    height: 800px;
+    margin: auto;
+    min-height: 500px;
+    margin-bottom: 100px;
+    border-radius: 10px;    
+}
+
+.btnsProductos{
+    
+    width: 15%;
+    height: 100px;
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+
+}
+
+.btnProd{
+    width: 80px;
+    height: 80px;
+    background: white;
+    border-radius: 10px;
+    margin-top: 20px;
+    border: none;
+    
+}
+
+.formProductos{
+    width: 50%; 
+    height: 400px;
+    margin: auto;
+    margin-top: 40px;
+
+}
+
+.secDivisorProd{
+    height: 30px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: -20px;
+}
+
+.divisorProd{
+    border: 1px solid black;
+    height: 30px;
+    width: 33%;    
+}
+
+
+.catProd{
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    margin: auto; 
+}
+
+.inputProd{
+    width: 100%;
+    background-color: #FEFCE8;
+    border: 1px solid black;
+    height: 30px;
+    
+}
+
+#divisorProd1{
+    border-right: none;
+    border-bottom: none;
+    border-radius: 10px 0 0 0;
+}
+
+#divisorProd2{
+    border-left: none;
+    border-bottom: none;
+    border-radius: 0 10px 0 0;
+}
+
+.secFormProd{
+    margin-bottom: 40px;
+}
+
+#btnProd1{
+   color: #FFAB00;
+}
+
+.subForm{
+    border: none;
+    margin: auto;
+    width: 50px;
+    height: 50px;
+    margin-top: 0px;
+    border-radius: 10px;
+    background-color: white;
+}
+
+.contSubForm{
+    width: 100%;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    margin-top: -10px;
+   
+}
+
+.subForm:hover{
+    color: #FFAB00;
+}
+
+.secListProd{
+    display: none;
+    width: 60%;
+    height: auto;
+    min-height: 400px;
+    margin: auto;
+    margin-top: 50px;
+}
+
+.mapProd{
+    display: none;
+    width: 100%;
+    height: auto;
+    margin-top: -250px;
+}
+
+.secBtnGuardar{
+    width: 100%;
+    
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+    height: 50px;
+}
+
+.btnGuardar{
+    background-color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    border: none;
+    color: #FFAB00;
+    display: none;
+}
+
+.btnGuardar:hover{
+    color: orangered;
+}
+
+.iconGuardar{
+    animation-iteration-count: 1;
+}
+
+.popEliminar{
+    border: 1px solid grey;
+    width: 50%;
+    height: 200px;
+    display: none;
+    text-align: center;
+    margin: auto;
+    margin-top: -200px;
+    border-radius: 10px;
+    padding-top: 30px;
+}
+
+.btnsEliminar{
+    
+    width: 60%;
+    height: 60px;
+    display: flex;
+    justify-content: space-around;
+    margin: auto;
+    margin-top: 50px;
+}
+
+.btnEliminar{
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    background-color: white;
+}
+
+.btnEliminar:hover{
+    background-color: rgb(255, 187, 0);
+}
+
+#phMarca{
+    color: grey;
+}
+
+#btnsEditar{
+    width: 60%;
+    margin: auto;
+}
+
+

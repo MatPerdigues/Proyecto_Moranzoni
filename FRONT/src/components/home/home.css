@@ -40,6 +40,7 @@
     width: 30%;
     height: 400px;
     border: 1px solid gray;
+
     
     
 }
@@ -48,9 +49,10 @@
     width: 100px;
     height: 100px;
     border-radius: 50%;
-    background-image:  url('../images/foodIcon2.png');
+    background-image:  url('/src/imgs/foodIcon2.png');
     margin: -70px auto;
     color: black;
+
     
 }
 
@@ -58,7 +60,9 @@
     font-size: 100px;
     border-radius: 50%;
     margin: -100px auto;
-    color:black
+    color:black;
+    
+    padding-bottom: 0px;
 
 }
 
@@ -66,4 +70,36 @@
     background-color: white;
     margin-top: -100px;
     font-size: 88px;
+   
+    
+}
+
+.titCard{
+    margin: 100px auto;
+
+    
+}
+
+.h4Card{
+    font-family: "Bitter", serif;
+    font-size: 30px;
+    font-style: italic;
+    font-weight: 500; 
+  
+    margin-bottom: -100px;
+}
+
+.textCard{
+
+    margin: -30px auto;    
+    text-align: center;
+    width: 80%;
+}
+
+#titCard2{
+    margin-top: 110px;
+}
+
+#titCard3{
+    margin-top: 120px;
 }
