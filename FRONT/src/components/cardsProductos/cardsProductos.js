@@ -42,7 +42,8 @@ export default function CardProd ({info,pausarProd,activarProd,popEliminar,edita
         sessionStorage.setItem('phMarca',info.marca);
         sessionStorage.setItem('phCat',info.categoria);
         sessionStorage.setItem('phStock',info.stock);
-        sessionStorage.setItem('phPrecio',info.precio)
+        sessionStorage.setItem('phPrecio',info.precio);
+        sessionStorage.setItem('editProd',info.id);
         editarProducto()
     }
 

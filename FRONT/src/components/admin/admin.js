@@ -35,11 +35,11 @@ export default function Admin (){
             document.getElementById("usuario").style.backgroundColor = "#FED7AA";
             document.getElementById("usuario").style.borderColor = "red";
             
-            console.log('Usuario Incorrecto');
+
         } else {
             document.getElementById("adminPass").style.backgroundColor = "#FED7AA";
             document.getElementById("adminPass").style.borderColor = "red";
-            console.log('Clave Incorrecta');
+
         }
 
 

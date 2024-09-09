@@ -104,8 +104,27 @@ const eliminarProducto = async (req,res)=>{
 }    
 
 
+const editarProducto = async (req,res)=>{
+
+   
+    const{editDesc,editMarca,editCat,editStock,editPrecio,idEdit}=req.body;
+
+    dbConnection.query(`UPDATE Productos SET descripcion="${editDesc}", marca="${editMarca}", categoria="${editCat}", stock="${editStock}", precio="${editPrecio}" WHERE id="${idEdit}"`,(error,data)=>{
+        if(error){
+            console.log(error);
+            res.send(error);
+        }else{
+            res.json({
+                mensaje:"Producto actualizado correctamente!"
+            });
+            }
+        })
+    }
+
+ 
 
 
 
 
-module.exports={agregarProducto,traerProductos,pausarProducto,activarProducto,eliminarProducto};
+
+module.exports={agregarProducto,traerProductos,pausarProducto,activarProducto,eliminarProducto,editarProducto};

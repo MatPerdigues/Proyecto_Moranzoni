@@ -1,16 +1,26 @@
 .fondo{
+
   width: 80%;
-  height: 430px; 
-  margin: 0 auto 0px;
-  background-image: url('./fondo2.jpg');
-  border-radius: 10px;
+  height: 430px;
+  margin: auto;
+  margin-top: 80px;
+  margin-bottom: 80px;
   
 }
 
+
+.imgFondo{
+  width: 100%;
+  height: 430px;
+  margin: auto; 
+  border-radius: 10px;
+  background-repeat: no-repeat;
+}
+
 .logoFondo{
-  position: absolute;
-  left: 200px;
-  top:0px;  
+  position: relative;
+  left: 10%;
+  top:-550px;  
   width: 200px;
   height: 200px;
   background-image: url('./logo_Moranzoni3.png');
@@ -58,7 +68,7 @@
   cursor: pointer;
 
   transition: 0.5s;
-
-
 }
+
+
 

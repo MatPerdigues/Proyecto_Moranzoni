@@ -20,6 +20,7 @@ export default function PanelAdmin(){
     const [phCat,setPhCat]=useState('');
     const [phStock,setPhStock]=useState('');
     const [phPrecio,setPhPrecio]=useState('');
+    let mensajeEditar='';
 
    
     //const [mensajeEliminar,setMensajeEliminar]=useState('');
@@ -45,6 +46,7 @@ export default function PanelAdmin(){
             document.getElementById('secListProd').style.display='none';
             document.getElementById('mapProd').style.display='none'; 
             document.getElementById('popEliminar').style.display='none';
+            document.getElementById('secEditar').style.display='none';
         }
         if(event.currentTarget.id==="btnProd2"){
             document.getElementById('btnProd2').style.color='#FFAB00';
@@ -327,25 +329,119 @@ export default function PanelAdmin(){
 
 
 
+
     const editarProducto=()=>{
 
         setPhDesc(sessionStorage.getItem('phDesc'));
         setPhMarca(sessionStorage.getItem('phMarca'));
         setPhCat(sessionStorage.getItem('phCat'));
         setPhStock(sessionStorage.getItem('phStock'));
-        setPhPrecio(sessionStorage.getItem('phPrecio'));
-        
+        setPhPrecio(sessionStorage.getItem('phPrecio'));       
 
 
         document.getElementById('secListProd').style.display='none';
         document.getElementById('mapProd').style.display='none';
         document.getElementById('popEliminar').style.display='none';
+        document.getElementById('secEditar').style.display='block';
     }
 
 
-    const actForm=()=>{
-        document.getElementById('formEditar').reset();
+
+
+
+     const cerrarForm=(event)=>{
+        event.preventDefault();
+
+        sessionStorage.setItem('phDesc','');
+        sessionStorage.setItem('phMarca','');
+        sessionStorage.setItem('phCat','');
+        sessionStorage.setItem('phStock','');
+        sessionStorage.setItem('phPrecio','')
+        
+        document.getElementById('secEditar').style.display='none';
+        document.getElementById('secListProd').style.display='block'; 
     }
+
+
+
+
+
+
+    const actProd = async (event)=>{
+
+        event.preventDefault();
+
+        let editDesc = '';
+        let editMarca='';
+        let editCat = '';
+        let editStock='';
+        let editPrecio;
+        let idEdit=sessionStorage.getItem('editProd');
+
+        if(event.target[0].value===''){
+            editDesc=phDesc;
+        }else{
+            editDesc=event.target[0].value;
+        }
+        if(event.target[1].value===''){
+            editMarca=phMarca;
+        }else{
+            editMarca=event.target[1].value;
+        }
+        if(event.target[2].value===''){
+            editCat=phCat;
+        }else{
+            editCat=event.target[2].value;
+        }
+        if(event.target[3].value===''){
+            editStock=phStock;
+        }else{
+            editStock=event.target[3].value;
+        }
+        if(event.target[4].value===''){
+            editPrecio=phPrecio;
+        }else{
+            editPrecio=event.target[4].value;
+        }
+
+
+
+
+
+        const formEditar = JSON.stringify({
+            editDesc:editDesc,
+            editMarca:editMarca,
+            editCat:editCat,
+            editStock:editStock,
+            editPrecio:editPrecio,
+            idEdit:idEdit
+        })
+
+        const response = await fetch(API+"/editarProducto",{
+            method:"PUT",
+            body:formEditar,
+            headers:{
+                //"Authorization": `Bearer ${localStorage.getItem("token")}`,
+                
+                'Content-Type':'application/json'
+            }})
+    
+            .then((res)=>res.json())
+            //.then((data)=>{setResEditar(data)})      
+            .then((data)=>{mensajeEditar=data})
+
+            //alert(resEditar.mensaje);
+
+            alert(mensajeEditar.mensaje);
+            
+             if(mensajeEditar.mensaje==="Producto actualizado correctamente!"){
+                window.location.reload();
+            } 
+            
+        return(response);
+    }
+
+
 
 
 
@@ -491,15 +587,15 @@ export default function PanelAdmin(){
                         <button class='btnEliminar' onClick={eliminarProducto}><FontAwesomeIcon icon={faCheck} /></button>
                     </div>
                 </section>
-                <section class='secEditar'>                    
-                    <form class='formProductos' id='formEditar' onSubmit={(event)=>{sumProd(event)}}>
+                <section class='secEditar' id='secEditar'>                    
+                    <form class='formProductos' id='formEditar' onSubmit={(event)=>{actProd(event)}}>
                         <section class='secFormProd' id='secFormProd1'>
                             <div class='catProd'><h5>Descripción</h5></div>
                             <section class='secDivisorProd'>
                                 <div class='divisorProd' id='divisorProd1'></div>
                                 <div class='divisorProd' id='divisorProd2'></div>
                             </section>
-                            <input type='text' required name='descripcion' class='inputProd' placeholder={phDesc}></input>
+                            <input type='text' name='descripcion' class='inputProd' placeholder={phDesc}></input>
                         </section>
                         <section class='secFormProd' id='secFormProd1'>
                             <div class='catProd'><h5>Marca</h5></div>
@@ -507,7 +603,7 @@ export default function PanelAdmin(){
                                 <div class='divisorProd' id='divisorProd1'></div>
                                 <div class='divisorProd' id='divisorProd2'></div>
                             </section>
-                            <select required class='inputProd'>
+                            <select class='inputProd'>
                                 <option value='' selected disabled id='phMarca'>{phMarca}</option>
                                 <option value='Carilo'>Cariló</option>
                                 <option value='Cheff Pattisiere'>Cheff Pattisiere</option>
@@ -532,7 +628,7 @@ export default function PanelAdmin(){
                                 <div class='divisorProd' id='divisorProd1'></div>
                                 <div class='divisorProd' id='divisorProd2'></div>
                             </section>
-                            <select required class='inputProd' placeholder={phCat}>
+                            <select class='inputProd'>
                             <option value='' selected disabled id='phMarca'>{phCat}</option>
                                 <option value='Galletitas'>Galletitas</option>
                                 <option value='Barritas'>Barritas</option>
@@ -545,7 +641,7 @@ export default function PanelAdmin(){
                                 <div class='divisorProd' id='divisorProd1'></div>
                                 <div class='divisorProd' id='divisorProd2'></div>
                             </section>
-                            <input type='number' required name='descripcion' class='inputProd' placeholder={phStock}></input>
+                            <input type='number' name='descripcion' class='inputProd' placeholder={phStock}></input>
                         </section>
                         <section class='secFormProd' id='secFormProd1'>
                             <div class='catProd'><h5>Precio</h5></div>
@@ -553,12 +649,12 @@ export default function PanelAdmin(){
                                 <div class='divisorProd' id='divisorProd1'></div>
                                 <div class='divisorProd' id='divisorProd2'></div>
                             </section>
-                            <input type='number' required name='descripcion' class='inputProd' step=".01" placeholder={phPrecio}></input>
+                            <input type='number' name='descripcion' class='inputProd' step=".01" placeholder={phPrecio}></input>
                         </section>
-                        <section class='contSubForm' id='btnsEditar'>
-                            <button class='subForm' onClick={actForm}><FontAwesomeIcon icon={faX} size='2x'/></button>
+                         <section class='contSubForm' id='btnsEditar'>
+                            <button class='subForm' ><FontAwesomeIcon icon={faX} size='2x' onClick={cerrarForm}/></button>
                             <button type='submit' class='subForm'><FontAwesomeIcon icon={faArrowsRotate} size='2x'/></button>
-                        </section>
+                        </section> 
                     </form>                            
                 </section>
             </section>

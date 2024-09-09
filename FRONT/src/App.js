@@ -5,6 +5,9 @@ import { TbMessageUp } from "react-icons/tb";
 import { SiInstagram } from "react-icons/si";
 import { LiaFacebookSquare } from "react-icons/lia";
 import { TfiMapAlt } from "react-icons/tfi";
+import fondo from "./fondoMoranzoni.png";
+
+
 
 
 
@@ -26,7 +29,7 @@ function App() {
         </section>
       </header>
       <section class='fondo'>
-        <div class='imgFondo'></div>
+        <img class='imgFondo' src={fondo} alt='fondoMoranzoni.png'></img>
         <div class='logoFondo'></div>
       </section>
       <div className="App">
