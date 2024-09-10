@@ -1,9 +1,11 @@
 import { Fragment } from 'react';
 import './panelAdmin.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {faTruckArrowRight,faEnvelope, faCartShopping, faWheatAwnCircleExclamation,faCartArrowDown,faList,faShare,faCheck,faXmark,faArrowsRotate,faX} from '@fortawesome/free-solid-svg-icons';
+import {faTruckArrowRight,faEnvelope, faCartShopping, faWheatAwnCircleExclamation,faCartArrowDown,faList,faShare,faCheck,faXmark,faArrowsRotate,faX,faPlus} from '@fortawesome/free-solid-svg-icons';
 import { useState,useEffect } from "react";
 import CardProd from '../cardsProductos/cardsProductos'
+import CardMarcas from '../cardMarcas/cardMarcas';
+import { FaRegStar } from "react-icons/fa";
 const API = process.env.REACT_APP_API_URL;
 
 
@@ -22,8 +24,7 @@ export default function PanelAdmin(){
     const [phPrecio,setPhPrecio]=useState('');
     let mensajeEditar='';
 
-   
-    //const [mensajeEliminar,setMensajeEliminar]=useState('');
+ 
   
 
 
@@ -47,6 +48,9 @@ export default function PanelAdmin(){
             document.getElementById('mapProd').style.display='none'; 
             document.getElementById('popEliminar').style.display='none';
             document.getElementById('secEditar').style.display='none';
+            document.getElementById('btnProd3').style.color='black';
+            document.getElementById('formMarcas').style.display='none';
+            document.getElementById('secMarcas').style.display='none';
         }
         if(event.currentTarget.id==="btnProd2"){
             document.getElementById('btnProd2').style.color='#FFAB00';
@@ -55,7 +59,26 @@ export default function PanelAdmin(){
             document.getElementById('secListProd').style.display='block';
             document.getElementById('secListProd').style.visibility='visible';
             document.getElementById('mapProd').style.visibility='visible';
+            document.getElementById('btnProd3').style.color='black';
+            document.getElementById('formMarcas').style.display='none';
+            document.getElementById('secMarcas').style.display='none';
             }
+
+        if(event.currentTarget.id==='btnProd3'){
+            document.getElementById('btnProd3').style.color='#FFAB00';
+            document.getElementById('formProductos').style.display='none';
+            document.getElementById('btnProd2').style.color='black';
+            document.getElementById('btnProd1').style.color='black';
+            document.getElementById('secListProd').style.display='none';
+            document.getElementById('mapProd').style.display='none'; 
+            document.getElementById('popEliminar').style.display='none';
+            document.getElementById('secEditar').style.display='none';
+            document.getElementById('secMarcas').style.display='block';
+            document.getElementById('cardMarcas').style.display='block';
+            document.getElementById('secBtnMarca').style.display='flex';
+            document.getElementById('formMarcas').style.display='none';
+
+        }
     }
 
 
@@ -444,6 +467,26 @@ export default function PanelAdmin(){
 
 
 
+    const crearMarca=()=>{
+        document.getElementById('cardMarcas').style.display='none';
+        document.getElementById('secBtnMarca').style.display='none';
+        document.getElementById('formMarcas').style.display='block';
+    }
+
+
+
+
+    const cerrarFormMarca=()=>{
+        //event.preventDefault();
+        document.getElementById('formMarcas').style.display='none';
+        document.getElementById('cardMarcas').style.display='block';
+        document.getElementById('secBtnMarca').style.display='flex';
+
+    }
+
+
+
+
 
 
     return(
@@ -479,6 +522,7 @@ export default function PanelAdmin(){
                 <section class='btnsProductos' id='btnsProductos'>
                     <button class='btnProd' id='btnProd1' onClick={fondoBtn}><FontAwesomeIcon icon={faCartArrowDown} size='2x'/></button>
                     <button class='btnProd' id='btnProd2' onClick={fondoBtn}><FontAwesomeIcon icon={faList} size='2x'/></button>
+                    <button class='btnProd' id='btnProd3' onClick={fondoBtn}><FaRegStar class='iconMarca'/></button>
                 </section>
                 
                 <form class='formProductos' id='formProductos' onSubmit={(event)=>{sumProd(event)}}>
@@ -657,7 +701,41 @@ export default function PanelAdmin(){
                         </section> 
                     </form>                            
                 </section>
+                <section class='secMarcas' id='secMarcas'>
+                    <section id='cardMarcas'>
+                        <CardMarcas/>
+                        <section class='secBtnMarca' id='secBtnMarca'>
+                            <button class='btnMarca' onClick={crearMarca}><FontAwesomeIcon icon={faPlus} size='2x'/></button>
+                        </section>
+                    </section>
+
+                    <section class='formMarcas' id='formMarcas'>
+                        <form class='formProductos' id='formProductos'>
+                            <section class='secFormProd' id='secFormProd1'>
+                                <div class='catProd'><h5>Nombre</h5></div>
+                                <section class='secDivisorProd'>
+                                    <div class='divisorProd' id='divisorProd1'></div>
+                                    <div class='divisorProd' id='divisorProd2'></div>
+                                </section>
+                                <input type='text' required name='descripcion' class='inputProd'></input>
+                            </section>
+                            <section class='secFormProd' id='secFormProd1'>
+                                <div class='catProd'><h5>URL Imagen</h5></div>
+                                <section class='secDivisorProd'>
+                                    <div class='divisorProd' id='divisorProd1'></div>
+                                    <div class='divisorProd' id='divisorProd2'></div>
+                                </section>
+                                <input type='text' required name='descripcion' class='inputProd'></input>
+                            </section>
+                            <section class='btnsEnviarMarca'>                                
+                                <button class='subForm' onClick={cerrarFormMarca}><FontAwesomeIcon icon={faX} size='2x'/></button>
+                                <button type='submit' class='subForm'><FontAwesomeIcon icon={faShare} size='2x'/></button>
+                            </section>
+                        </form>
+                    </section>
+                </section>
             </section>
+
     
         </Fragment>
     )

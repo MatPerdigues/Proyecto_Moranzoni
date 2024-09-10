@@ -1,0 +1,19 @@
+
+.tableMarcas{
+    width: 50%;
+    margin: auto;
+}
+
+#tdMarcas1{
+    border: 1px solid grey;
+    width: 95%;
+    min-width: 200px;
+}
+
+
+#tdMarcas2{
+    border: 1px solid grey;
+    width: 5%;
+    min-width: 30px;
+    text-align: center;
+}
