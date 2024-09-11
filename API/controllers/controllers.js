@@ -121,10 +121,67 @@ const editarProducto = async (req,res)=>{
         })
     }
 
+
+
+
+const enviarMarca = async(req,res)=>{
+    const{marca,url} = req.body;
+
+    dbConnection.query(`INSERT INTO marcas (nombre,imagen) VALUES (?,?)`,[marca,url],(error,data)=>{
+        if(error){
+            console.log(error);
+            res.send(error);
+        }else{
+            res.json({
+                mensaje:'Marca cargada correctamente!'
+            })
+        }
+    }
+
+    )
+}
+
+
+
+const traerMarcas=async(req,res)=>{
+    
+
+    dbConnection.query("SELECT * FROM marcas",(error,data)=>{
+        if(error){
+            console.log(error);
+            res.send(error);
+        }else{
+            res.json(data);
+        }
+    })
+}
+
+
+
+
+const eliminarMarca = async(req,res)=>{
+
+    const{idMarca}=req.body;
+
+    dbConnection.query(`DELETE FROM marcas WHERE id=${idMarca}`,(error,data)=>{
+        if(error){
+            console.log(error);
+            res.send(error);
+        }else{
+            res.json({
+                mensaje:"Marca eliminada correctamente!"
+            })
+        }
+    }
+
+    )
+
+}
+
  
 
 
 
 
 
-module.exports={agregarProducto,traerProductos,pausarProducto,activarProducto,eliminarProducto,editarProducto};
+module.exports={agregarProducto,traerProductos,pausarProducto,activarProducto,eliminarProducto,editarProducto,enviarMarca,traerMarcas,eliminarMarca};

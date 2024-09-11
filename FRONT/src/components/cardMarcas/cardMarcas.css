@@ -2,6 +2,7 @@
 .tableMarcas{
     width: 50%;
     margin: auto;
+    max-width: 600px;
 }
 
 #tdMarcas1{

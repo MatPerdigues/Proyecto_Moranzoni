@@ -13,7 +13,11 @@ const API = process.env.REACT_APP_API_URL;
 export default function PanelAdmin(){
 
     let dato='';
+    let mensajeEditar='';
+    let confMarca='';
+    let confElimMarca='';
     
+    const [arrMarcas,setArrMarcas]=useState([]);
     const [arrProd,setArrProd]=useState([]);
     const [arrFiltro,setArrFiltro]=useState([]);
     const [idEliminar,setIdEliminar]=useState('');
@@ -22,7 +26,10 @@ export default function PanelAdmin(){
     const [phCat,setPhCat]=useState('');
     const [phStock,setPhStock]=useState('');
     const [phPrecio,setPhPrecio]=useState('');
-    let mensajeEditar='';
+    const [popMarca,setPopMarca]=useState('false');
+    const [idMarca,setIdMarca]=useState('');
+    const [marca,setMarca]=useState('');
+    
 
  
   
@@ -77,6 +84,8 @@ export default function PanelAdmin(){
             document.getElementById('cardMarcas').style.display='block';
             document.getElementById('secBtnMarca').style.display='flex';
             document.getElementById('formMarcas').style.display='none';
+            document.getElementById('secPopElimMarca').style.display='none';
+            document.getElementById('confElimMarca').style.display='none';   
 
         }
     }
@@ -209,15 +218,12 @@ export default function PanelAdmin(){
 
     const traerProductos= async()=>{
         let productos = await fetch(API+"/traerProductos")      
-       
 
         .then((res)=>res.json())
         .then((data)=>{setArrProd(data)})
-        .catch(error => console.log("Se ha producido un error... " +error));
-        
-            return productos
+        .catch(error => console.log("Se ha producido un error... " +error));        
+        return productos
         }
-
 
 
     useEffect(()=>{
@@ -229,16 +235,29 @@ export default function PanelAdmin(){
 
 
 
+    const traerMarcas= async()=>{
+        let marcas = await fetch(API+"/traerMarcas")       
+
+        .then((res)=>res.json())
+        .then((data)=>{setArrMarcas(data)})
+        .catch(error => console.log("Se ha producido un error... " +error));       
+        return marcas;
+        }
+
+
+    useEffect(()=>{
+        traerMarcas();        
+    },[])
+
+
+
+
     
 
-    const pausarProd=async()=>{
-
-   
-        
+    const pausarProd=async()=>{       
          const formPausar=JSON.stringify({
             idPausa:sessionStorage.getItem('pausaProd')
         }) 
-
 
         const response = await fetch(API+"/pausarProducto",{
             method:"POST",
@@ -309,7 +328,6 @@ export default function PanelAdmin(){
         document.getElementById('mapProd').style.visibility='visible';
         document.getElementById('popEliminar').style.display='none';
     }
-
 
 
 
@@ -481,8 +499,152 @@ export default function PanelAdmin(){
         document.getElementById('formMarcas').style.display='none';
         document.getElementById('cardMarcas').style.display='block';
         document.getElementById('secBtnMarca').style.display='flex';
+        document.getElementById("idFormMarcas").reset();
+    }
+
+
+    
+
+    const enviarMarca=async(event)=>{
+        event.preventDefault();
+
+        let marca = event.target[0].value;
+        let url = event.target[1].value;
+
+        const formMarca = JSON.stringify({
+            marca:marca,
+            url:url
+        })
+
+        const response = await fetch(API+"/enviarMarca",{
+
+            method:"POST",
+            body:formMarca,
+            headers:{
+                //"Authorization": `Bearer ${localStorage.getItem("token")}`,
+                
+                'Content-Type':'application/json'
+            }
+        })
+        .then((res)=>res.json())
+        .then((data)=>{confMarca=data})
+
+        console.log(confMarca.mensaje);
+
+        if(confMarca.mensaje==="Marca cargada correctamente!"){
+            setPopMarca('true');
+        }
+        return(response);
+    }
+
+
+
+
+
+    const cerrarPopMarca = ()=>{
+        document.getElementById('secPopMarca').style.display='none';
+        window.location.reload();
+    }
+
+
+    const popElimMarca = ()=>{
+        setIdMarca(sessionStorage.getItem('elimMarca'));
+        setMarca(sessionStorage.getItem('marca'));
+        document.getElementById('cardMarcas').style.display='none';
+        document.getElementById('secBtnMarca').style.display='none';
+        document.getElementById('secPopElimMarca').style.display='block';
+    }
+
+
+
+    const eliminarMarca = async()=>{
+        
+        const formElimMarca = JSON.stringify({
+            idMarca:idMarca
+        })
+
+        const response = await fetch(API+"/eliminarMarca",{
+            method:"DELETE",
+            body:formElimMarca,
+            headers:{
+                'Content-Type':'application/json'
+        }})
+
+        .then(res=>res.json())
+        .then((data)=>{confElimMarca=data})
+        .catch(error => console.log("Se ha producido un error... " +error));    
+
+        if(confElimMarca.mensaje==="Marca eliminada correctamente!"){
+            document.getElementById('secPopElimMarca').style.display='none'; 
+            document.getElementById('confElimMarca').style.display='block';       
+        } 
+
+        return(response);
 
     }
+
+
+
+
+    const xElimMarca = ()=>{
+        document.getElementById('secPopElimMarca').style.display='none';
+        document.getElementById('cardMarcas').style.display='block';
+        document.getElementById('secBtnMarca').style.display='flex';
+    }
+
+
+
+
+
+    const xConfElimMarca = ()=>{
+        window.location.reload();
+    }
+
+
+
+    
+
+     const prueba = ()=>{
+        
+        let parent = document.getElementById('inputProd');
+        
+        let option = document.createElement('option');
+        option.setAttribute("value","Sanjuanino");
+        option.setAttribute("id","Sanjuanino");
+        option.innerHTML = 'Sanjuanino';
+        let child = document.getElementById('Sanjuanino');
+        if(parent.contains(child)===false){
+            document.getElementById('inputProd').appendChild(option);
+        }
+
+
+        let option1 = document.createElement('option');
+        option1.setAttribute("value","Santafesino");
+        option1.setAttribute("id","Santafesino");
+        option1.innerHTML = 'Santafesino';
+        let child1 = document.getElementById('Santafesino');
+        if(parent.contains(child1)===false){
+            document.getElementById('inputProd').appendChild(option1);
+        }
+
+        let option3 = document.createElement('option');
+        option3.setAttribute("value","Riojano");
+        option3.setAttribute("id","Riojano");
+        option3.innerHTML = 'Riojano';
+        let child3 = document.getElementById('Riojano');
+        if(parent.contains(child3)===false){
+            document.getElementById('inputProd').appendChild(option3);
+        }
+        
+
+
+
+            
+    }
+
+    useEffect(()=>{
+        prueba();        
+    },[]) 
 
 
 
@@ -540,9 +702,9 @@ export default function PanelAdmin(){
                             <div class='divisorProd' id='divisorProd1'></div>
                             <div class='divisorProd' id='divisorProd2'></div>
                         </section>
-                        <select required class='inputProd'>
+                        <select required class='inputProd' id='inputProd'>
                             <option selected value=''></option>
-                            <option value='Carilo'>Cariló</option>
+{/*                             <option value='Carilo'>Cariló</option>
                             <option value='Cheff Pattisiere'>Cheff Pattisiere</option>
                             <option value='Chocolatory'>Chocolatory</option>
                             <option value='Crackines'>Crackines</option>
@@ -556,7 +718,7 @@ export default function PanelAdmin(){
                             <option value='Organicoops'>Organicoops</option>
                             <option value='Risky-Dit'>Risky-Dit</option>
                             <option value='ViaVita'>ViaVita</option>
-                            <option value='Wik'>Wik</option>
+                            <option value='Wik'>Wik</option> */}
                         </select>                        
                     </section>
                     <section class='secFormProd' id='secFormProd1'>
@@ -703,14 +865,16 @@ export default function PanelAdmin(){
                 </section>
                 <section class='secMarcas' id='secMarcas'>
                     <section id='cardMarcas'>
-                        <CardMarcas/>
-                        <section class='secBtnMarca' id='secBtnMarca'>
-                            <button class='btnMarca' onClick={crearMarca}><FontAwesomeIcon icon={faPlus} size='2x'/></button>
-                        </section>
+                        {arrMarcas.map((marca)=>{
+                           return <CardMarcas key={marca.id} info={marca} popElimMarca={popElimMarca}/>
+                        })}
+                    <section class='secBtnMarca' id='secBtnMarca'>
+                        <button class='btnMarca' onClick={crearMarca}><FontAwesomeIcon icon={faPlus} size='2x'/></button>
                     </section>
-
+                    </section>
+                    {popMarca==='false'?
                     <section class='formMarcas' id='formMarcas'>
-                        <form class='formProductos' id='formProductos'>
+                        <form class='formProductos' id='idFormMarcas' onSubmit={(event)=>{enviarMarca(event)}}>
                             <section class='secFormProd' id='secFormProd1'>
                                 <div class='catProd'><h5>Nombre</h5></div>
                                 <section class='secDivisorProd'>
@@ -729,10 +893,39 @@ export default function PanelAdmin(){
                             </section>
                             <section class='btnsEnviarMarca'>                                
                                 <button class='subForm' onClick={cerrarFormMarca}><FontAwesomeIcon icon={faX} size='2x'/></button>
-                                <button type='submit' class='subForm'><FontAwesomeIcon icon={faShare} size='2x'/></button>
+                                <button type='submit' class='subForm' ><FontAwesomeIcon icon={faShare} size='2x'/></button>
                             </section>
                         </form>
                     </section>
+                    : <section class='secPopMarca' id='secPopMarca'>
+                        <section class='popEliminar' id='popMarca'>
+                            <h4 class='h4Eliminar'>Marca cargada correctamente!</h4>
+                            <div class='btnsEliminar'>                            
+                                <button class='btnEliminar' onClick={cerrarPopMarca}><FontAwesomeIcon icon={faCheck} /></button>
+                            </div>
+                        </section>
+                    </section>} 
+                    <section class='secPopMarca' id='secPopElimMarca'>
+                        <section class='popEliminar' id='popElimMarca'>
+                            <h4 class='h4Eliminar'>Seguro querés eliminar la marca {marca}?</h4>
+                            <div class='btnsEliminar'>
+                                <button class='btnEliminar' onClick={xElimMarca}><FontAwesomeIcon icon={faXmark} /></button>                            
+                                <button class='btnEliminar' onClick={eliminarMarca}><FontAwesomeIcon icon={faCheck} /></button>
+                            </div>
+                        </section>
+                    </section>
+                    <section class='secPopMarca' id='popConfElimMarca'>
+                        <section class='popEliminar' id='confElimMarca'>
+                            <h4 class='h4Eliminar'>La marca se eliminó correctamente</h4>
+                            <div class='btnsEliminar'>
+                                <button class='btnEliminar' onClick={xConfElimMarca}><FontAwesomeIcon icon={faXmark} /></button>                            
+                                
+                            </div>
+                        </section>
+                    </section>
+
+
+
                 </section>
             </section>
 
