@@ -29,17 +29,65 @@ export default function PanelAdmin(){
     const [popMarca,setPopMarca]=useState('false');
     const [idMarca,setIdMarca]=useState('');
     const [marca,setMarca]=useState('');
-    
 
+
+
+
+    const optMarcas = ()=>{       
+        for(let x=0; x<arrMarcas.length;x++){
+            if(document.getElementById('inputProd').contains(document.getElementById(arrMarcas[x].nombre))){
+            }else{
+                let option = document.createElement('option');
+                option.setAttribute("value",arrMarcas[x].nombre);
+                option.setAttribute("id",arrMarcas[x].nombre);
+                option.innerHTML = arrMarcas[x].nombre;
+                document.getElementById('inputProd').appendChild(option);   
+     
+            }
+        }  
+     }
+
+
+
+     const optMarcas1 = ()=>{       
+        for(let x=0; x<arrMarcas.length;x++){
+            if(document.getElementById('inputProd1').contains(document.getElementById(arrMarcas[x].nombre+"1"))){
+            }else{
+                let option = document.createElement('option');
+                option.setAttribute("value",arrMarcas[x].nombre);
+                option.setAttribute("id",arrMarcas[x].nombre+"1");
+                option.innerHTML = arrMarcas[x].nombre;
+                document.getElementById('inputProd1').appendChild(option);        
+            }
+        }  
+     }
+
+
+
+     const optMarcas2 = ()=>{       
+        for(let x=0; x<arrMarcas.length;x++){
+            if(document.getElementById('inputProd2').contains(document.getElementById(arrMarcas[x].nombre+"2"))){
+            }else{
+                let option = document.createElement('option');
+                option.setAttribute("value",arrMarcas[x].nombre);
+                option.setAttribute("id",arrMarcas[x].nombre+"2");
+                option.innerHTML = arrMarcas[x].nombre;
+                document.getElementById('inputProd2').appendChild(option);        
+            }
+        }  
+     }
  
-  
-
-
+ 
 
 
 
 
     const showProd=()=>{
+
+        optMarcas();
+        optMarcas1();
+        optMarcas2();
+
         document.getElementById('secProductos').style.display='block';
     }
 
@@ -96,6 +144,8 @@ export default function PanelAdmin(){
 
  
     const showMap=(event)=>{
+
+        setArrFiltro([]);
         
         let datoFiltro="";
 
@@ -106,72 +156,15 @@ export default function PanelAdmin(){
         }else{
             datoFiltro = event.target.value;
         }
-        
-        
-        if(datoFiltro==='Carilo'){
-            let filtradoMarca = arrProd.filter((prod)=>prod.marca===datoFiltro);
-            setArrFiltro(filtradoMarca);
-        }
-        if(datoFiltro==='Cheff Pattisiere'){
-            let filtradoMarca = arrProd.filter((prod)=>prod.marca===datoFiltro);
-            setArrFiltro(filtradoMarca);
-        }
-        if(datoFiltro==='Chocolatory'){
-            let filtradoMarca = arrProd.filter((prod)=>prod.marca===datoFiltro);
-            setArrFiltro(filtradoMarca);
-        }
-        if(datoFiltro==='Crackines'){
-            let filtradoMarca = arrProd.filter((prod)=>prod.marca===datoFiltro);
-            setArrFiltro(filtradoMarca);
-        }
-        if(datoFiltro==='Golton'){
-            let filtradoMarca = arrProd.filter((prod)=>prod.marca===datoFiltro);
-            setArrFiltro(filtradoMarca);
-        }
-        if(datoFiltro==='Good Live'){
-            let filtradoMarca = arrProd.filter((prod)=>prod.marca===datoFiltro);
-            setArrFiltro(filtradoMarca);
-        }
-        if(datoFiltro==='Green Crops'){
-            let filtradoMarca = arrProd.filter((prod)=>prod.marca===datoFiltro);
-            setArrFiltro(filtradoMarca);
-        }
-        if(datoFiltro==='Mondelez'){
-            let filtradoMarca = arrProd.filter((prod)=>prod.marca===datoFiltro);
-            setArrFiltro(filtradoMarca);
-        }
-        if(datoFiltro==='Musli mix'){
-            let filtradoMarca = arrProd.filter((prod)=>prod.marca===datoFiltro);
-            setArrFiltro(filtradoMarca);
-        }
-        if(datoFiltro==='Naquet'){
-            let filtradoMarca = arrProd.filter((prod)=>prod.marca===datoFiltro);
-            setArrFiltro(filtradoMarca);
-        }
-        if(datoFiltro==='Natural pop'){
-            let filtradoMarca = arrProd.filter((prod)=>prod.marca===datoFiltro);
-            setArrFiltro(filtradoMarca);
-        }
-        if(datoFiltro==='Organicoops'){
-            let filtradoMarca = arrProd.filter((prod)=>prod.marca===datoFiltro);
-            setArrFiltro(filtradoMarca);
-        }
-        if(datoFiltro==='Risky-Dit'){
-            let filtradoMarca = arrProd.filter((prod)=>prod.marca===datoFiltro);
-            setArrFiltro(filtradoMarca);
-        }
-        if(datoFiltro==='ViaVita'){
-            let filtradoMarca = arrProd.filter((prod)=>prod.marca===datoFiltro);
-            setArrFiltro(filtradoMarca);
-        }
-        if(datoFiltro==='Wik'){
-            let filtradoMarca = arrProd.filter((prod)=>prod.marca===datoFiltro);
-            setArrFiltro(filtradoMarca);
-        }
-        
-       
-    }
 
+
+        for(let x=0;x<arrProd.length;x++){
+            if(datoFiltro===arrProd[x].marca){
+                let filtradoMarca = arrProd.filter((prod)=>prod.marca===datoFiltro);
+                setArrFiltro(filtradoMarca);
+            }       
+        }     
+    }  
 
 
 
@@ -200,7 +193,6 @@ export default function PanelAdmin(){
     
             .then((res)=>res.json())
             .then((data)=>{dato=data})      
-
             alert(dato.mensaje);
             
             if(dato.mensaje==="Producto cargado correctamente!"){
@@ -236,18 +228,23 @@ export default function PanelAdmin(){
 
 
     const traerMarcas= async()=>{
-        let marcas = await fetch(API+"/traerMarcas")       
+        let marcas = await fetch(API+"/traerMarcas")
 
         .then((res)=>res.json())
-        .then((data)=>{setArrMarcas(data)})
-        .catch(error => console.log("Se ha producido un error... " +error));       
+        .then((data)=>{setArrMarcas(data)}) 
+        .catch(error => console.log("Se ha producido un error... " +error));  
         return marcas;
         }
 
 
     useEffect(()=>{
-        traerMarcas();        
+        traerMarcas();   
     },[])
+
+
+     
+    
+
 
 
 
@@ -271,7 +268,7 @@ export default function PanelAdmin(){
             .then((res)=>res.json())
             .then((data)=>{setArrProd(data)})
             
-            showMap();
+            //showMap();
 
         return(response);
                    
@@ -401,6 +398,7 @@ export default function PanelAdmin(){
         
         document.getElementById('secEditar').style.display='none';
         document.getElementById('secListProd').style.display='block'; 
+        document.getElementById('mapProd').style.display='block'; 
     }
 
 
@@ -529,7 +527,7 @@ export default function PanelAdmin(){
         .then((res)=>res.json())
         .then((data)=>{confMarca=data})
 
-        console.log(confMarca.mensaje);
+        
 
         if(confMarca.mensaje==="Marca cargada correctamente!"){
             setPopMarca('true');
@@ -602,52 +600,6 @@ export default function PanelAdmin(){
 
 
 
-    
-
-     const prueba = ()=>{
-        
-        let parent = document.getElementById('inputProd');
-        
-        let option = document.createElement('option');
-        option.setAttribute("value","Sanjuanino");
-        option.setAttribute("id","Sanjuanino");
-        option.innerHTML = 'Sanjuanino';
-        let child = document.getElementById('Sanjuanino');
-        if(parent.contains(child)===false){
-            document.getElementById('inputProd').appendChild(option);
-        }
-
-
-        let option1 = document.createElement('option');
-        option1.setAttribute("value","Santafesino");
-        option1.setAttribute("id","Santafesino");
-        option1.innerHTML = 'Santafesino';
-        let child1 = document.getElementById('Santafesino');
-        if(parent.contains(child1)===false){
-            document.getElementById('inputProd').appendChild(option1);
-        }
-
-        let option3 = document.createElement('option');
-        option3.setAttribute("value","Riojano");
-        option3.setAttribute("id","Riojano");
-        option3.innerHTML = 'Riojano';
-        let child3 = document.getElementById('Riojano');
-        if(parent.contains(child3)===false){
-            document.getElementById('inputProd').appendChild(option3);
-        }
-        
-
-
-
-            
-    }
-
-    useEffect(()=>{
-        prueba();        
-    },[]) 
-
-
-
 
 
 
@@ -704,21 +656,6 @@ export default function PanelAdmin(){
                         </section>
                         <select required class='inputProd' id='inputProd'>
                             <option selected value=''></option>
-{/*                             <option value='Carilo'>Cariló</option>
-                            <option value='Cheff Pattisiere'>Cheff Pattisiere</option>
-                            <option value='Chocolatory'>Chocolatory</option>
-                            <option value='Crackines'>Crackines</option>
-                            <option value='Golton'>Golton</option>
-                            <option value='Good Live'>Good Live</option>
-                            <option value='Green Crops'>Green Crops</option>                            
-                            <option value='Mondelez'>Mondelez</option>
-                            <option value='Musli mix'>Musli mix</option>
-                            <option value='Naquet'>Naquet</option>
-                            <option value='Natural pop'>Natural pop</option>
-                            <option value='Organicoops'>Organicoops</option>
-                            <option value='Risky-Dit'>Risky-Dit</option>
-                            <option value='ViaVita'>ViaVita</option>
-                            <option value='Wik'>Wik</option> */}
                         </select>                        
                     </section>
                     <section class='secFormProd' id='secFormProd1'>
@@ -761,23 +698,8 @@ export default function PanelAdmin(){
                             <div class='divisorProd' id='divisorProd1'></div>
                             <div class='divisorProd' id='divisorProd2'></div>
                         </section>
-                        <select required class='inputProd' onChange={showMap}>
+                        <select required class='inputProd' id='inputProd1' onClick={showMap}>
                             <option selected value=''></option>
-                            <option value='Carilo'>Cariló</option>
-                            <option value='Cheff Pattisiere'>Cheff Pattisiere</option>
-                            <option value='Chocolatory'>Chocolatory</option>
-                            <option value='Crackines'>Crackines</option>
-                            <option value='Golton'>Golton</option>
-                            <option value='Good Live'>Good Live</option>
-                            <option value='Green Crops'>Green Crops</option>                            
-                            <option value='Mondelez'>Mondelez</option>
-                            <option value='Musli mix'>Musli mix</option>
-                            <option value='Naquet'>Naquet</option>
-                            <option value='Natural pop'>Natural pop</option>
-                            <option value='Organicoops'>Organicoops</option>
-                            <option value='Risky-Dit'>Risky-Dit</option>
-                            <option value='ViaVita'>ViaVita</option>
-                            <option value='Wik'>Wik</option>
                         </select>                        
                     </section> 
                 </section> 
@@ -809,23 +731,8 @@ export default function PanelAdmin(){
                                 <div class='divisorProd' id='divisorProd1'></div>
                                 <div class='divisorProd' id='divisorProd2'></div>
                             </section>
-                            <select class='inputProd'>
+                            <select class='inputProd' id='inputProd2'>
                                 <option value='' selected disabled id='phMarca'>{phMarca}</option>
-                                <option value='Carilo'>Cariló</option>
-                                <option value='Cheff Pattisiere'>Cheff Pattisiere</option>
-                                <option value='Chocolatory'>Chocolatory</option>
-                                <option value='Crackines'>Crackines</option>
-                                <option value='Golton'>Golton</option>
-                                <option value='Good Live'>Good Live</option>
-                                <option value='Green Crops'>Green Crops</option>                            
-                                <option value='Mondelez'>Mondelez</option>
-                                <option value='Musli mix'>Musli mix</option>
-                                <option value='Naquet'>Naquet</option>
-                                <option value='Natural pop'>Natural pop</option>
-                                <option value='Organicoops'>Organicoops</option>
-                                <option value='Risky-Dit'>Risky-Dit</option>
-                                <option value='ViaVita'>ViaVita</option>
-                                <option value='Wik'>Wik</option>
                             </select>                        
                         </section>
                         <section class='secFormProd' id='secFormProd1'>

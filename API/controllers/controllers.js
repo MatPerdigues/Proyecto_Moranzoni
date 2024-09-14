@@ -151,7 +151,7 @@ const traerMarcas=async(req,res)=>{
             console.log(error);
             res.send(error);
         }else{
-            res.json(data);
+            res.send(data)
         }
     })
 }
