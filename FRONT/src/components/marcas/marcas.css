@@ -2,14 +2,22 @@
     width: 100%;
     height: auto;
     margin: 0 auto;
-    text-align: center;    
+    text-align: center;  
+ 
 }
+
+
 
 .imgMarcas{
     width: 200px;
     height: 200px;
+    opacity: 100%; 
+    transition: 0.5s;
 }
 
 .imgMarcas:hover{
     cursor: pointer;
+    opacity: 40%; 
+    transition: 0.5s;
+    
 }

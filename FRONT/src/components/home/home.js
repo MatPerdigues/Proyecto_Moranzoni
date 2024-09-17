@@ -3,7 +3,7 @@ import './home.css';
 import { FaTruckFast } from "react-icons/fa6";
 import { RiTeamFill } from "react-icons/ri";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCartShopping} from '@fortawesome/free-solid-svg-icons';
+import { faCartShopping,faXmark} from '@fortawesome/free-solid-svg-icons';
 import Marcas from '../marcas/marcas';
 const API = process.env.REACT_APP_API_URL;
 
@@ -32,7 +32,8 @@ export default function Home(){
 
     const containerOpc = (event)=>{   
 
-        if(event.currentTarget.id==='btnPedidos'){            
+        if(event.currentTarget.id==='btnPedidos'){  
+                   
             document.getElementById('containerOpc').style.display='block';
             document.getElementById('btnPedidos').style.opacity='80%';
             document.getElementById('opcPedidos2').style.borderColor='orange';
@@ -42,6 +43,9 @@ export default function Home(){
             document.getElementById('opcPedidos4').style.fontWeight='0';
             document.getElementById('opcPedidos4').style.fontStyle='normal';
             document.getElementById('opcPedidos4').style.border='1px solid grey';
+            document.getElementById('containerCat').style.display='none';
+            document.getElementById('containerMarcas').style.display='grid';
+             
         }
 
         if(event.currentTarget.id==='opcPedidos4'){  
@@ -51,7 +55,9 @@ export default function Home(){
             document.getElementById('opcPedidos4').style.fontStyle='italic';
             document.getElementById('opcPedidos4').style.fontWeight='500';
             document.getElementById('opcPedidos2').style.fontStyle='normal';
-            document.getElementById('opcPedidos2').style.fontWeight='0';            
+            document.getElementById('opcPedidos2').style.fontWeight='0';    
+            document.getElementById('containerMarcas').style.display='none';  
+            document.getElementById('containerCat').style.display='flex';        
         }
 
         if(event.currentTarget.id==='opcPedidos2'){  
@@ -62,9 +68,15 @@ export default function Home(){
             document.getElementById('opcPedidos2').style.fontStyle='italic';
             document.getElementById('opcPedidos4').style.fontWeight='0';
             document.getElementById('opcPedidos2').style.fontWeight='500';
+            document.getElementById('containerMarcas').style.display='grid';  
+            document.getElementById('containerCat').style.display='none'; 
           
         }
+
+        if(event.currentTarget.id==='iconCerrar'){
+            document.getElementById('containerOpc').style.display='none';        
     }
+}
 
 
 
@@ -90,14 +102,34 @@ export default function Home(){
                         <button class='opcPedidos2' id='opcPedidos2' onClick={containerOpc}>Nuestras Marcas</button>
                         <div class='opcPedidos3'></div>
                         <button class='opcPedidos4' id='opcPedidos4' onClick={containerOpc}>Categorías</button>
-                        <div class='opcPedidos5'></div>
+                        <div class='opcPedidos5'></div>                                              
                     </section>
-                    <section class='containerMarcas'>
-
+                    <section class='btnCerrar'><FontAwesomeIcon icon={faXmark} class='iconCerrar' id='iconCerrar' onClick={containerOpc}/></section>  
+                    <section class='containerMarcas' id='containerMarcas'>
+                        
                         {marcas.map((marca)=>{
                             return <Marcas key={marca.id} info={marca}/>
-                        })}
-                                              
+                        })}                                              
+                    </section>
+                    <section class='containerCat' id='containerCat'>
+                        <div class='divCat'><button class='btnCat'><h5>Alfajores</h5></button></div>
+                        <div class='divCat'><button class='btnCat'><h5>Barritas</h5></button></div>
+                        <div class='divCat'><button class='btnCat'><h5>Batidos</h5></button></div>
+                        <div class='divCat'><button class='btnCat'><h5>Bebidas</h5></button></div>
+                        <div class='divCat'><button class='btnCat'><h5>Cereales</h5></button></div>
+                        <div class='divCat'><button class='btnCat'><h5>Chocolates</h5></button></div>
+                        <div class='divCat'><button class='btnCat'><h5>Especias</h5></button></div>
+                        <div class='divCat'><button class='btnCat'><h5>Galletas de arroz</h5></button></div>
+                        <div class='divCat'><button class='btnCat'><h5>Galletitas</h5></button></div>
+                        <div class='divCat'><button class='btnCat'><h5>Golosinas</h5></button></div>
+                        <div class='divCat'><button class='btnCat'><h5>Granolas</h5></button></div>
+                        <div class='divCat'><button class='btnCat'><h5>Pastas</h5></button></div>
+                        <div class='divCat'><button class='btnCat'><h5>Pastelería</h5></button></div>
+                        <div class='divCat'><button class='btnCat'><h5>Postres</h5></button></div>
+                        <div class='divCat'><button class='btnCat'><h5>Premezclas</h5></button></div>
+                        <div class='divCat'><button class='btnCat'><h5>Rebozadores</h5></button></div>
+                        <div class='divCat'><button class='btnCat'><h5>Snacks</h5></button></div>
+
                     </section>
                 </section>
 
