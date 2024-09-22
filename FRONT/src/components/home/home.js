@@ -34,6 +34,7 @@ export default function Home(){
 
         if(event.currentTarget.id==='btnPedidos'){  
                    
+            
             document.getElementById('containerOpc').style.display='block';
             document.getElementById('btnPedidos').style.opacity='80%';
             document.getElementById('opcPedidos2').style.borderColor='orange';
@@ -79,6 +80,20 @@ export default function Home(){
 }
 
 
+    const opcCompra = (event) =>{
+        sessionStorage.setItem('opcCompra',event.currentTarget.id);
+        sessionStorage.setItem('tipoCompra','categoria');
+        window.location.href='./panelCompra';
+    }
+
+
+    const opcCompra2 = (event)=>{
+        sessionStorage.setItem('opcCompra',event.currentTarget.id);
+        sessionStorage.setItem('tipoCompra','marca');
+        window.location.href='./panelCompra';
+    }
+
+
 
     return(
         <Fragment>
@@ -108,32 +123,32 @@ export default function Home(){
                     <section class='containerMarcas' id='containerMarcas'>
                         
                         {marcas.map((marca)=>{
-                            return <Marcas key={marca.id} info={marca}/>
+                            return <Marcas key={marca.id} info={marca} opcCompra2={opcCompra2}/>
                         })}                                              
                     </section>
                     <section class='containerCat' id='containerCat'>
-                        <div class='divCat'><button class='btnCat'><h5>Alfajores</h5></button></div>
-                        <div class='divCat'><button class='btnCat'><h5>Barritas</h5></button></div>
-                        <div class='divCat'><button class='btnCat'><h5>Batidos</h5></button></div>
-                        <div class='divCat'><button class='btnCat'><h5>Bebidas</h5></button></div>
-                        <div class='divCat'><button class='btnCat'><h5>Cereales</h5></button></div>
-                        <div class='divCat'><button class='btnCat'><h5>Chocolates</h5></button></div>
-                        <div class='divCat'><button class='btnCat'><h5>Especias</h5></button></div>
-                        <div class='divCat'><button class='btnCat'><h5>Galletas de arroz</h5></button></div>
-                        <div class='divCat'><button class='btnCat'><h5>Galletitas</h5></button></div>
-                        <div class='divCat'><button class='btnCat'><h5>Golosinas</h5></button></div>
-                        <div class='divCat'><button class='btnCat'><h5>Granolas</h5></button></div>
-                        <div class='divCat'><button class='btnCat'><h5>Pastas</h5></button></div>
-                        <div class='divCat'><button class='btnCat'><h5>Pastelería</h5></button></div>
-                        <div class='divCat'><button class='btnCat'><h5>Postres</h5></button></div>
-                        <div class='divCat'><button class='btnCat'><h5>Premezclas</h5></button></div>
-                        <div class='divCat'><button class='btnCat'><h5>Rebozadores</h5></button></div>
-                        <div class='divCat'><button class='btnCat'><h5>Snacks</h5></button></div>
+                        <div class='divCat'><button class='btnCat' id='Alfajores' onClick={opcCompra}><h5>Alfajores</h5></button></div>
+                        <div class='divCat'><button class='btnCat' id='Barritas' onClick={opcCompra}><h5>Barritas</h5></button></div>
+                        <div class='divCat'><button class='btnCat' id='Batidos' onClick={opcCompra}><h5>Batidos</h5></button></div>
+                        <div class='divCat'><button class='btnCat' id='Bebidas' onClick={opcCompra}><h5>Bebidas</h5></button></div>
+                        <div class='divCat'><button class='btnCat' id='Cereales' onClick={opcCompra}><h5>Cereales</h5></button></div>
+                        <div class='divCat'><button class='btnCat' id='Chocolates' onClick={opcCompra}><h5>Chocolates</h5></button></div>
+                        <div class='divCat'><button class='btnCat' id='Especias' onClick={opcCompra}><h5>Especias</h5></button></div>
+                        <div class='divCat'><button class='btnCat' id='Galletas de arroz' onClick={opcCompra}><h5>Galletas de arroz</h5></button></div>
+                        <div class='divCat'><button class='btnCat' id='Galletitas' onClick={opcCompra}><h5>Galletitas</h5></button></div>
+                        <div class='divCat'><button class='btnCat' id='Golosinas' onClick={opcCompra}><h5>Golosinas</h5></button></div>
+                        <div class='divCat'><button class='btnCat' id='Granolas' onClick={opcCompra}><h5>Granolas</h5></button></div>
+                        <div class='divCat'><button class='btnCat' id='Pastas' onClick={opcCompra}><h5>Pastas</h5></button></div>
+                        <div class='divCat'><button class='btnCat' id='Pastelería' onClick={opcCompra}><h5>Pastelería</h5></button></div>
+                        <div class='divCat'><button class='btnCat' id='Postres' onClick={opcCompra}><h5>Postres</h5></button></div>
+                        <div class='divCat'><button class='btnCat' id='Premezclas' onClick={opcCompra}><h5>Premezclas</h5></button></div>
+                        <div class='divCat'><button class='btnCat' id='Rebozadores' onClick={opcCompra}><h5>Rebozadores</h5></button></div>
+                        <div class='divCat'><button class='btnCat' id='Snacks' onClick={opcCompra}><h5>Snacks</h5></button></div>
 
                     </section>
                 </section>
 
-{/*                 <Marcas></Marcas> */}
+
                 <section class='secCards'>
                     <section class='card'>
                         <div class='cardImg'></div>
