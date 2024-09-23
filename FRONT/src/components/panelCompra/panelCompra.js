@@ -50,9 +50,11 @@ export default function PanelCompra (){
 
     return(
         <Fragment>
-            {filterProd.map((listado)=>{
-               return <CardListas key={listado.id} info={listado}/>
-            })}     
+            <section class='secList'>
+                {filterProd.map((listado)=>{
+                    return <CardListas key={listado.id} info={listado}/>
+                })}     
+            </section>
         </Fragment>
     )
 }

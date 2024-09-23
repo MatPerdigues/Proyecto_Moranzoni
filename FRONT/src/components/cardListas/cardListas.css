@@ -1,0 +1,76 @@
+.tableList{
+    width: 80%;
+    height: 30px;
+    
+}
+
+.tdList{
+    border-bottom: 1px solid orange;
+}
+
+#tdList1{
+    width:20%;
+}
+
+#tdList2{
+    width: 15%;
+}
+
+#tdList3{
+    width: 15%;
+}
+
+.btnsList{
+    height: 30px;
+    width: 20%;
+    display: flex;
+    padding: 0 50px;
+    border-bottom: 1px solid orange;
+}
+
+.filaList{
+    display: flex;
+}
+
+.btnList{
+    border: 1px solid grey;
+    width: 30px;
+    height: 25px;
+    margin: auto;
+    transition: 0.5s;
+    background-color: rgb(255, 165, 0, 0.3); 
+    
+}
+
+#btnList1{
+    border-radius: 7px 0 0 7px;
+}
+
+
+#btnList3{
+    border-radius: 0 7px 7px 0;
+}
+
+#btnList2{
+    background-color: white;
+}
+
+#btnList1:hover,#btnList3:hover{
+    cursor: pointer;
+    background-color: rgb(255, 165, 0, 0.6);
+    transition: 0.5s;
+}
+
+.iconList{
+    display: flex;
+    margin: auto;
+    margin-top: 3px;
+}
+
+.cantList{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin: auto;
+    
+}
