@@ -4,3 +4,57 @@
     min-height: 400px;
     margin: auto;
 }
+
+.carrito{
+    display: none;
+    width: 10%;
+    height: 70%;
+    position: fixed;
+    right: 0px;
+    top: 14%;
+    border-radius: 20px 0 0 20px;
+    background-color: rgba(216, 182, 120,0.4);
+    animation: dispCarrito 1s ease; 
+    animation-direction: normal;    
+}
+
+
+@keyframes dispCarrito {
+    0%{width: 0%;}
+    100%{width: 10%;}
+}
+
+
+.divCarrito{
+    width: 0%; 
+    position: absolute;
+    right: 0px;  
+    height: 60px; 
+    display: flex;
+    justify-content: start;    
+    font-size: 30px;
+    margin-top: 30px;
+    color: orange;             
+    animation: divCarrito 2s ease; 
+    animation-direction: reverse;      
+    animation-fill-mode:forwards; 
+    animation-direction: alternate;      
+}
+
+
+@keyframes divCarrito{
+    0%{width: 0%;}
+  
+    100%{width: 50%; visibility: visible;}
+}
+
+
+.prodCarrito{
+    border: 1px solid red;
+    width: 100%;
+    height: 80%;
+    margin-top: 30%;
+}
+
+
+

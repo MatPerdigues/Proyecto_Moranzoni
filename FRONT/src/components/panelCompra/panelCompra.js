@@ -2,7 +2,10 @@ import { Fragment } from 'react';
 import './panelCompra.css';
 import CardListas from '../cardListas/cardListas';
 import { useState,useEffect} from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCartShopping} from '@fortawesome/free-solid-svg-icons';
 const API = process.env.REACT_APP_API_URL;
+
 
 export default function PanelCompra (){
 
@@ -13,6 +16,10 @@ export default function PanelCompra (){
 
     let opcCompra = sessionStorage.getItem('opcCompra');
     let tipoCompra = sessionStorage.getItem('tipoCompra');
+    //let arrCarrito = [];
+    const [arrCarrito,setArrCarrito]=useState([]);
+
+    sessionStorage.setItem('carrito',arrCarrito);
 
 
 
@@ -46,14 +53,53 @@ export default function PanelCompra (){
 
 
 
+    const dispCarrito=()=>{
+        document.getElementById('carrito').style.display='block';
+        document.getElementById('divCarrito').style.display='flex';
+        
+    }
+
+
+    const checkCarrito=()=>{
+        console.log(arrCarrito)
+    }
+
+
+    const sumArrCarrito=(id)=>{
+       arrCarrito.push(id);
+       sessionStorage.setItem('carrito',arrCarrito);
+        //setArrCarrito(arrCarrito);
+        console.log(arrCarrito);
+    }
+
+    
+    
+
+
+   
+
+
 
 
     return(
         <Fragment>
             <section class='secList'>
                 {filterProd.map((listado)=>{
-                    return <CardListas key={listado.id} info={listado}/>
+                    return <CardListas key={listado.id} info={listado} dispCarrito={dispCarrito} sumArrCarrito={sumArrCarrito}/>
                 })}     
+            </section>
+            <section class='carrito' id='carrito'>
+                <div class='divCarrito' id='divCarrito'><FontAwesomeIcon icon={faCartShopping} id='iconCarrito'/></div>
+                <section class='prodCarrito'>
+                    {arrCarrito.map((prod)=>{
+                        return(
+                            <table key={prod}>
+                                <td>{prod}</td>
+                            </table>
+                        )
+                    })
+                    }
+                </section>
             </section>
         </Fragment>
     )

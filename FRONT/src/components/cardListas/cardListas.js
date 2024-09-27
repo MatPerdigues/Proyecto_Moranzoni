@@ -4,11 +4,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus,faMinus} from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 
-export default function CardListas({info}){
+export default function CardListas({info,dispCarrito,sumArrCarrito}){
 
     const[cantidad,setCantidad]=useState(0);
 
     const sumarCantidad = ()=>{
+        dispCarrito();
+        sumArrCarrito(info.id);
         if(cantidad<info.stock){
             setCantidad(cantidad+1);
         }
@@ -19,8 +21,8 @@ export default function CardListas({info}){
         if(cantidad>0){
             setCantidad(cantidad-1);
         }
-
     }
+
 
 
     return(    
@@ -34,7 +36,7 @@ export default function CardListas({info}){
                 </table>
                 <section class='btnsList'>
                     <div class='btnList' id='btnList1' onClick={restarCantidad}><FontAwesomeIcon icon={faMinus} className='iconList'/></div>
-                    <div class='btnList' id='btnList2'><span class='cantList'>{cantidad}</span></div>
+                    <div class='btnList' id='btnList2'><span class='cantList' >{cantidad}</span></div>
                     <div class='btnList' id='btnList3' onClick={sumarCantidad}><FontAwesomeIcon icon={faPlus} className='iconList'/></div>
                 </section>
             </section>
