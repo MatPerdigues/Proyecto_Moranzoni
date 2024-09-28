@@ -16,10 +16,9 @@ export default function PanelCompra (){
 
     let opcCompra = sessionStorage.getItem('opcCompra');
     let tipoCompra = sessionStorage.getItem('tipoCompra');
-    //let arrCarrito = [];
-    const [arrCarrito,setArrCarrito]=useState([]);
 
-    sessionStorage.setItem('carrito',arrCarrito);
+
+  
 
 
 
@@ -33,9 +32,7 @@ export default function PanelCompra (){
     
     
 
-    const traerProductos = async()=>{    
-        
-                
+    const traerProductos = async()=>{                    
         let productos = await fetch (API+'/traerProductos')
         .then((res)=>res.json())
         .then ((data)=>{setListProd(data)})
@@ -60,16 +57,53 @@ export default function PanelCompra (){
     }
 
 
-    const checkCarrito=()=>{
-        console.log(arrCarrito)
-    }
 
 
-    const sumArrCarrito=(id)=>{
-       arrCarrito.push(id);
-       sessionStorage.setItem('carrito',arrCarrito);
-        //setArrCarrito(arrCarrito);
-        console.log(arrCarrito);
+    const sumArrCarrito=(id)=>{        
+
+        const parent = document.getElementById("prodCarrito");
+        const child = document.getElementById("prod"+id); 
+  
+        if(parent.contains(child)===false){
+            let infoCarrito = document.createElement('section');
+            infoCarrito.setAttribute("id","info"+id);
+            infoCarrito.setAttribute("class","infoCarrito");           
+            document.getElementById("prodCarrito").appendChild(infoCarrito);
+
+            let descCarrito = document.createElement('div');
+            descCarrito.setAttribute("id","prod"+id);           
+            descCarrito.innerHTML = "Codigo "+id;
+            document.getElementById("info"+id).appendChild(descCarrito);
+
+            let cantCarrito = document.createElement('div');
+            cantCarrito.setAttribute("id","cant"+id);            
+            cantCarrito.innerHTML = 1;            
+            document.getElementById("info"+id).appendChild(cantCarrito);
+            
+            document.getElementById("info"+id).style.display='flex';
+            document.getElementById("info"+id).style.justifyContent='space-between';
+            document.getElementById("info"+id).style.width='80%';
+            document.getElementById("info"+id).style.margin='auto';
+            document.getElementById("info"+id).style.borderBottom='1px solid orange';
+
+        }else{
+
+            let stock = 0;
+            for(let x=0; x<filterProd.length; x++){
+                if(filterProd[x].id===id){
+                    stock = filterProd[x].stock;
+                }
+            }
+
+            let cantidad = parseInt(document.getElementById("cant"+id).innerHTML); 
+            
+            if(cantidad<stock){
+                document.getElementById("cant"+id).innerHTML=cantidad+1;
+            }
+        }
+
+
+        
     }
 
     
@@ -90,15 +124,20 @@ export default function PanelCompra (){
             </section>
             <section class='carrito' id='carrito'>
                 <div class='divCarrito' id='divCarrito'><FontAwesomeIcon icon={faCartShopping} id='iconCarrito'/></div>
-                <section class='prodCarrito'>
-                    {arrCarrito.map((prod)=>{
+                <section class='prodCarrito' id='prodCarrito'>
+                    <section class='titleCarrito'>
+                        <h6 class='h6Carrito'>Prod.</h6>
+                        <h6 class='h6Carrito'>Cant.</h6>
+                    </section>
+
+                     {/* {arrCarrito.map((prod)=>{
                         return(
                             <table key={prod}>
                                 <td>{prod}</td>
                             </table>
                         )
                     })
-                    }
+                    }  */}
                 </section>
             </section>
         </Fragment>

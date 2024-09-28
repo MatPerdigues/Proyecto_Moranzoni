@@ -50,11 +50,36 @@
 
 
 .prodCarrito{
-    border: 1px solid red;
+    
     width: 100%;
     height: 80%;
-    margin-top: 30%;
+    margin-top: 40%;
+    
+    
 }
+
+.titleCarrito{
+    
+    width: 80%;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.infoCarrito{
+    display: none;
+    position: relative;
+    right: 0px;
+    animation: desplazamiento 1s ease;
+}
+
+@keyframes desplazamiento{
+    0%{right: -250px;} 
+    100%{right: 0px;}
+} 
+
 
 
 
