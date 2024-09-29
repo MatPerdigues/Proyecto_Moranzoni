@@ -4,14 +4,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus,faMinus} from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 
-export default function CardListas({info,sumArrCarrito,restarCarrito}){
+export default function CardListas({info,sumArrCarrito,restarCarrito,sumarPrecio}){
 
     const[cantidad,setCantidad]=useState(0);
 
     const sumarCantidad = ()=>{        
         sumArrCarrito(info.id);
+        
         if(cantidad<info.stock){
             setCantidad(cantidad+1);
+            sumarPrecio(info.precio)
         }
     }
 

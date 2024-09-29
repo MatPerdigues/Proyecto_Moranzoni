@@ -3,7 +3,7 @@ import './panelCompra.css';
 import CardListas from '../cardListas/cardListas';
 import { useState,useEffect} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCartShopping, faFilter} from '@fortawesome/free-solid-svg-icons';
+import { faCartShopping} from '@fortawesome/free-solid-svg-icons';
 import { GiCheckMark } from "react-icons/gi";
 import { IoCloseSharp } from "react-icons/io5";
 const API = process.env.REACT_APP_API_URL;
@@ -12,11 +12,8 @@ const API = process.env.REACT_APP_API_URL;
 export default function PanelCompra (){
 
     const [listProd,setListProd]=useState([]);
-    const [total,setTotal]=useState(0);
-    const [totalGlobal,setTotalGlobal]=useState(0);
-    
+    const [total,setTotal]=useState(0);    
     let filterProd = [];
-
     let opcCompra = sessionStorage.getItem('opcCompra');
     let tipoCompra = sessionStorage.getItem('tipoCompra');
 
@@ -62,21 +59,23 @@ export default function PanelCompra (){
 
 
 
-    const sumArrCarrito=(id)=>{ 
+    const sumarPrecio = (precio)=>{
 
-        let precio=0
-
-        for(let x=0; x<filterProd.length; x++){
-            if(filterProd[x].id===id){
-                precio = parseFloat(filterProd[x].precio);
-            }
+        let precioFinal = 0;
+        if(precio!==undefined){
+            precio = parseFloat(precio);
+            precioFinal = precio.toFixed(2);
+            precioFinal = parseFloat(precioFinal);            
+            setTotal(precioFinal + total);            
         }
-        
-        setTotal(precio+total)   
-        setTotalGlobal (total.toFixed(2));
-     
+    }
+    
 
+
+    const sumArrCarrito=(id)=>{ 
         
+        sumarPrecio();
+               
         document.getElementById('carrito').style.width='10%';
         document.getElementById('carrito').style.display='block';
         setTimeout(dispBtn, 2000); 
@@ -104,25 +103,25 @@ export default function PanelCompra (){
             document.getElementById("info"+id).style.justifyContent='space-between';
             document.getElementById("info"+id).style.width='80%';
             document.getElementById("info"+id).style.margin='auto';
-            document.getElementById("info"+id).style.borderBottom='1px solid orange';
-           
-
+            document.getElementById("info"+id).style.borderBottom='1px solid orange';    
         }else{
-
             document.getElementById("info"+id).style.display='flex';
-
             let stock = 0;
+          
+            
             for(let x=0; x<filterProd.length; x++){
                 if(filterProd[x].id===id){
-                    stock = filterProd[x].stock;
+                    stock = filterProd[x].stock;                  
+                    
                 }
             }
-
             let cantidad = parseInt(document.getElementById("cant"+id).innerHTML);             
             if(cantidad<stock){
-                document.getElementById("cant"+id).innerHTML=cantidad+1;
+                document.getElementById("cant"+id).innerHTML=cantidad+1;               
+                
             }
-        }        
+        }
+        sumarPrecio();        
     }
 
 
@@ -162,7 +161,7 @@ export default function PanelCompra (){
         <Fragment>
             <section class='secList'>
                 {filterProd.map((listado)=>{
-                    return <CardListas key={listado.id} info={listado} sumArrCarrito={sumArrCarrito} restarCarrito={restarCarrito}/>
+                    return <CardListas key={listado.id} info={listado} sumArrCarrito={sumArrCarrito} restarCarrito={restarCarrito} sumarPrecio={sumarPrecio}/>
                 })}     
             </section>
             <section class='carrito' id='carrito'>
@@ -175,7 +174,7 @@ export default function PanelCompra (){
                 <section class='prodCarrito' id='prodCarrito'>
                 </section>
                 <section class='totalCarrito' id='totalCarrito'>
-                    <h6 class='h6Carrito'>TOTAL: ${totalGlobal}</h6>
+                    <h6 class='h6Carrito'>TOTAL: ${total.toFixed(2)}</h6>
                 </section> 
                 <section class='checkCarrito' id='checkCarrito'>
                     <GiCheckMark class='checkIcon'/>

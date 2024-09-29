@@ -12,7 +12,8 @@
     right: 0px;
     top: 14%;
     border-radius: 20px 0 0 20px;
-    background-color: rgba(216, 182, 120,0.4);    
+    background-color: rgb(255, 213, 79, 0.5);
+
     animation: dispCarrito 1s ease; 
     animation-direction: normal;    
 }
@@ -97,7 +98,7 @@
     position: relative;
     bottom: 120px;    
     max-height: 40px;
-    margin-left: 10px;
+    margin-left: 2px;
     text-align: center;
     animation: totalCarrito 2.5s ease;
     animation-fill-mode: forwards;
