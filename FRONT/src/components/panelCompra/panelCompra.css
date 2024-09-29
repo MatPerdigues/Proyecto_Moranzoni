@@ -7,13 +7,12 @@
 
 .carrito{
     display: none;
-    width: 10%;
     height: 70%;
     position: fixed;
     right: 0px;
     top: 14%;
     border-radius: 20px 0 0 20px;
-    background-color: rgba(216, 182, 120,0.4);
+    background-color: rgba(216, 182, 120,0.4);    
     animation: dispCarrito 1s ease; 
     animation-direction: normal;    
 }
@@ -25,48 +24,61 @@
 }
 
 
-.divCarrito{
-    width: 0%; 
-    position: absolute;
-    right: 0px;  
+.divCarrito{  
+    
+    width: 140px;         
     height: 60px; 
     display: flex;
     justify-content: start;    
     font-size: 30px;
     margin-top: 30px;
-    color: orange;             
-    animation: divCarrito 2s ease; 
-    animation-direction: reverse;      
-    animation-fill-mode:forwards; 
-    animation-direction: alternate;      
+    margin-left: 110px;
+    color: orange; 
+    position: relative;    
+    animation: divCarrito 1s ease;
+    animation-fill-mode:forwards;
+    
+
 }
 
-
+ 
 @keyframes divCarrito{
-    0%{width: 0%;}
+    0%{left: 0px;}  
+    100%{left: 0px}
+} 
+
+
+.prodCarrito{    
   
-    100%{width: 50%; visibility: visible;}
-}
-
-
-.prodCarrito{
-    
-    width: 100%;
     height: 80%;
-    margin-top: 40%;
-    
-    
+    margin-top: 20px;
+    position: relative; 
+    animation: prodCarrito 2s ease;
+    animation-fill-mode: forwards;   
 }
 
-.titleCarrito{
-    
-    width: 80%;
-    margin: auto;
-    margin-top: 20px;
-    margin-bottom: 20px;
+@keyframes prodCarrito{
+    0%{width: 250px; left: 250px;}
+    100%{width: 250px; left: 0px;}
+}
+
+
+.titleCarrito{  
+    margin-left: 20px;
     display: flex;
     justify-content: space-between;
+    position: relative;    
+    animation: titleCarrito 1.5s ease;
+    animation-fill-mode:forwards;
 }
+
+@keyframes titleCarrito{
+    0%{width: 200px; left: 250px;}
+    100%{width:200px; left: 0px;}
+}
+
+
+
 
 .infoCarrito{
     display: none;
@@ -79,6 +91,83 @@
     0%{right: -250px;} 
     100%{right: 0px;}
 } 
+
+.totalCarrito{
+    border-top: 2px solid grey;
+    position: relative;
+    bottom: 120px;    
+    max-height: 40px;
+    margin-left: 10px;
+    text-align: center;
+    animation: totalCarrito 2.5s ease;
+    animation-fill-mode: forwards;
+}
+
+@keyframes totalCarrito{
+    0%{width: 230px; left: 250px;}
+    100%{width: 230px; left: 5%;}
+}
+
+
+.h6Carrito{
+    margin-top: 10px;
+    max-height: 40px;
+    flex-wrap: nowrap;
+}
+
+.checkCarrito{  
+    
+    height: 30px;    
+    display: flex;
+    justify-content: center;
+    font-size: 30px;
+    color: orangered;
+    position: relative;
+    bottom: 90px;
+    animation: checkCarrito 3s ease;
+    animation-fill-mode: forwards;
+}
+
+@keyframes checkCarrito{
+    0%{width: 260px; left: 250px;}
+    100%{width: 260px; left: 0px;}
+}
+
+.closeCarrito{
+    height: 10px;
+    font-size: 20px;
+    color: orangered;
+    display: flex;
+    justify-content: end;
+    width: 90%;
+    margin: auto;
+    margin-top: 10px;
+}
+
+
+.iconClose:hover{
+    cursor: pointer;
+}
+
+.checkIcon:hover{
+    cursor: pointer;
+}
+
+  #iconCarrito{
+
+    position: absolute;
+    left: 150px;   
+    animation: iconCarrito 1s ease; 
+    animation-fill-mode: forwards;   
+} 
+
+@keyframes iconCarrito{
+    0%{left: 150px;}
+    100%{left: 0px;}
+}
+
+
+
 
 
 
