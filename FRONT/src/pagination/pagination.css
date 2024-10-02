@@ -1,0 +1,23 @@
+.secPagination{
+    width: 50%;
+    height: 400px;
+    margin: auto;
+    border: 1px solid red;
+    overflow: hidden;
+
+
+
+}
+
+.div1{
+    width: 100%;
+    height: 100%;
+    background-color: aqua;
+}
+
+.div2{
+    width: 100%;
+    height: 100%;
+    background-color: brown;
+}
+

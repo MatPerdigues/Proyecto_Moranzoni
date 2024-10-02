@@ -2,14 +2,56 @@ import { Fragment } from 'react';
 import './cardListas.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus,faMinus} from '@fortawesome/free-solid-svg-icons';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 
-export default function CardListas({info,sumArrCarrito,restarCarrito,sumarPrecio}){
+export default function CardListas({info,sumArrCarrito,restarCarrito,sumarPrecio,restarPrecio}){
 
     const[cantidad,setCantidad]=useState(0);
 
+
+    const checkList = ()=>{
+
+   
+
+        
+
+        if(document.getElementById("cant"+info.id)===null){
+            setCantidad(0);
+
+         
+        }else{
+
+            let cantidadCarrito = parseInt(document.getElementById("cant"+info.id).innerHTML);
+           
+            setCantidad(cantidadCarrito);
+
+           
+
+          
+
+           
+        }
+    }
+
+
+    useEffect(()=>{
+        checkList();       
+
+    },[])
+
+
+    // if(document.getElementById("cant"+info.id).innerHTML===null){
+    //     setCantidad(document.getElementById("cant"+info.id).innerHTML)
+    // }
+
+    
+
+
+
+
+
     const sumarCantidad = ()=>{        
-        sumArrCarrito(info.id);
+        sumArrCarrito(info.id);       
         
         if(cantidad<info.stock){
             setCantidad(cantidad+1);
@@ -22,6 +64,7 @@ export default function CardListas({info,sumArrCarrito,restarCarrito,sumarPrecio
         restarCarrito(info.id);
         if(cantidad>0){
             setCantidad(cantidad-1);
+            restarPrecio(info.precio)
         }
     }
 
@@ -32,13 +75,15 @@ export default function CardListas({info,sumArrCarrito,restarCarrito,sumarPrecio
         <Fragment>
             <section class='filaList'>
                 <table class='tableList'>
+                    <td class='tdList' id='tdList4'>{info.id}</td>
                     <td class='tdList' id='tdList1'>{info.descripcion}</td>
                     <td class='tdList' id='tdList2'>{info.marca}</td>
+                    <td class='tdList' id='tdList5'>{info.categoria}</td>
                     <td class='tdList' id='tdList3'>$ {info.precio}</td>
                 </table>
                 <section class='btnsList'>
                     <div class='btnList' id='btnList1' onClick={restarCantidad}><FontAwesomeIcon icon={faMinus} className='iconList'/></div>
-                    <div class='btnList' id='btnList2'><span class='cantList' >{cantidad}</span></div>
+                    <div class='btnList' id='btnList2'><span class='cantList' id={"cantList"+info.id}>{cantidad}</span></div>
                     <div class='btnList' id='btnList3' onClick={sumarCantidad}><FontAwesomeIcon icon={faPlus} className='iconList'/></div>
                 </section>
             </section>

@@ -6,22 +6,36 @@
 
 .tdList{
     border-bottom: 1px solid orange;
+    text-align: center;
 }
 
 #tdList1{
-    width:20%;
+    width:40%;
+   
 }
 
 #tdList2{
-    width: 15%;
+    width: 21%;
+    
 }
 
 #tdList3{
-    width: 15%;
+    width: 21%;
+   
+}
+
+#tdList4{
+    width: 8%;
+    
+}
+
+#tdList5{
+    width: 21%;
+    
 }
 
 .btnsList{
-    height: 30px;
+    height: auto;
     width: 20%;
     display: flex;
     padding: 0 50px;
@@ -30,6 +44,7 @@
 
 .filaList{
     display: flex;
+    height: auto;
 }
 
 .btnList{
