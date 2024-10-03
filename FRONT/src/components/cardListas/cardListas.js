@@ -9,44 +9,21 @@ export default function CardListas({info,sumArrCarrito,restarCarrito,sumarPrecio
     const[cantidad,setCantidad]=useState(0);
 
 
-    const checkList = ()=>{
-
-   
-
-        
-
+    const checkList = ()=>{    
         if(document.getElementById("cant"+info.id)===null){
             setCantidad(0);
-
-         
         }else{
-
-            let cantidadCarrito = parseInt(document.getElementById("cant"+info.id).innerHTML);
-           
-            setCantidad(cantidadCarrito);
-
-           
-
-          
-
-           
+            let cantidadCarrito = parseInt(document.getElementById("cant"+info.id).innerHTML);           
+            setCantidad(cantidadCarrito);     
         }
     }
-
 
     useEffect(()=>{
         checkList();       
 
     },[])
 
-
-    // if(document.getElementById("cant"+info.id).innerHTML===null){
-    //     setCantidad(document.getElementById("cant"+info.id).innerHTML)
-    // }
-
     
-
-
 
 
 
