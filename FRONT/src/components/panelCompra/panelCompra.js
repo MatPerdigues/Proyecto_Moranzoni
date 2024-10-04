@@ -17,17 +17,7 @@ export default function PanelCompra (){
     const [total,setTotal]=useState(0);
     const[marcas,setMarcas]=useState([]);
     const[filterProd,setFilterProd]=useState([]);
-    // let filterProd = [];
-    // let opcCompra1 = sessionStorage.getItem('opcCompra');
-    // let tipoCompra = sessionStorage.getItem('tipoCompra');
 
-
-
-    // if(tipoCompra==='marca'){
-    //     filterProd = listProd.filter((prod)=>prod.marca===opcCompra1);
-    // } else{
-    //     filterProd = listProd.filter((prod)=>prod.categoria===opcCompra1);
-    // }
 
 
 
@@ -176,7 +166,6 @@ export default function PanelCompra (){
 
     const sumArrCarrito=(id)=>{  
         
-        // console.log(document.getElementById("cant"+id).innerHTML)
 
         sumarPrecio();               
         document.getElementById('carrito').style.width='10%';

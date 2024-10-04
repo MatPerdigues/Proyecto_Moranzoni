@@ -1,0 +1,99 @@
+.secPagination{
+    width: 800px;
+    height: 400px;
+    margin: auto;
+    border: 1px solid red;
+    overflow: hidden;
+    
+
+}
+
+
+
+.containerItems{   
+    /* width: 1600px; */
+    width: auto;
+    height: 200px;
+    display: flex;
+    position: relative;
+    left: 0%;
+    transition: all 2s;    
+    /* animation: items1 2s ease;
+    animation-fill-mode: forwards; */
+    /* transition: all 2s; */
+}
+
+
+/* @keyframes items1{
+    100%{width: 1600px; right: 0%; transition: all 2s;}
+    
+} */
+
+
+.items1,.items2,.items3{
+    width: 100%;
+    display: flex;
+}
+
+
+
+.itemPage{
+    width: 200px;
+    height: 200px;
+    background-color: aqua;
+    border: 1px solid red;
+
+}
+
+
+.itemPage2{
+    width: 200px;
+    height: 200px;
+    background-color: yellow;
+    border: 1px solid red;
+
+}
+
+
+.itemPage3{
+    width: 200px;
+    height: 200px;
+    background-color: green;
+    border: 1px solid red;
+
+}
+
+.pagMarcas{
+    width: 48%;
+    height: 500px;
+    border: 1px solid violet;
+    margin: auto;
+    
+    margin-top: 100px;
+    margin-bottom: 100px;
+    display: flex;  
+    overflow: hidden;
+}
+
+.marcasPag{
+    position: relative;
+    left: 0%;
+    width: auto;
+    margin-top: 30px;
+    display: grid;
+    grid-template-rows: 200px 200px;
+    grid-auto-flow: column;
+    transition: all 2s;
+ }
+
+ .containerNav1{
+    border: 1px solid orange;
+    width: 20%;
+    margin: auto;
+    margin-top: -70px;
+    margin-bottom: 100px;
+ }
+
+  
+
+
