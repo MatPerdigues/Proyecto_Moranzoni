@@ -8,6 +8,8 @@ const API = process.env.REACT_APP_API_URL;
 export default function Pagination(){
     
     const[marcas,setMarcas]=useState([]);
+    // const[pos,setPos]=useState(-100);
+    let pos = 0;
 
     const traerMarcas= async()=>{
         let marcas = await fetch(API+"/traerMarcas")   
@@ -21,10 +23,7 @@ export default function Pagination(){
     useEffect(()=>{
         traerMarcas();       
 
-    },[])
-
-
- 
+    },[]) 
 
     
 
@@ -50,17 +49,54 @@ export default function Pagination(){
 
 
 
-    const pagination1 = (event)=>{  
-        if(event.currentTarget.id==='link12'){           
-            document.getElementById('marcasPag').style.left='0%';
+      const pagination1 = (event)=>{ 
+
+
+        if(document.getElementById('containerMarcasPag').style.left==="0%"){
+
+
+
+        }else{
+
+            
+            pos = pos+100;
+            //     let pos = +100;
+            let posFinal = pos + '%';
+            //    // console.log(posFinal);  
+            
+            document.getElementById('containerMarcasPag').style.left=`${posFinal}`;  
+            //    console.log(posFinal); 
+            console.log(posFinal);
         }
-        if(event.currentTarget.id==='link13'){           
-            document.getElementById('marcasPag').style.left='-102%';
+        
+        
+      }
+ 
+
+
+
+        const pagination2 = (event)=>{  
+
+            
+            pos = pos-100;
+             let posFinal = pos + '%';
+            // console.log(posFinal);
+            
+            
+     
+            document.getElementById('containerMarcasPag').style.left=`${posFinal}`;  
+
+
+
+            console.log(posFinal);
+            console.log(document.getElementById('containerMarcasPag').style.right);
+            console.log(document.getElementById('containerMarcasPag').style.left);
+
         }
-        if(event.currentTarget.id==='link14'){           
-            document.getElementById('marcasPag').style.left='-204%';
-        }     
-    }
+
+
+
+    
 
       
   
@@ -100,19 +136,37 @@ export default function Pagination(){
             </section>
 
             <section class='pagMarcas' id='pagMarcas'>
-                <section class='marcasPag' id='marcasPag'>
+
+                <section class='containerMarcasPag' id='containerMarcasPag'>                       
                     {marcas.map((marca)=>{
                         return <Marcas key={marca.id} info={marca} opcCompra2={opcCompra2}/>
-                    })} 
-                </section>               
+                    })}                                              
+                </section>
+
+
+                {/* <section class='marcasPag' id='marcasPag'>
+                    <img src={marcas[0].imagen} alt="img marca" class='imgMarcasPag' id={marcas[0].nombre} onClick={opcCompra2}/>
+                    <img src={marcas[0].imagen} alt="img marca" class='imgMarcasPag' id={marcas[0].nombre} onClick={opcCompra2}/> 
+                    <img src={marcas[0].imagen} alt="img marca" class='imgMarcasPag' id={marcas[0].nombre} onClick={opcCompra2}/> 
+                    <img src={marcas[0].imagen} alt="img marca" class='imgMarcasPag' id={marcas[0].nombre} onClick={opcCompra2}/>
+                    <img src={marcas[0].imagen} alt="img marca" class='imgMarcasPag' id={marcas[0].nombre} onClick={opcCompra2}/> 
+                    <img src={marcas[0].imagen} alt="img marca" class='imgMarcasPag' id={marcas[0].nombre} onClick={opcCompra2}/>                        
+                </section>
+                <section class='marcasPag' id='marcasPag2'>
+                    <img src={marcas[1].imagen} alt="img marca" class='imgMarcasPag' id={marcas[0].nombre} onClick={opcCompra2}/>
+                    <img src={marcas[1].imagen} alt="img marca" class='imgMarcasPag' id={marcas[0].nombre} onClick={opcCompra2}/> 
+                    <img src={marcas[1].imagen} alt="img marca" class='imgMarcasPag' id={marcas[0].nombre} onClick={opcCompra2}/> 
+                    <img src={marcas[1].imagen} alt="img marca" class='imgMarcasPag' id={marcas[0].nombre} onClick={opcCompra2}/>
+                    <img src={marcas[1].imagen} alt="img marca" class='imgMarcasPag' id={marcas[0].nombre} onClick={opcCompra2}/> 
+                    <img src={marcas[1].imagen} alt="img marca" class='imgMarcasPag' id={marcas[0].nombre} onClick={opcCompra2}/>                        
+                </section>                 */}
             </section>
 
             <nav aria-label="Page navigation example" class='containerNav1'>
                     <ul class="pagination" >
-                      <li onClick={pagination1} class="page-item" id='link11'><button class="page-link">Previous</button></li>                      
-                      <li onClick={pagination1} class="page-item" id='link12' active><button class="page-link" >1</button></li>
-                      <li onClick={pagination1} class="page-item" id='link13'><button class="page-link" >2</button></li>
-                      <li onClick={pagination1} class="page-item" id='link14'><button class="page-link" >Next</button></li>
+                      <li onClick={pagination1} class="page-item" id='link11'><button class="page-link">Previous</button></li>                     
+
+                      <li onClick={pagination2} class="page-item" id='link14'><button class="page-link" >Next</button></li>
                     </ul>
                 </nav>
                     

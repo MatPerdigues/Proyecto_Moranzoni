@@ -63,36 +63,46 @@
 
 }
 
-.pagMarcas{
-    width: 48%;
-    height: 500px;
+               
+.containerMarcasPag{
     border: 1px solid violet;
-    margin: auto;
-    
-    margin-top: 100px;
-    margin-bottom: 100px;
-    display: flex;  
-    overflow: hidden;
-}
-
-.marcasPag{
     position: relative;
     left: 0%;
-    width: auto;
-    margin-top: 30px;
+  
+    width: 100%;
+    height: 400px;
+    margin: auto;
     display: grid;
+    grid-template-columns: repeat(4,1fr);
     grid-template-rows: 200px 200px;
     grid-auto-flow: column;
     transition: all 2s;
- }
+  
+    
+}
 
- .containerNav1{
-    border: 1px solid orange;
-    width: 20%;
+.containerNav1{
+
+    width: 100%;
     margin: auto;
-    margin-top: -70px;
-    margin-bottom: 100px;
- }
+    display: flex;
+    justify-content: center;
+    margin-bottom: 200px;
+}
+
+.pagMarcas{
+    border: 1px solid red;
+    width: 1200px;
+    height: 400px;
+    margin: auto;
+    overflow: hidden;
+    margin-top: 150px;
+}
+
+
+
+
+
 
   
 
