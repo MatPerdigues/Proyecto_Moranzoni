@@ -1,11 +1,8 @@
 .secPagination{
-    width: 800px;
-    height: 400px;
+    width: 1600px;
+    height: 500px;
     margin: auto;
-    border: 1px solid red;
     overflow: hidden;
-    
-
 }
 
 
@@ -64,19 +61,23 @@
 }
 
                
-.containerMarcasPag{
+.containerMovilPag{
     border: 1px solid violet;
     position: relative;
-    left: 0%;
-  
+    left: 0%; 
     width: 100%;
-    height: 400px;
+    height: 500px;
     margin: auto;
-    display: grid;
+    display: flex;
+    transition: all 2s;
+    
+
+    
+    /* display: grid;
     grid-template-columns: repeat(4,1fr);
     grid-template-rows: 200px 200px;
     grid-auto-flow: column;
-    transition: all 2s;
+    transition: all 2s; */
   
     
 }
@@ -93,11 +94,81 @@
 .pagMarcas{
     border: 1px solid red;
     width: 1200px;
-    height: 400px;
+    height: 500px;
     margin: auto;
-    overflow: hidden;
+    overflow:visible;
     margin-top: 150px;
+
 }
+
+.itemsMarcas{
+    width: 100%;
+    height: 100%;
+    border: 1px solid green;
+    display: flex;
+    justify-content: space-around;
+
+}
+
+
+.containerImgs{
+    width: 100%;
+    height: 500px;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-template-rows: 200px 200px;
+     
+}
+
+.containerImg{
+    width: 400px;
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+    
+}
+
+#btnPag0{
+    opacity: 60%;
+}
+
+#carouselExample{
+    height: 100%;
+    
+}
+
+#carouselInner{
+    width: 90%;
+    height: 500px;
+    margin: auto;
+    border: 1px solid orange;
+    border-radius: 10px;
+    
+}
+
+#flecha1{
+
+    width: 100%;
+    height: 50%;
+    color: black;
+    margin: auto;
+    color: orangered;
+}
+
+#flecha{
+    width: 5%;
+    height: 100px;
+    margin-top: 200px;
+    
+}
+
+.carousel-item{
+    transition: all 1s,
+} 
+
+
+
+
 
 
 
