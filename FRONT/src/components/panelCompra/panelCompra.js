@@ -6,6 +6,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping,faXmark} from '@fortawesome/free-solid-svg-icons';
 import { GiCheckMark } from "react-icons/gi";
 import { IoCloseSharp } from "react-icons/io5";
+import { GrNext } from "react-icons/gr";
+import { GrPrevious } from "react-icons/gr";
 import Marcas from '../marcas/marcas';
 const API = process.env.REACT_APP_API_URL;
 
@@ -245,6 +247,78 @@ export default function PanelCompra (){
         }        
     }
 
+
+
+    const distrMarcas = ()=>{ 
+
+
+        let idContainerImg=0;
+        let idContainerImgs = 0;
+        let carouselItem = 0;
+            
+        for(let x=0; x<marcas.length;x++){
+                
+            if(document.getElementById('containerImgs'+idContainerImgs).childElementCount<6){
+                if(document.getElementById("containerImg"+idContainerImg)===null){
+                    let containerImg = document.createElement('div');
+                    containerImg.setAttribute("class","containerImg");
+                    containerImg.setAttribute("id","containerImg"+ idContainerImg);
+                    document.getElementById('containerImgs'+idContainerImgs).appendChild(containerImg);  
+                    
+                    let imagenMarca = document.createElement('img');
+                    imagenMarca.setAttribute("src",marcas[x].imagen);
+                    imagenMarca.setAttribute("alt","img marca");
+                    imagenMarca.setAttribute("class","imgMarcas");
+                    imagenMarca.setAttribute("id",marcas[x].nombre);  
+                    document.getElementById("containerImg"+ idContainerImg).appendChild(imagenMarca);  
+                    document.getElementById(marcas[x].nombre).addEventListener("click", function(){opcCompra2(marcas[x].nombre)})
+                    
+                    idContainerImg++;
+                }
+            }else{
+
+                carouselItem++;
+                idContainerImgs++;
+                        
+
+                if(document.getElementById("carouselItem"+carouselItem)===null){                        
+                    let divCarousel = document.createElement('div');  
+                    divCarousel.setAttribute("class","carousel-item");
+                    divCarousel.setAttribute("id","carouselItem"+carouselItem);
+                    document.getElementById('carouselInner').appendChild(divCarousel); 
+                }
+
+                if(document.getElementById("containerImgs"+idContainerImgs)===null){                        
+                    let containerImgs = document.createElement('div');  
+                    containerImgs.setAttribute("class","containerImgs");
+                    containerImgs.setAttribute("id","containerImgs"+ idContainerImgs);
+                    document.getElementById("carouselItem"+carouselItem).appendChild(containerImgs); 
+                }
+
+                if(document.getElementById("containerImg"+idContainerImg)===null){
+                    let containerImg = document.createElement('div');
+                    containerImg.setAttribute("class","containerImg");
+                    containerImg.setAttribute("id","containerImg"+ idContainerImg);
+                    document.getElementById('containerImgs'+idContainerImgs).appendChild(containerImg);  
+                    
+                    let imagenMarca = document.createElement('img');
+                    imagenMarca.setAttribute("src",marcas[x].imagen);
+                    imagenMarca.setAttribute("alt","img marca");
+                    imagenMarca.setAttribute("class","imgMarcas");
+                    imagenMarca.setAttribute("id",marcas[x].nombre);  
+                    document.getElementById("containerImg"+ idContainerImg).appendChild(imagenMarca);  
+                    document.getElementById(marcas[x].nombre).addEventListener("click", function(){opcCompra2(marcas[x].nombre)})
+                    
+                    idContainerImg++;
+                }
+                
+                
+            }
+            }
+        }     
+
+        distrMarcas();
+
    
 
 
@@ -266,11 +340,30 @@ export default function PanelCompra (){
                     <button class='opcPedidos4' id='opcPedidos4' onClick={containerOpc}>Categorías</button>
                     <div class='opcPedidos5'></div>                                              
                 </section>
+
+
                  
                 <section class='containerMarcas' id='containerMarcas'>                       
-                    {marcas.map((marca)=>{
+                    {/* {marcas.map((marca)=>{
                         return <Marcas key={marca.id} info={marca} opcCompra2={opcCompra2}/>
-                    })}                                              
+                    })}                                               */}
+
+
+                    <section class='secPagination' id='secPagination'>                                     
+                        <div id="carouselExample" class="carousel slide" >
+                            <div class="carousel-inner" id='carouselInner'>                
+                                <div class="carousel-item active" id='carouselItem0'>
+                                    <div class='containerImgs' id='containerImgs0'></div>
+                                </div>
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev" id='flecha2'>
+                                <GrPrevious id='flecha1'/>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next" id='flecha3'>
+                                <GrNext id='flecha1'/>
+                            </button>
+                        </div>
+                    </section>
                 </section>
                  <section class='containerCat' id='containerCat'>
                     <div class='divCat'><button class='btnCat' id='Alfajores' onClick={opcCompra}><h5>Alfajores</h5></button></div>

@@ -175,7 +175,6 @@
     width: 70%;
     height: 100px;
     margin: auto;
-    /* margin-bottom: 200px; */
     margin-top: 50px;
     display: flex;
     justify-content: center;
@@ -214,7 +213,7 @@
 }
 
 .opcPedidos{
-    width: 70%;
+    width: 1600px;
     height: 50px;    
     margin: auto;
     margin-top: 50px;
@@ -223,7 +222,7 @@
 }
 
 .opcPedidos1,.opcPedidos3,.opcPedidos5{
-    border: 1px solid grey;
+    border: 1px solid orange;
     height: 50px;
     border-bottom: none;
     margin-top: 24px;
@@ -277,7 +276,7 @@
 }
 
 .containerOpc{
-    margin-top: 100px;
+    margin-top: 50px;
     display: block;
     transition: 1s;
     
@@ -285,8 +284,8 @@
 }
 
 .containerMarcas{
-    border: 1px solid grey;
-    width: 70%;
+    border: 1px solid orange;
+    width: 1600px;
     height: auto;
     margin: auto;
     border-top: none;
@@ -299,8 +298,8 @@
 
 
 .containerCat{
-    border: 1px solid grey;
-    width: 70%;
+    border: 1px solid orange;
+    width: 1600px;
     height: auto;
     min-height: 400px;
     margin: auto;
@@ -397,6 +396,67 @@
 #tdTitlesList5{
     width: 21%;    
 }
+
+
+.secPagination{
+
+    width: 1600px;
+    height: 400px;
+    margin: auto;
+    margin-top: -40px;
+    overflow: hidden;
+}
+
+
+#carouselExample{
+    height: 100%;
+    
+}
+
+
+#carouselInner{
+    width: 100%;
+    height: 400px;
+    margin: auto;
+
+    border-radius: 10px;
+    
+}
+
+#flecha1{
+    width: 100%;
+    height: 50%;
+    color: black;
+    margin: auto;
+    color: orangered;
+}
+
+#flecha2,#flecha3{
+    width: 5%;
+    height: 100px;
+    margin-top: 130px;    
+}
+
+.carousel-item{
+    transition: all 1s,
+} 
+
+
+.containerImgs{
+    width: 100%;
+    height: 500px;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-template-rows: 200px 200px;     
+}
+
+.containerImg{
+    width: 400px;
+    display: flex;
+    justify-content: center;
+    /* margin-top: 50px; */
+}
+
 
 
 
