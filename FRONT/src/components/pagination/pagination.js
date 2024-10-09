@@ -33,83 +33,83 @@ export default function Pagination(){
 
                   
 
-     const opcCompra2=(nombre)=>{
+    //  const opcCompra2=(nombre)=>{
 
         
-        console.log(nombre);
+    //     console.log(nombre);
 
 
-    }
+    // }
     
-    const distrMarcas = ()=>{ 
+    // const distrMarcas = ()=>{ 
 
 
-        let idContainerImg=0;
-        let idContainerImgs = 0;
-        let carouselItem = 0;
+    //     let idContainerImg=0;
+    //     let idContainerImgs = 0;
+    //     let carouselItem = 0;
             
-        for(let x=0; x<marcas.length;x++){
+    //     for(let x=0; x<marcas.length;x++){
                 
-            if(document.getElementById('containerImgs'+idContainerImgs).childElementCount<6){
-                if(document.getElementById("containerImg"+idContainerImg)===null){
-                    let containerImg = document.createElement('div');
-                    containerImg.setAttribute("class","containerImg");
-                    containerImg.setAttribute("id","containerImg"+ idContainerImg);
-                    document.getElementById('containerImgs'+idContainerImgs).appendChild(containerImg);  
+    //         if(document.getElementById('containerImgs'+idContainerImgs).childElementCount<6){
+    //             if(document.getElementById("containerImg"+idContainerImg)===null){
+    //                 let containerImg = document.createElement('div');
+    //                 containerImg.setAttribute("class","containerImg");
+    //                 containerImg.setAttribute("id","containerImg"+ idContainerImg);
+    //                 document.getElementById('containerImgs'+idContainerImgs).appendChild(containerImg);  
                     
-                    let imagenMarca = document.createElement('img');
-                    imagenMarca.setAttribute("src",marcas[x].imagen);
-                    imagenMarca.setAttribute("alt","img marca");
-                    imagenMarca.setAttribute("class","imgMarcas");
-                    imagenMarca.setAttribute("id",marcas[x].nombre);  
-                    document.getElementById("containerImg"+ idContainerImg).appendChild(imagenMarca);  
-                    document.getElementById(marcas[x].nombre).addEventListener("click", function(){opcCompra2(marcas[x].nombre)})
+    //                 let imagenMarca = document.createElement('img');
+    //                 imagenMarca.setAttribute("src",marcas[x].imagen);
+    //                 imagenMarca.setAttribute("alt","img marca");
+    //                 imagenMarca.setAttribute("class","imgMarcas");
+    //                 imagenMarca.setAttribute("id",marcas[x].nombre);  
+    //                 document.getElementById("containerImg"+ idContainerImg).appendChild(imagenMarca);  
+    //                 document.getElementById(marcas[x].nombre).addEventListener("click", function(){opcCompra2(marcas[x].nombre)})
                     
-                    idContainerImg++;
-                }
-            }else{
+    //                 idContainerImg++;
+    //             }
+    //         }else{
 
-                carouselItem++;
-                idContainerImgs++;
+    //             carouselItem++;
+    //             idContainerImgs++;
                         
 
-                if(document.getElementById("carouselItem"+carouselItem)===null){                        
-                    let divCarousel = document.createElement('div');  
-                    divCarousel.setAttribute("class","carousel-item");
-                    divCarousel.setAttribute("id","carouselItem"+carouselItem);
-                    document.getElementById('carouselInner').appendChild(divCarousel); 
-                }
+    //             if(document.getElementById("carouselItem"+carouselItem)===null){                        
+    //                 let divCarousel = document.createElement('div');  
+    //                 divCarousel.setAttribute("class","carousel-item");
+    //                 divCarousel.setAttribute("id","carouselItem"+carouselItem);
+    //                 document.getElementById('carouselInner').appendChild(divCarousel); 
+    //             }
 
-                if(document.getElementById("containerImgs"+idContainerImgs)===null){                        
-                    let containerImgs = document.createElement('div');  
-                    containerImgs.setAttribute("class","containerImgs");
-                    containerImgs.setAttribute("id","containerImgs"+ idContainerImgs);
-                    document.getElementById("carouselItem"+carouselItem).appendChild(containerImgs); 
-                }
+    //             if(document.getElementById("containerImgs"+idContainerImgs)===null){                        
+    //                 let containerImgs = document.createElement('div');  
+    //                 containerImgs.setAttribute("class","containerImgs");
+    //                 containerImgs.setAttribute("id","containerImgs"+ idContainerImgs);
+    //                 document.getElementById("carouselItem"+carouselItem).appendChild(containerImgs); 
+    //             }
 
-                if(document.getElementById("containerImg"+idContainerImg)===null){
-                    let containerImg = document.createElement('div');
-                    containerImg.setAttribute("class","containerImg");
-                    containerImg.setAttribute("id","containerImg"+ idContainerImg);
-                    document.getElementById('containerImgs'+idContainerImgs).appendChild(containerImg);  
+    //             if(document.getElementById("containerImg"+idContainerImg)===null){
+    //                 let containerImg = document.createElement('div');
+    //                 containerImg.setAttribute("class","containerImg");
+    //                 containerImg.setAttribute("id","containerImg"+ idContainerImg);
+    //                 document.getElementById('containerImgs'+idContainerImgs).appendChild(containerImg);  
                     
-                    let imagenMarca = document.createElement('img');
-                    imagenMarca.setAttribute("src",marcas[x].imagen);
-                    imagenMarca.setAttribute("alt","img marca");
-                    imagenMarca.setAttribute("class","imgMarcas");
-                    imagenMarca.setAttribute("id",marcas[x].nombre);  
-                    document.getElementById("containerImg"+ idContainerImg).appendChild(imagenMarca);  
-                    document.getElementById(marcas[x].nombre).addEventListener("click", function(){opcCompra2(marcas[x].nombre)})
+    //                 let imagenMarca = document.createElement('img');
+    //                 imagenMarca.setAttribute("src",marcas[x].imagen);
+    //                 imagenMarca.setAttribute("alt","img marca");
+    //                 imagenMarca.setAttribute("class","imgMarcas");
+    //                 imagenMarca.setAttribute("id",marcas[x].nombre);  
+    //                 document.getElementById("containerImg"+ idContainerImg).appendChild(imagenMarca);  
+    //                 document.getElementById(marcas[x].nombre).addEventListener("click", function(){opcCompra2(marcas[x].nombre)})
                     
-                    idContainerImg++;
-                }
+    //                 idContainerImg++;
+    //             }
                 
                 
-            }
-            }
-        }     
+    //         }
+    //         }
+    //     }     
 
-        distrMarcas();
+    //     distrMarcas();
 
 
     return(

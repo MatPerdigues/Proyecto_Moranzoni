@@ -286,7 +286,7 @@
 .containerMarcas{
     border: 1px solid orange;
     width: 1600px;
-    height: auto;
+    height: 420px;
     margin: auto;
     border-top: none;
     border-radius: 0 0 10px 10px;
@@ -300,8 +300,7 @@
 .containerCat{
     border: 1px solid orange;
     width: 1600px;
-    height: auto;
-    min-height: 400px;
+    height: 420px;
     margin: auto;
     border-top: none;
     border-radius: 0 0 10px 10px;
@@ -451,7 +450,7 @@
 }
 
 .containerImg{
-    width: 400px;
+    width: 100%;
     display: flex;
     justify-content: center;
     /* margin-top: 50px; */
