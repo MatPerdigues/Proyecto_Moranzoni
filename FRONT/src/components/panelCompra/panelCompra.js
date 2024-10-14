@@ -3,12 +3,12 @@ import './panelCompra.css';
 import CardListas from '../cardListas/cardListas';
 import { useState,useEffect} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCartShopping,faXmark} from '@fortawesome/free-solid-svg-icons';
+import { faCartShopping} from '@fortawesome/free-solid-svg-icons';
 import { GiCheckMark } from "react-icons/gi";
 import { IoCloseSharp } from "react-icons/io5";
 import { GrNext } from "react-icons/gr";
 import { GrPrevious } from "react-icons/gr";
-import Marcas from '../marcas/marcas';
+
 const API = process.env.REACT_APP_API_URL;
 
 
@@ -19,6 +19,7 @@ export default function PanelCompra (){
     const [total,setTotal]=useState(0);
     const[marcas,setMarcas]=useState([]);
     const[filterProd,setFilterProd]=useState([]);
+ 
 
 
 
@@ -118,50 +119,20 @@ export default function PanelCompra (){
 
         let opcCompra = event.currentTarget.id;
         setFilterProd(listProd.filter((prod)=>prod.categoria===opcCompra));
-        document.getElementById('secList').style.display='block';        
-    }  
-    
-
-
-
-
-
-    
-
-    const opcCompra2 = (nombre)=>{ 
-        
-
-
-        console.log(listProd);
-        // console.log(nombre);
-        // console.log(document.getElementById(nombre));
-
-
-        
-
-    
-        // console.log(nombre);
-        // console.log(event.currentTarget.id);
-    
-          
-        // let opcCompra = nombre;
-        // setFilterProd(listProd.filter((prod)=>prod.marca===opcCompra))
-        // document.getElementById('secList').style.display='block';
-
-
-        // console.log(filterProd);
-        // console.log(listProd);
-
-        // console.log(event.currentTarget.id)
-        // let opcCompra = event.currentTarget.id;
-        // setFilterProd(listProd.filter((prod)=>prod.marca===opcCompra))
-        // document.getElementById('secList').style.display='block';
-
+        document.getElementById('secList').style.display='block';  
+        console.log(filterProd.length);
     }  
 
 
-  
 
+    const listener = (event)=>{        
+        console.log(event.target.id);
+        let opcCompra1 = event.currentTarget.id;
+        setFilterProd(listProd.filter((prod)=>prod.marca===opcCompra1));
+        document.getElementById('secList').style.display='block';
+    }
+
+    console.log(filterProd.length);
 
 
 
@@ -283,20 +254,20 @@ export default function PanelCompra (){
 
 
 
+
+   
+
+
+
+
     const distrMarcas = ()=>{ 
         
-        // let idContainerImg=0;
          let idContainerImgs = 0;
-         let carouselItem = 0;
+         let carouselItem = 0;    
 
-         
+ 
+        for(let x=0; x<marcas.length;x++){           
 
-            
-        for(let x=0; x<marcas.length;x++){
-
-            
-
-       
             if(document.getElementById('containerImgs'+idContainerImgs).childElementCount<6){
                 
 
@@ -318,15 +289,8 @@ export default function PanelCompra (){
                 }
 
 
-                document.getElementById(marcas[x].nombre).addEventListener("click", function(){
-                    console.log('esta es la funcion Listener ' + marcas[x].nombre);
-                    console.log(listProd);
+                document.getElementById(marcas[x].nombre).onclick=listener;
                 
-                }) 
-            
-
-
-
             }else{
                 idContainerImgs++;
                 carouselItem++;
@@ -346,7 +310,7 @@ export default function PanelCompra (){
                 }
 
                 if(document.getElementById('containerImg'+x)===null){
-                    let containerImg = document.createElement('div');
+                    let containerImg = document.createElement('div'); 
                     containerImg.setAttribute("class","containerImg");
                     containerImg.setAttribute("id","containerImg"+x); 
                     document.getElementById("containerImgs"+idContainerImgs).appendChild(containerImg);
@@ -360,319 +324,13 @@ export default function PanelCompra (){
                 document.getElementById("containerImg"+x).appendChild(imagenMarca);
                 }
 
-                document.getElementById(marcas[x].nombre).addEventListener("click", function(){
-                    console.log('esta es la funcion Listener ' + marcas[x].nombre);
-                    console.log(listProd);
-                
-                }) 
+                // document.getElementById(marcas[x].nombre).addEventListener("click", listener);
+                document.getElementById(marcas[x].nombre).onclick=listener;
             }
         }
 
     }
 
-
-
-    //         console.log(document.getElementById('containerImgs'+x).childElementCount)
-
-    //         if(document.getElementById('containerImgs'+x).childElementCount===6){
-
-                
-    //             if(document.getElementById('containerImg'+x)===null){
-    //                 let containerImg = document.createElement('div');
-    //                 containerImg.setAttribute("class","containerImg");
-    //                 containerImg.setAttribute("id","containerImg"+x); 
-    //                 document.getElementById("containerImgs"+x).appendChild(containerImg);
-    //             }
-
-    //             let imagenMarca = document.createElement('img');
-    //             imagenMarca.setAttribute("src",marcas[x].imagen);
-    //             imagenMarca.setAttribute("alt","img marca");
-    //             imagenMarca.setAttribute("class","imgMarcas");
-    //             imagenMarca.setAttribute("id",marcas[x].nombre);
-    //             document.getElementById("containerImg"+x).appendChild(imagenMarca);               
-                
-                
-
-    //         }else{
-
-
-    //             if(document.getElementById("carouselItem"+x)===null){                             
-    //                 let divCarousel = document.createElement('div');  
-    //                 divCarousel.setAttribute("class","carousel-item");
-    //                 divCarousel.setAttribute("id","carouselItem"+x);
-    //             }
-
-
-    //             if(document.getElementById('containerImgs'+x)===null){
-    //                 let containerImgs = document.createElement('div');
-    //                 containerImgs.setAttribute("class","containerImgs");
-    //                 containerImgs.setAttribute("id","containerImgs"+ x);
-    //             }
-
-
-    //             if(document.getElementById('containerImg'+x)===null){
-    //                 let containerImg = document.createElement('div');
-    //                 containerImg.setAttribute("class","containerImg");
-    //                 containerImg.setAttribute("id","containerImg"+x); 
-    //             }
-
-    //             let imagenMarca = document.createElement('img');
-    //             imagenMarca.setAttribute("src",marcas[x].imagen);
-    //             imagenMarca.setAttribute("alt","img marca");
-    //             imagenMarca.setAttribute("class","imgMarcas");
-    //             imagenMarca.setAttribute("id",marcas[x].nombre);
-
-    //             document.getElementById("carouselInner").appendChild(document.getElementById("carouselItem"+x));
-    //             document.getElementById("carouselItem"+x).appendChild(document.getElementById("containerImgs"+ x));
-    //             document.getElementById("containerImgs"+ x).appendChild(document.getElementById("containerImg"+x));
-    //             document.getElementById("containerImg"+ x).appendChild(document.getElementById(marcas[x].nombre)); 
-                
-      
-    //         }
-    //     }
-    // }
-                             
-
-
-
-
-
-        
-
-
-
-
-
-
-    //         let imagenMarca = document.createElement('img');
-    //         imagenMarca.setAttribute("src",marcas[x].imagen);
-    //         imagenMarca.setAttribute("alt","img marca");
-    //         imagenMarca.setAttribute("class","imgMarcas");
-    //         imagenMarca.setAttribute("id",marcas[x].nombre);
-
-
-                
-    //         if(document.getElementById('containerImg'+x)===null){
-    //             let containerImg = document.createElement('div');
-    //             containerImg.setAttribute("class","containerImg");
-    //             containerImg.setAttribute("id","containerImg"+x);      
-
-
-    //             document.getElementById("containerImg"+x).appendChild(imagenMarca);
-
-
-    //             if(document.getElementById('containerImgs'+x).childElementCount<6){
-    //                 document.getElementById('containerImgs'+x).appendChild(containerImg);
-    //             }else{
-    //                 x++;
-    //                 if(document.getElementById('containerImgs'+x)===null){
-    //                     let containerImgs = document.createElement('div');
-    //                     containerImgs.setAttribute("class","containerImgs");
-    //                     containerImgs.setAttribute("id","containerImgs"+ x);
-
-    //                     if(document.getElementById("carouselItem"+x)===null){                             
-    //                         let divCarousel = document.createElement('div');  
-    //                         divCarousel.setAttribute("class","carousel-item");
-    //                         divCarousel.setAttribute("id","carouselItem"+x);
-    //                     }
-    //                     document.getElementById("carouselItem"+x).appendChild(containerImgs);
-        
-    //                 } 
-    //             }
-    //         }
-
-    //     }
-    // }
-            
-            // else{ 
-
-            //     idContainerImgs++;
-            //     let containerImg = document.getElementById("containerImg"+ idContainerImg);
-            //     if(document.getElementById('containerImgs'+idContainerImgs)===null){   
-                    
-            //         console.log(idContainerImgs)             
-            //         let containerImgs = document.createElement('div');  
-            //         containerImgs.setAttribute("class","containerImgs");
-            //         containerImgs.setAttribute("id","containerImgs"+ idContainerImgs);
-            //         document.getElementById("carouselItem"+carouselItem).appendChild(containerImgs); 
-            //         document.getElementById('containerImgs'+idContainerImgs).appendChild(containerImg);
-                    
-            //     }
-              
-
-            //  }
-            
-            
-
-            // idContainerImg++;//me da que no es null xq no estoy actualizando la variable antes del condicional??
-            
-
-
-   
-            // let containerImg = document.createElement('div');
-            // containerImg.setAttribute("class","containerImg");
-            // containerImg.setAttribute("id","containerImg"+ idContainerImg);
-    
-
-            // let imagenMarca = document.createElement('img');
-            // imagenMarca.setAttribute("src",marcas[x].imagen);
-            // imagenMarca.setAttribute("alt","img marca");
-            // imagenMarca.setAttribute("class","imgMarcas");
-            // imagenMarca.setAttribute("id",marcas[x].nombre);
-            
-         
-
-    //         if(document.getElementById('containerImgs'+idContainerImgs).childElementCount<6){
-    //             document.getElementById('containerImgs'+idContainerImgs).appendChild(containerImg);            
-    //         } 
-    //         else{
-                
-    //             idContainerImgs++;
-    //             if(document.getElementById('containerImgs'+idContainerImgs)===null){
-    //                 let containerImgs = document.createElement('div');  
-    //                 containerImgs.setAttribute("class","containerImgs");
-    //                 containerImgs.setAttribute("id","containerImgs"+ idContainerImgs);
-    //                 document.getElementById("carouselItem"+carouselItem).appendChild(containerImgs); 
-    //                 document.getElementById('containerImgs'+idContainerImgs).appendChild(containerImg);
-
-    //             }
-    //         } 
-
-
-    //         idContainerImg++;
-
-    //     }
-    // }
-
-
-
-            // else{
-            //     idContainerImgs++;
-            //     let containerImgs = document.createElement('div');  
-            //     containerImgs.setAttribute("class","containerImgs");
-            //     containerImgs.setAttribute("id","containerImgs"+ idContainerImgs);
-            //     document.getElementById("carouselItem"+carouselItem).appendChild(containerImgs); 
-            //     document.getElementById('containerImgs'+idContainerImgs).appendChild(containerImg);
-            //     } 
-            
-            
-            
-
-
-   
-
-
-
-
-
-        
-
-
-            
-
-    //         if(document.getElementById("containerImg"+idContainerImg)===null){
-
-    //             console.log(listProd);
-
-    //             let containerImg = document.createElement('div');
-    //             containerImg.setAttribute("class","containerImg");
-    //             containerImg.setAttribute("id","containerImg"+ idContainerImg);
-    //             document.getElementById('containerImgs'+idContainerImgs).appendChild(containerImg);  
-                
-    //             let imagenMarca = document.createElement('img');
-    //             imagenMarca.setAttribute("src",marcas[x].imagen);
-    //             imagenMarca.setAttribute("alt","img marca");
-    //             imagenMarca.setAttribute("class","imgMarcas");
-    //             imagenMarca.setAttribute("id",marcas[x].nombre);  
-    //             // imagenMarca.setAttribute("onclick",opcCompra2());         
-    //             document.getElementById("containerImg"+ idContainerImg).appendChild(imagenMarca);  
-    //             // document.getElementById(marcas[x].nombre).addEventListener("click", function(){opcCompra2(marcas[x].nombre)})
-    //             document.getElementById(marcas[x].nombre).addEventListener("click", function(){
-    //                 console.log('esta es la funcion Listener ' + marcas[x].nombre);
-                
-    //             }) 
-    //         }
-    //         idContainerImg++;                
-    //     }
-       
-
-
-
-
-                
-    //         if(document.getElementById('containerImgs'+idContainerImgs).childElementCount<6){
-
-                
-    //             // if(document.getElementById("containerImg"+idContainerImg)===null){
-
-    //                 console.log(listProd);
-
-    //                 let containerImg = document.createElement('div');
-    //                 containerImg.setAttribute("class","containerImg");
-    //                 containerImg.setAttribute("id","containerImg"+ idContainerImg);
-    //                 document.getElementById('containerImgs'+idContainerImgs).appendChild(containerImg);  
-                    
-    //                 let imagenMarca = document.createElement('img');
-    //                 imagenMarca.setAttribute("src",marcas[x].imagen);
-    //                 imagenMarca.setAttribute("alt","img marca");
-    //                 imagenMarca.setAttribute("class","imgMarcas");
-    //                 imagenMarca.setAttribute("id",marcas[x].nombre);  
-    //                 // imagenMarca.setAttribute("onclick",opcCompra2());         
-    //                 document.getElementById("containerImg"+ idContainerImg).appendChild(imagenMarca);  
-    //                 // document.getElementById(marcas[x].nombre).addEventListener("click", function(){opcCompra2(marcas[x].nombre)})
-    //                 document.getElementById(marcas[x].nombre).addEventListener("click", function(){
-    //                     // console.log('esta es la funcion Listener ' + marcas[x].nombre);
-    //                     opcCompra2();
-                       
-    //                 })  
-                                    
-                    
-    //                 idContainerImg++;
-    //             // }
-    //         }else{
-    //             carouselItem++;
-    //             idContainerImgs++;                       
-
-    //             if(document.getElementById("carouselItem"+carouselItem)===null){                        
-    //                 let divCarousel = document.createElement('div');  
-    //                 divCarousel.setAttribute("class","carousel-item");
-    //                 divCarousel.setAttribute("id","carouselItem"+carouselItem);
-    //                 document.getElementById('carouselInner').appendChild(divCarousel); 
-    //             }
-
-    //             if(document.getElementById("containerImgs"+idContainerImgs)===null){                        
-    //                 let containerImgs = document.createElement('div');  
-    //                 containerImgs.setAttribute("class","containerImgs");
-    //                 containerImgs.setAttribute("id","containerImgs"+ idContainerImgs);
-    //                 document.getElementById("carouselItem"+carouselItem).appendChild(containerImgs); 
-    //             }
-
-    //             if(document.getElementById("containerImg"+idContainerImg)===null){
-    //                 let containerImg = document.createElement('div');
-    //                 containerImg.setAttribute("class","containerImg");
-    //                 containerImg.setAttribute("id","containerImg"+ idContainerImg);
-    //                 document.getElementById('containerImgs'+idContainerImgs).appendChild(containerImg);  
-                    
-    //                 let imagenMarca = document.createElement('img');
-    //                 imagenMarca.setAttribute("src",marcas[x].imagen);
-    //                 imagenMarca.setAttribute("alt","img marca");
-    //                 imagenMarca.setAttribute("class","imgMarcas");
-    //                 imagenMarca.setAttribute("id",marcas[x].nombre);  
-    //                 document.getElementById("containerImg"+ idContainerImg).appendChild(imagenMarca);  
-              
-
-
-                    
-                    
-    //                 idContainerImg++;
-    //             }
-                
-                
-    //         }
-    //         }
-      
-    
-    
 
     
 
@@ -680,10 +338,7 @@ export default function PanelCompra (){
     distrMarcas();
 
 
-
-
-
-
+    
     return(
         <Fragment>
 
@@ -740,7 +395,9 @@ export default function PanelCompra (){
                     <div class='divCat'><button class='btnCat' id='Snacks' onClick={opcCompra}><h5>Snacks</h5></button></div>
                 </section> 
             </section>
-            <section class='secTitlesList'>
+
+            {filterProd.length>0?
+                <section class='secTitlesList' id='secTitleList'>
                     <table class='titlesList'>
                         <td class='tdTitlesList' id='tdTitlesList1'>Código</td>
                         <td class='tdTitlesList' id='tdTitlesList2'>Descripción</td>
@@ -749,6 +406,7 @@ export default function PanelCompra (){
                         <td class='tdTitlesList' id='tdTitlesList5'>Precio</td>
                     </table>
             </section>        
+            :''}
             <section class='secList' id='secList'> 
                 {filterProd.map((listado)=>{
                     return <CardListas key={listado.id} info={listado} sumArrCarrito={sumArrCarrito} restarCarrito={restarCarrito} sumarPrecio={sumarPrecio} restarPrecio={restarPrecio}/>
@@ -774,3 +432,4 @@ export default function PanelCompra (){
         </Fragment>
     )
 }
+

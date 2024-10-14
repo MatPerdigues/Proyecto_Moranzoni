@@ -367,6 +367,7 @@
     margin: auto;
     margin-bottom: 20px;
     margin-top: -120px;
+    
 }
 
 
@@ -454,6 +455,10 @@
     display: flex;
     justify-content: center;
     /* margin-top: 50px; */
+}
+
+.imgMarcas:hover{
+    cursor: pointer;
 }
 
 
