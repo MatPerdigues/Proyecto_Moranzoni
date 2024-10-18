@@ -666,8 +666,22 @@ export default function PanelAdmin(){
                         </section>
                         <select required class='inputProd'>
                             <option selected value=''></option>
-                            <option value='Galletitas'>Galletitas</option>
+                            <option value='Galletitas'>Alfajores</option>
                             <option value='Barritas'>Barritas</option>
+                            <option value='Batidos'>Batidos</option>
+                            <option value='Bebidas'>Bebidas</option>
+                            <option value='Cereales'>Cereales</option>
+                            <option value='Chocolates'>Chocolates</option>
+                            <option value='Especias'>Especias</option>
+                            <option value='Galletas de arroz'>Galletas de arroz</option>
+                            <option value='Galletitas'>Galletitas</option>
+                            <option value='Golosinas'>Golosinas</option>
+                            <option value='Granolas'>Granolas</option>
+                            <option value='Pastas'>Pastas</option>
+                            <option value='Pastelería'>Pastelería</option>
+                            <option value='Potres'>Postres</option>
+                            <option value='Premezclas'>Premezclas</option>
+                            <option value='Rebozadores'>Rebozadores</option>
                             <option value='Snacks'>Snacks</option>
                         </select>                        
                     </section>
@@ -742,9 +756,23 @@ export default function PanelAdmin(){
                                 <div class='divisorProd' id='divisorProd2'></div>
                             </section>
                             <select class='inputProd'>
-                            <option value='' selected disabled id='phMarca'>{phCat}</option>
-                                <option value='Galletitas'>Galletitas</option>
+                                <option value='' selected disabled id='phMarca'>{phCat}</option>
+                                <option value='Galletitas'>Alfajores</option>
                                 <option value='Barritas'>Barritas</option>
+                                <option value='Batidos'>Batidos</option>
+                                <option value='Bebidas'>Bebidas</option>
+                                <option value='Cereales'>Cereales</option>
+                                <option value='Chocolates'>Chocolates</option>
+                                <option value='Especias'>Especias</option>
+                                <option value='Galletas de arroz'>Galletas de arroz</option>
+                                <option value='Galletitas'>Galletitas</option>
+                                <option value='Golosinas'>Golosinas</option>
+                                <option value='Granolas'>Granolas</option>
+                                <option value='Pastas'>Pastas</option>
+                                <option value='Pastelería'>Pastelería</option>
+                                <option value='Potres'>Postres</option>
+                                <option value='Premezclas'>Premezclas</option>
+                                <option value='Rebozadores'>Rebozadores</option>
                                 <option value='Snacks'>Snacks</option>
                             </select>                        
                         </section>

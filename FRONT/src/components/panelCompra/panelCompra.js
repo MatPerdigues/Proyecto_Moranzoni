@@ -19,6 +19,7 @@ export default function PanelCompra (){
     const [total,setTotal]=useState(0);
     const[marcas,setMarcas]=useState([]);
     const[filterProd,setFilterProd]=useState([]);
+
  
 
 
@@ -126,13 +127,13 @@ export default function PanelCompra (){
 
 
     const listener = (event)=>{        
-        console.log(event.target.id);
+
         let opcCompra1 = event.currentTarget.id;
         setFilterProd(listProd.filter((prod)=>prod.marca===opcCompra1));
         document.getElementById('secList').style.display='block';
     }
 
-    console.log(filterProd.length);
+
 
 
 
@@ -168,11 +169,84 @@ export default function PanelCompra (){
             setTotal(total - precioFinal);            
         }
     }
+
+
     
 
 
-    const sumArrCarrito=(id)=>{  
+
+
+
+    const confirmarProducto = (id,descripcion,marca,categoria,precio,cantidad)=>{
+
+        if(document.getElementById('tableList'+id)){
+            document.getElementById('tableList'+id).style.display='flex';
+        }
+
+
+        cantidad++;
         
+        const parent1 = document.getElementById("secTabConf");
+        const child1 = document.getElementById("tdConf1"+id);
+
+        if(parent1.contains(child1)===false){
+            let tableProducto = document.createElement('table');
+            tableProducto.setAttribute('class','tableList');
+            tableProducto.setAttribute('id','tableList'+id);
+            document.getElementById('secTabConf').appendChild(tableProducto);
+
+            let tdCodigo = document.createElement('td');
+            tdCodigo.setAttribute('class','tdConf1');
+            tdCodigo.setAttribute('id','tdConf1'+id);
+            tdCodigo.innerHTML=id
+            document.getElementById('tableList'+id).appendChild(tdCodigo);
+      
+
+            let tdDescr = document.createElement('td');
+            tdDescr.setAttribute('class','tdConf2');    
+            tdDescr.setAttribute('id','tdConf2'+id);          
+            document.getElementById('tableList'+id).appendChild(tdDescr);
+
+
+            let tdMarca = document.createElement('td');
+            tdMarca.setAttribute('class','tdConf3');    
+            tdMarca.setAttribute('id','tdConf3'+id);          
+            document.getElementById('tableList'+id).appendChild(tdMarca);
+
+            let tdCategoria = document.createElement('td');
+            tdCategoria.setAttribute('class','tdConf4');    
+            tdCategoria.setAttribute('id','tdConf4'+id);          
+            document.getElementById('tableList'+id).appendChild(tdCategoria);
+
+            let tdPrecio = document.createElement('td');
+            tdPrecio.setAttribute('class','tdConf5');    
+            tdPrecio.setAttribute('id','tdConf5'+id);          
+            document.getElementById('tableList'+id).appendChild(tdPrecio);
+
+            let tdCantidad = document.createElement('td');
+            tdCantidad.setAttribute('class','tdConf6');    
+            tdCantidad.setAttribute('id','tdConf6'+id);          
+            document.getElementById('tableList'+id).appendChild(tdCantidad);
+            
+       
+        }
+
+        document.getElementById('tdConf2'+id).innerHTML=descripcion;
+        document.getElementById('tdConf3'+id).innerHTML=marca;
+        document.getElementById('tdConf4'+id).innerHTML=categoria;
+        document.getElementById('tdConf5'+id).innerHTML=precio;
+        document.getElementById('tdConf6'+id).innerHTML=cantidad;
+
+        
+                
+
+
+    }
+    
+
+
+    const sumArrCarrito=(id)=>{    
+    
 
         sumarPrecio();               
         document.getElementById('carrito').style.width='10%';
@@ -187,6 +261,8 @@ export default function PanelCompra (){
             infoCarrito.setAttribute("id","info"+id);
             infoCarrito.setAttribute("class","infoCarrito");           
             document.getElementById("prodCarrito").appendChild(infoCarrito);
+      
+
 
             let descCarrito = document.createElement('div');
             descCarrito.setAttribute("id","prod"+id);           
@@ -250,6 +326,24 @@ export default function PanelCompra (){
         if(cantidad===1){           
             document.getElementById("info"+id).style.display='none';
         }        
+    }
+
+
+
+    const anularProducto=(id)=>{
+        let cantidad = 0;
+
+        if(document.getElementById('tdConf6'+id)!==null){
+            cantidad = parseInt(document.getElementById('tdConf6'+id).innerHTML);
+        }        
+        if(cantidad>0){
+            document.getElementById('tdConf6'+id).innerHTML=cantidad-1;
+        }
+        if(cantidad===1){           
+            document.getElementById('tableList'+id).style.display='none';
+            // document.getElementById('tableList'+id).remove();
+        } 
+
     }
 
 
@@ -331,11 +425,21 @@ export default function PanelCompra (){
 
     }
 
-
-    
+        
 
     
     distrMarcas();
+
+
+    const popCompra = ()=>{
+        document.getElementById('containerOpc').style.display='none';
+        if( document.getElementById('secTitleList')!==null){
+            document.getElementById('secTitleList').style.display='none';
+        }
+        document.getElementById('secList').style.display='none';
+        document.getElementById('carrito').style.display='none';
+        document.getElementById('popCompra').style.display='block';
+    }
 
 
     
@@ -399,19 +503,33 @@ export default function PanelCompra (){
             {filterProd.length>0?
                 <section class='secTitlesList' id='secTitleList'>
                     <table class='titlesList'>
+                        <td class='tdTitlesList' id='tdTituloList1'>Código</td>
+                        <td class='tdTitlesList' id='tdTituloList2'>Descripción</td>
+                        <td class='tdTitlesList' id='tdTituloList3'>Marca</td>
+                        <td class='tdTitlesList' id='tdTituloList4'>Categoría</td>
+                        <td class='tdTitlesList' id='tdTituloList5'>Precio</td>
+                    </table>
+                </section>        
+            :''}
+            <section class='secList' id='secList'> 
+                {filterProd.map((listado)=>{
+                    return <CardListas key={listado.id} info={listado} sumArrCarrito={sumArrCarrito} restarCarrito={restarCarrito} sumarPrecio={sumarPrecio} restarPrecio={restarPrecio} confirmarProducto={confirmarProducto} anularProducto={anularProducto}/>
+                })}     
+            </section>
+            <section class='popCompra' id='popCompra'>
+                <section class='secTabConf' id='secTabConf'>
+                    <table class='titlesList' id='titleList'>
                         <td class='tdTitlesList' id='tdTitlesList1'>Código</td>
                         <td class='tdTitlesList' id='tdTitlesList2'>Descripción</td>
                         <td class='tdTitlesList' id='tdTitlesList3'>Marca</td>
                         <td class='tdTitlesList' id='tdTitlesList4'>Categoría</td>
                         <td class='tdTitlesList' id='tdTitlesList5'>Precio</td>
-                    </table>
-            </section>        
-            :''}
-            <section class='secList' id='secList'> 
-                {filterProd.map((listado)=>{
-                    return <CardListas key={listado.id} info={listado} sumArrCarrito={sumArrCarrito} restarCarrito={restarCarrito} sumarPrecio={sumarPrecio} restarPrecio={restarPrecio}/>
-                })}     
+                        <td class='tdTitlesList' id='tdTitlesList6'>Cantidad</td>
+                    </table>         
+                </section>
+                <h6 class='h6Carrito' id='totalConf'>TOTAL: ${total.toFixed(2)}</h6>        
             </section>
+            
             <section class='carrito' id='carrito'>
                 <div class='closeCarrito'><IoCloseSharp class='iconClose' id='iconClose' onClick={cerrarCarrito}/></div>
                 <div class='divCarrito' id='divCarrito'><FontAwesomeIcon icon={faCartShopping} id='iconCarrito'/></div>
@@ -425,7 +543,7 @@ export default function PanelCompra (){
                     <h6 class='h6Carrito'>TOTAL: ${total.toFixed(2)}</h6>
                 </section> 
                 <section class='checkCarrito' id='checkCarrito'>
-                    <GiCheckMark class='checkIcon'/>
+                    <GiCheckMark class='checkIcon' onClick={popCompra}/>
                 </section>
 
             </section>

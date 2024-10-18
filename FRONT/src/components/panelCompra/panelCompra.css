@@ -16,7 +16,8 @@
     border-radius: 20px 0 0 20px;
     background-color: rgb(255, 213, 79, 0.5);     
     animation: dispCarrito 1s ease; 
-    animation-direction: normal;    
+    animation-direction: normal;  
+    overflow: hidden;  
 }
 
 
@@ -50,13 +51,17 @@
 } 
 
 
-.prodCarrito{    
-  
-    height: 80%;
+.prodCarrito{        
+    height: 65%;
     margin-top: 20px;
     position: relative; 
+    overflow-y: scroll;
+    overflow-x: hidden;
     animation: prodCarrito 2s ease;
-    animation-fill-mode: forwards;   
+    animation-fill-mode: forwards; 
+    padding-right: 25px;  
+    padding-left: 12px;  
+    box-sizing: content-box;
 }
 
 @keyframes prodCarrito{
@@ -97,9 +102,10 @@
 .totalCarrito{
     border-top: 2px solid grey;
     position: relative;
-    bottom: 120px;    
+    /* bottom: 120px;     */
     max-height: 40px;
     margin-left: 2px;
+    margin-top: 20px;
     text-align: center;
     animation: totalCarrito 2.5s ease;
     animation-fill-mode: forwards;
@@ -125,7 +131,8 @@
     font-size: 30px;
     color: orangered;
     position: relative;
-    bottom: 90px;
+    margin-top: 30px;
+    /* bottom: 90px; */
     animation: checkCarrito 3s ease;
     animation-fill-mode: forwards;
 }
@@ -377,25 +384,28 @@
     font-weight: bold;
 }
 
-#tdTitlesList1{    
+#tdTituloList1{    
     width: 8%;   
 }
 
-#tdTitlesList2{
+#tdTituloList2{
     width: 40%;    
 }
 
-#tdTitlesList3{
+#tdTituloList3{
     width: 21%;    
 }
 
-#tdTitlesList4{
+#tdTituloList4{
     width: 21%;   
 }
 
-#tdTitlesList5{
+#tdTituloList5{
     width: 21%;    
 }
+
+
+
 
 
 .secPagination{
@@ -461,8 +471,95 @@
     cursor: pointer;
 }
 
+.popCompra{
+    width: 80%;
+    height: auto;
+    
+    display: none;
+    margin: auto;
+    margin-bottom: 100px;
+}
+
+
+#titleList{
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
 
 
 
+.tableList{
+    margin: auto;       
+}
 
+
+.tdConf1{
+    border-bottom: 1px solid orange;
+    text-align: center;
+    width: 10%;
+    
+}
+
+.tdConf2{
+    border-bottom: 1px solid orange;
+    text-align: center;
+    width: 40%;
+   
+}
+
+.tdConf3{
+    border-bottom: 1px solid orange;
+    text-align: center;
+    width: 15%;
+  
+}
+
+.tdConf4{
+    border-bottom: 1px solid orange;
+    text-align: center;
+    width: 15%;
+    
+}
+
+.tdConf5{
+    border-bottom: 1px solid orange;
+    text-align: center;
+    width: 10%;
+    
+}
+
+.tdConf6{
+    border-bottom: 1px solid orange;
+    text-align: center;
+    width: 10%;
+   
+}
+
+
+#tdTitlesList1, #tdTitlesList5, #tdTitlesList6{
+    width: 10%;
+}
+
+#tdTitlesList2{
+    width: 40%;
+}
+
+#tdTitlesList3, #tdTitlesList4{
+    width: 15%;
+}
+
+#totalConf{
+    width: 10%;
+    height: 50px;
+    margin: auto;
+    border: 1px solid rgb(255, 165, 0);
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+    margin-bottom: 100px;
+    align-items: center;
+    border-radius: 10px;
+    background-color: rgb(255, 165, 0, 0.1);
+}
 
