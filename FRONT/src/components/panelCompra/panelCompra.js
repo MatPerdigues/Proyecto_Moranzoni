@@ -8,6 +8,8 @@ import { GiCheckMark } from "react-icons/gi";
 import { IoCloseSharp } from "react-icons/io5";
 import { GrNext } from "react-icons/gr";
 import { GrPrevious } from "react-icons/gr";
+import { FaCheck } from "react-icons/fa";
+import { FaX } from "react-icons/fa6";
 
 const API = process.env.REACT_APP_API_URL;
 
@@ -431,6 +433,14 @@ export default function PanelCompra (){
     distrMarcas();
 
 
+    const secEnvios = ()=>{
+        document.getElementById('secTabConf').style.display='none';
+        document.getElementById('totalConf').style.display='none';
+        document.getElementById('btnsConf').style.display='none'
+        document.getElementById('secEnvios').style.display='block';
+    }
+
+
     const popCompra = ()=>{
         document.getElementById('containerOpc').style.display='none';
         if( document.getElementById('secTitleList')!==null){
@@ -439,6 +449,26 @@ export default function PanelCompra (){
         document.getElementById('secList').style.display='none';
         document.getElementById('carrito').style.display='none';
         document.getElementById('popCompra').style.display='block';
+    }
+
+
+    const progress1 = ()=>{
+        document.getElementById('intBorder1').style.width='100%';
+        document.getElementById('intBorder1').style.opacity='1';
+        document.getElementById('intBorder1').style.transition='all 2s';
+        document.getElementById('extCircle2').style.backgroundColor='orange';
+        document.getElementById('extCircle2').style.transitionDelay='2s';
+        document.getElementById('descProgreso2').style.opacity='1';
+        document.getElementById('descProgreso2').style.transitionDelay='2s';
+        document.getElementById('secTabConf').style.visibility='hidden';
+        document.getElementById('totalConf').style.visibility='hidden';
+        document.getElementById('btnsConf').style.visibility='hidden';
+        setTimeout(secEnvios,2100);
+        // document.getElementById('secEnvios').style.display='block';
+        // document.getElementById('secEnvios').style.width='80%';
+        // document.getElementById('secEnvios').style.transitionDelay='2.2s';
+
+        
     }
 
 
@@ -517,6 +547,28 @@ export default function PanelCompra (){
                 })}     
             </section>
             <section class='popCompra' id='popCompra'>
+                <section class='progreso'>
+                    <div class='extCircle' id='extCircle1'>
+                        <div class='intCircle'></div>
+                    </div>
+                    <div class='extBorder' id='extBorder1'>
+                        <div class='intBorder' id='intBorder1'></div>
+                    </div>
+                    <div class='extCircle' id='extCircle2'>
+                        <div class='intCircle'></div>
+                    </div>
+                    <div class='extBorder'>
+                        <div class='intBorder' id='intBorder2'></div>
+                    </div>
+                    <div class='extCircle' id='extCircle3'>
+                        <div class='intCircle'></div>
+                    </div>
+                </section>
+                <section class='descProgreso'>
+                    <p class='descProgreso1' >Productos</p>
+                    <p class='descProgreso1' id='descProgreso2'>Envío</p>
+                    <p class='descProgreso1' id='descProgreso3'>Confirmación</p>
+                </section>
                 <section class='secTabConf' id='secTabConf'>
                     <table class='titlesList' id='titleList'>
                         <td class='tdTitlesList' id='tdTitlesList1'>Código</td>
@@ -527,7 +579,13 @@ export default function PanelCompra (){
                         <td class='tdTitlesList' id='tdTitlesList6'>Cantidad</td>
                     </table>         
                 </section>
-                <h6 class='h6Carrito' id='totalConf'>TOTAL: ${total.toFixed(2)}</h6>        
+                <h6 class='h6Carrito' id='totalConf'>TOTAL: ${total.toFixed(2)}</h6>  
+                <section class='btnsConf' id='btnsConf'>
+                    <div class='btnConf'><FaX /></div>
+                    <div class='btnConf' id='btnConf2'><FaCheck onClick={progress1}/></div>
+                </section> 
+                <section class='secEnvios' id='secEnvios'>
+                </section>     
             </section>
             
             <section class='carrito' id='carrito'>

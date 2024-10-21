@@ -1,8 +1,8 @@
 .fondo{
   width: 80%;
-  height: 430px;
+  height: 350px;
   margin: auto;
-  margin-top: 80px;
+  margin-top: 20px;
   margin-bottom: 80px;
   
 }
@@ -10,7 +10,8 @@
 
 .imgFondo{
   width: 100%;
-  height: 430px;
+  /* height: 430px; */
+  height: 350px;
   margin: auto; 
   border-radius: 10px;
   background-repeat: no-repeat;
@@ -19,7 +20,7 @@
 .logoFondo{
   position: relative;
   left: 10%;
-  top:-550px;  
+  top:-460px;  
   width: 200px;
   height: 200px;
   background-image: url('./logo_Moranzoni3.png');
