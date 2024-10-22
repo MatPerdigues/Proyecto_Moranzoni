@@ -10,6 +10,7 @@ import { GrNext } from "react-icons/gr";
 import { GrPrevious } from "react-icons/gr";
 import { FaCheck } from "react-icons/fa";
 import { FaX } from "react-icons/fa6";
+import { FaTruckArrowRight } from "react-icons/fa6";
 
 const API = process.env.REACT_APP_API_URL;
 
@@ -21,6 +22,13 @@ export default function PanelCompra (){
     const [total,setTotal]=useState(0);
     const[marcas,setMarcas]=useState([]);
     const[filterProd,setFilterProd]=useState([]);
+    let nomEnvio = '';
+    let dirEnvio = '';
+    let telEnvio = '';
+    const[nombre,setNombre]=useState('');
+    const[direccion,setDireccion]=useState('');
+    const[telefono,setTelefono]=useState('');
+
 
  
 
@@ -433,12 +441,7 @@ export default function PanelCompra (){
     distrMarcas();
 
 
-    const secEnvios = ()=>{
-        document.getElementById('secTabConf').style.display='none';
-        document.getElementById('totalConf').style.display='none';
-        document.getElementById('btnsConf').style.display='none'
-        document.getElementById('secEnvios').style.display='block';
-    }
+
 
 
     const popCompra = ()=>{
@@ -449,6 +452,15 @@ export default function PanelCompra (){
         document.getElementById('secList').style.display='none';
         document.getElementById('carrito').style.display='none';
         document.getElementById('popCompra').style.display='block';
+    }
+
+
+
+    const secEnvios = ()=>{
+        document.getElementById('secTabConf').style.display='none';
+        document.getElementById('totalConf').style.display='none';
+        document.getElementById('btnsConf').style.display='none'
+        document.getElementById('secEnvios').style.display='block';
     }
 
 
@@ -464,11 +476,53 @@ export default function PanelCompra (){
         document.getElementById('totalConf').style.visibility='hidden';
         document.getElementById('btnsConf').style.visibility='hidden';
         setTimeout(secEnvios,2100);
-        // document.getElementById('secEnvios').style.display='block';
-        // document.getElementById('secEnvios').style.width='80%';
-        // document.getElementById('secEnvios').style.transitionDelay='2.2s';
+      
+    }
 
-        
+
+
+    const secConfirmacion = ()=>{
+        document.getElementById('secEnvios').style.display='none';
+        document.getElementById('secConfirmacion').style.display='block';
+
+
+    }
+
+
+
+    const funcEnvio = (event)=>{
+        event.preventDefault();
+        nomEnvio = event.target[0].value;
+        dirEnvio = event.target[1].value;
+        telEnvio = event.target[2].value;
+
+        setNombre(nomEnvio);
+        setDireccion(dirEnvio);
+        setTelefono(telEnvio);
+
+        document.getElementById('intBorder2').style.width='100%';
+        document.getElementById('intBorder2').style.opacity='1';
+        document.getElementById('intBorder2').style.transition='all 2s';
+        document.getElementById('extCircle3').style.backgroundColor='orange';
+        document.getElementById('extCircle3').style.transitionDelay='2s';
+        document.getElementById('descProgreso3').style.opacity='1';
+        document.getElementById('descProgreso3').style.transitionDelay='2s';
+        document.getElementById('secEnvios').style.visibility='hidden';
+        setTimeout(secConfirmacion,2100);
+
+    }
+
+
+    const iconConfirmar1 = ()=>{
+        document.getElementById('iconConfirmar').style.left='80px';
+        document.getElementById('iconConfirmar').style.transition='all 1s linear 1s';
+    }
+
+
+    const iconConfirmar = ()=>{
+        document.getElementById('iconConfirmar').style.left='-40px';
+        document.getElementById('iconConfirmar').style.transition='all 1s';
+        setTimeout(iconConfirmar1,1000);
     }
 
 
@@ -585,6 +639,77 @@ export default function PanelCompra (){
                     <div class='btnConf' id='btnConf2'><FaCheck onClick={progress1}/></div>
                 </section> 
                 <section class='secEnvios' id='secEnvios'>
+                    <form class='formProductos' id='formEditar' onSubmit={(event)=>{funcEnvio(event)}}>
+                        <section class='secFormProd' id='secFormProd1'>
+                            <div class='catProd'><h5>Nombre y apellido</h5></div>
+                            <section class='secDivisorProd'>
+                                <div class='divisorProd' id='divisorProd1'></div>
+                                <div class='divisorProd' id='divisorProd2'></div>
+                            </section>
+                            <input type='text' required name='descripcion' class='inputProd' ></input>
+                        </section>
+                        <section class='secFormProd' id='secFormProd1'>
+                            <div class='catProd'><h5>Dirección de envío</h5></div>
+                            <section class='secDivisorProd'>
+                                <div class='divisorProd' id='divisorProd1'></div>
+                                <div class='divisorProd' id='divisorProd2'></div>
+                            </section>
+                            <input type='text' name='descripcion' class='inputProd' required></input>
+                        </section>
+                        <section class='secFormProd' id='secFormProd1'>
+                            <div class='catProd'><h5>Teléfono</h5></div>
+                            <section class='secDivisorProd'>
+                                <div class='divisorProd' id='divisorProd1'></div>
+                                <div class='divisorProd' id='divisorProd2'></div>
+                            </section>
+                            <input type='number' name='descripcion' class='inputProd' required></input>
+                        </section>
+                        <section class='btnsConf' id='btnsConf'>
+                            <div class='btnConf'><FaX /></div>
+                            <button type='submit' class='btnConf' id='btnEnvio'><FaCheck/></button>
+                        </section>
+                    </form>
+                </section>
+                <section class='secConfirmacion' id='secConfirmacion'>
+
+                    <section class='secFormProd' id='secFormProd1'>
+                        <div class='catProd'><h5>Nombre y apellido</h5></div>
+                        <section class='secDivisorProd'>
+                            <div class='divisorProd' id='divisorProd1'></div>
+                            <div class='divisorProd' id='divisorProd2'></div>
+                        </section>
+                        <div class='inputProd'><p>{nombre}</p></div>
+                    </section>
+                    <section class='secFormProd' id='secFormProd1'>
+                        <div class='catProd'><h5>Dirección de envío</h5></div>
+                        <section class='secDivisorProd'>
+                            <div class='divisorProd' id='divisorProd1'></div>
+                            <div class='divisorProd' id='divisorProd2'></div>
+                        </section>
+                        <div class='inputProd'><p>{direccion}</p></div>
+                    </section>
+                    <section class='secFormProd' id='secFormProd1'>
+                        <div class='catProd'><h5>Teléfono</h5></div>
+                        <section class='secDivisorProd'>
+                            <div class='divisorProd' id='divisorProd1'></div>
+                            <div class='divisorProd' id='divisorProd2'></div>
+                        </section>
+                        <div class='inputProd'><p>{telefono}</p></div>
+                    </section>
+                    <section class='secFormProd' id='secFormProd1'>
+                        <div class='catProd'><h5>Total</h5></div>
+                        <section class='secDivisorProd'>
+                            <div class='divisorProd' id='divisorProd1'></div>
+                            <div class='divisorProd' id='divisorProd2'></div>
+                        </section>
+                        <div class='inputProd'><p>$ {total.toFixed(2)}</p></div>
+                    </section>
+                    <section class='btnsConfirmar'>
+                        <button class='btnConfirmacion' id='btnConfirmacion1'><FaTruckArrowRight id='iconConfirmar' onClick={iconConfirmar}/></button>
+                    </section>
+
+
+
                 </section>     
             </section>
             

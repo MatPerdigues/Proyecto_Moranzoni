@@ -664,7 +664,48 @@
 .secEnvios{
     width: 80%;
     height: 400px;
-    border: 1px solid blue;
+
     margin: auto;
     display: none;
+}
+
+#btnEnvio{
+    border: none;
+    background-color: white;
+}
+
+.secConfirmacion{
+    width: 30%;
+    height: 500px;
+    margin: auto;
+    display: none;
+}
+
+.btnsConfirmar{
+    width: 100%;
+    height: 60px;
+
+    display: flex;
+    justify-content: center;
+}
+
+.btnConfirmacion{
+    width: 20%;
+    height: 60px;
+    font-size: 40px;
+    border: 1px solid blue;
+    background-color: white;
+
+
+}
+
+
+.btnConfirmacion:hover{
+    color: orange;
+    transition: 0.5s;
+}
+
+#iconConfirmar{
+    position: relative;
+    left: 0px;
 }
