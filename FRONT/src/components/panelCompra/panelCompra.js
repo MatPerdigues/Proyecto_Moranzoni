@@ -11,6 +11,7 @@ import { GrPrevious } from "react-icons/gr";
 import { FaCheck } from "react-icons/fa";
 import { FaX } from "react-icons/fa6";
 import { FaTruckArrowRight } from "react-icons/fa6";
+import { IoArrowBackSharp } from "react-icons/io5";
 
 const API = process.env.REACT_APP_API_URL;
 
@@ -28,6 +29,8 @@ export default function PanelCompra (){
     const[nombre,setNombre]=useState('');
     const[direccion,setDireccion]=useState('');
     const[telefono,setTelefono]=useState('');
+    const[arrayCompra,setArrayCompra]=useState([])
+    
 
 
  
@@ -470,6 +473,7 @@ export default function PanelCompra (){
         document.getElementById('intBorder1').style.transition='all 2s';
         document.getElementById('extCircle2').style.backgroundColor='orange';
         document.getElementById('extCircle2').style.transitionDelay='2s';
+        document.getElementById('extCircle2').style.opacity='1';
         document.getElementById('descProgreso2').style.opacity='1';
         document.getElementById('descProgreso2').style.transitionDelay='2s';
         document.getElementById('secTabConf').style.visibility='hidden';
@@ -505,6 +509,7 @@ export default function PanelCompra (){
         document.getElementById('intBorder2').style.transition='all 2s';
         document.getElementById('extCircle3').style.backgroundColor='orange';
         document.getElementById('extCircle3').style.transitionDelay='2s';
+        document.getElementById('extCircle3').style.opacity='1';
         document.getElementById('descProgreso3').style.opacity='1';
         document.getElementById('descProgreso3').style.transitionDelay='2s';
         document.getElementById('secEnvios').style.visibility='hidden';
@@ -512,19 +517,144 @@ export default function PanelCompra (){
 
     }
 
+    const iconConfirmar3 = ()=>{
+
+        document.getElementById('secConfirmacion').style.display='none';
+        document.getElementById('mnsjCompra').style.display='block';
+    }
+
+
+    const iconConfirmar2 = ()=>{
+        document.getElementById('iconConfirmar').style.transform = "rotate(0deg)";
+        document.getElementById('secConfirmacion').style.visibility='hidden';
+        setTimeout(iconConfirmar3,500);
+    } 
+
 
     const iconConfirmar1 = ()=>{
-        document.getElementById('iconConfirmar').style.left='80px';
-        document.getElementById('iconConfirmar').style.transition='all 1s linear 1s';
+        document.getElementById('iconConfirmar').style.transform = "rotate(-40deg)"; 
+         setTimeout(iconConfirmar2,500);
+        document.getElementById('iconConfirmar').style.left='145px';
+        document.getElementById('iconConfirmar').style.transition='all 1s linear 0s';
     }
 
 
     const iconConfirmar = ()=>{
+        document.getElementById('iconConfirmar').style.color='orange';
         document.getElementById('iconConfirmar').style.left='-40px';
         document.getElementById('iconConfirmar').style.transition='all 1s';
         setTimeout(iconConfirmar1,1000);
+
+
+        console.log(arrayCompra);
+        console.log(nombre);
+        console.log(direccion);
+        console.log(telefono);
+
+
     }
 
+    const home = ()=>{
+        window.location.href='../';
+    }
+
+
+    const cancelProductos = ()=>{
+        document.getElementById('containerOpc').style.display='block';    
+        document.getElementById('secTitleList').style.display='block';        
+        document.getElementById('secList').style.display='block';
+        document.getElementById('carrito').style.display='block';
+        document.getElementById('popCompra').style.display='none';
+    }
+
+
+    const cancelEnvio=()=>{
+        document.getElementById('secEnvios').style.display='none';
+        document.getElementById('secTabConf').style.display='block';
+        document.getElementById('secTabConf').style.visibility='visible';
+        document.getElementById('totalConf').style.display='flex';
+        document.getElementById('totalConf').style.visibility='visible';
+        document.getElementById('btnsConf').style.display='flex'
+        document.getElementById('btnsConf').style.visibility='visible';
+
+        document.getElementById('intBorder1').style.width='0%';
+        document.getElementById('intBorder1').style.opacity='0.3'
+        document.getElementById('extCircle2').style.backgroundColor='grey';
+        document.getElementById('extCircle2').style.opacity='0.3';
+        document.getElementById('extCircle2').style.transitionDelay='0s';
+        document.getElementById('descProgreso2').style.opacity='0.3';
+        document.getElementById('descProgreso2').style.transitionDelay='0s';
+    }
+
+
+    const cancelConfirmacion=()=>{
+        document.getElementById('secConfirmacion').style.display='none';
+        document.getElementById('secEnvios').style.display='block';
+        document.getElementById('secEnvios').style.visibility='visible';
+        document.getElementById('intBorder2').style.width='0%';
+        document.getElementById('intBorder2').style.opacity='0.3';
+        document.getElementById('intBorder2').style.transition='all 2s';
+        document.getElementById('extCircle3').style.backgroundColor='grey';
+        document.getElementById('extCircle3').style.transitionDelay='0s';
+        document.getElementById('extCircle3').style.opacity='0.3';
+        document.getElementById('descProgreso3').style.opacity='0.3';
+        document.getElementById('descProgreso3').style.transitionDelay='0s';       
+    }
+
+
+
+    
+
+    const arrCompra =(id)=>{
+        let conteo = 1;
+        for(let x=0; x<arrayCompra.length; x++){
+            if(arrayCompra[x]===id){
+                conteo++;
+            }
+        }
+        arrayCompra.push(id);
+        console.log(arrayCompra);
+        setArrayCompra(arrayCompra);
+        console.log(conteo);
+    }
+
+
+
+
+    const arrResta=(id)=>{
+        let index = arrayCompra.indexOf(id);
+        arrayCompra.splice(index,1);
+        console.log(arrayCompra);
+    }
+
+
+
+
+    const sumPedido = async()=>{
+        const formPedido = JSON.stringify({
+            pedido : arrayCompra,
+            nomPedido : nombre,
+            dirPedido : direccion,
+            telPedido : telefono,                   
+        })    
+        const response = await fetch(API+"/agregarPedido",{
+            method:"POST",
+            body:formPedido,
+            headers:{
+                //"Authorization": `Bearer ${localStorage.getItem("token")}`,
+                
+                'Content-Type':'application/json'
+            }})    
+            .then((res)=>res.json())
+            .then((data)=>{dato=data})      
+            alert(dato.mensaje);
+            
+            if(dato.mensaje==="Pedido cargado correctamente"){
+                iconConfirmar();
+            }
+            
+        return(response);
+    }  
 
     
     return(
@@ -597,11 +727,11 @@ export default function PanelCompra (){
             :''}
             <section class='secList' id='secList'> 
                 {filterProd.map((listado)=>{
-                    return <CardListas key={listado.id} info={listado} sumArrCarrito={sumArrCarrito} restarCarrito={restarCarrito} sumarPrecio={sumarPrecio} restarPrecio={restarPrecio} confirmarProducto={confirmarProducto} anularProducto={anularProducto}/>
+                    return <CardListas key={listado.id} info={listado} sumArrCarrito={sumArrCarrito} restarCarrito={restarCarrito} sumarPrecio={sumarPrecio} restarPrecio={restarPrecio} confirmarProducto={confirmarProducto} anularProducto={anularProducto} arrCompra={arrCompra} arrResta={arrResta}/>
                 })}     
             </section>
             <section class='popCompra' id='popCompra'>
-                <section class='progreso'>
+                <section class='progreso' id='progreso'>
                     <div class='extCircle' id='extCircle1'>
                         <div class='intCircle'></div>
                     </div>
@@ -618,7 +748,7 @@ export default function PanelCompra (){
                         <div class='intCircle'></div>
                     </div>
                 </section>
-                <section class='descProgreso'>
+                <section class='descProgreso' id='descProgreso'>
                     <p class='descProgreso1' >Productos</p>
                     <p class='descProgreso1' id='descProgreso2'>Envío</p>
                     <p class='descProgreso1' id='descProgreso3'>Confirmación</p>
@@ -635,7 +765,7 @@ export default function PanelCompra (){
                 </section>
                 <h6 class='h6Carrito' id='totalConf'>TOTAL: ${total.toFixed(2)}</h6>  
                 <section class='btnsConf' id='btnsConf'>
-                    <div class='btnConf'><FaX /></div>
+                    <div class='btnConf'><FaX onClick={cancelProductos}/></div>
                     <div class='btnConf' id='btnConf2'><FaCheck onClick={progress1}/></div>
                 </section> 
                 <section class='secEnvios' id='secEnvios'>
@@ -665,13 +795,12 @@ export default function PanelCompra (){
                             <input type='number' name='descripcion' class='inputProd' required></input>
                         </section>
                         <section class='btnsConf' id='btnsConf'>
-                            <div class='btnConf'><FaX /></div>
+                            <div class='btnConf'><FaX onClick={cancelEnvio}/></div>
                             <button type='submit' class='btnConf' id='btnEnvio'><FaCheck/></button>
                         </section>
                     </form>
                 </section>
                 <section class='secConfirmacion' id='secConfirmacion'>
-
                     <section class='secFormProd' id='secFormProd1'>
                         <div class='catProd'><h5>Nombre y apellido</h5></div>
                         <section class='secDivisorProd'>
@@ -704,15 +833,20 @@ export default function PanelCompra (){
                         </section>
                         <div class='inputProd'><p>$ {total.toFixed(2)}</p></div>
                     </section>
-                    <section class='btnsConfirmar'>
-                        <button class='btnConfirmacion' id='btnConfirmacion1'><FaTruckArrowRight id='iconConfirmar' onClick={iconConfirmar}/></button>
+                    <section class='btnsConfirmar'>             
+                        <div class='btnConfirmacion' id='btnConfirmacion2' ><IoArrowBackSharp id='iconCancel' onClick={cancelConfirmacion}/> </div>
+                        <div class='btnConfirmacion' id='btnConfirmacion1'><FaTruckArrowRight id='iconConfirmar' onClick={sumPedido}/></div>                       
                     </section>
-
-
-
-                </section>     
-            </section>
-            
+                </section>
+                <section class='mnsjCompra' id='mnsjCompra'>
+                    <div class='contMensaje'>
+                        <h5>Muchas gracias por tu pedido! En los próximos minutos nos contactaremos para coordinar la entrega.<br/><br/>Tu número de pedido es el 23651.</h5>
+                    </div>
+                    <div class='divFinalizar'>
+                        <GiCheckMark id='iconFinalizar' onClick={home}/>
+                    </div>
+                </section>
+            </section>            
             <section class='carrito' id='carrito'>
                 <div class='closeCarrito'><IoCloseSharp class='iconClose' id='iconClose' onClick={cerrarCarrito}/></div>
                 <div class='divCarrito' id='divCarrito'><FontAwesomeIcon icon={faCartShopping} id='iconCarrito'/></div>

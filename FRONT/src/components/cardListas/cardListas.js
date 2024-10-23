@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus,faMinus} from '@fortawesome/free-solid-svg-icons';
 import { useState,useEffect } from 'react';
 
-export default function CardListas({info,sumArrCarrito,restarCarrito,sumarPrecio,restarPrecio,confirmarProducto,anularProducto}){
+export default function CardListas({info,sumArrCarrito,restarCarrito,sumarPrecio,restarPrecio,confirmarProducto,anularProducto,arrCompra,arrResta}){
 
     const[cantidad,setCantidad]=useState(0);
 
@@ -32,6 +32,7 @@ export default function CardListas({info,sumArrCarrito,restarCarrito,sumarPrecio
             setCantidad(cantidad+1);
             sumarPrecio(info.precio);
             confirmarProducto(info.id, info.descripcion, info.marca, info.categoria, info.precio, cantidad);
+            arrCompra(info.id);
         }
     }
 
@@ -42,6 +43,7 @@ export default function CardListas({info,sumArrCarrito,restarCarrito,sumarPrecio
             setCantidad(cantidad-1);
             restarPrecio(info.precio);
             anularProducto(info.id);
+            arrResta(info.id)
         }
     }
 

@@ -180,8 +180,28 @@ const eliminarMarca = async(req,res)=>{
 
  
 
+const agregarPedido = async(req,res)=>{
+    const{pedido,nomPedido,dirPedido,telPedido}=req.body;
+
+    dbConnection.query(`INSERT INTO marcas (pedido,nombre,direccion,telefono) VALUES (?,?,?,?)`,[pedido,nomPedido,dirPedido,telPedido],(error,data)=>{
+        if(error){
+            console.log(error);
+            res.send(error);
+        } else{
+            res.json({
+                mensaje:"Pedido cargado correctamente"
+            })
+        }
+
+
+
+    })
+
+
+}
 
 
 
 
-module.exports={agregarProducto,traerProductos,pausarProducto,activarProducto,eliminarProducto,editarProducto,enviarMarca,traerMarcas,eliminarMarca};
+
+module.exports={agregarProducto,traerProductos,pausarProducto,activarProducto,eliminarProducto,editarProducto,enviarMarca,traerMarcas,eliminarMarca,agregarPedido};

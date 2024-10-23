@@ -684,28 +684,64 @@
 .btnsConfirmar{
     width: 100%;
     height: 60px;
-
     display: flex;
     justify-content: center;
 }
 
 .btnConfirmacion{
-    width: 20%;
+    width: 40%;
     height: 60px;
     font-size: 40px;
-    border: 1px solid blue;
+    /* border: 1px solid blue; */
     background-color: white;
-
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    /* border: none; */
 
 }
 
 
-.btnConfirmacion:hover{
+#iconConfirmar:hover, #iconCancel:hover{
     color: orange;
     transition: 0.5s;
+    cursor: pointer;
 }
 
 #iconConfirmar{
     position: relative;
     left: 0px;
 }
+
+.mnsjCompra{
+    width: 40%;
+    height: 500px;
+    margin: auto;
+    display: none;
+}
+
+.contMensaje{
+    text-align: center;
+}
+
+.divFinalizar{
+    width: 100%;
+    height: 100px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+}
+
+#iconFinalizar{
+    color: orange;
+}
+
+#iconFinalizar:hover{
+    cursor: pointer;
+    color: orangered;
+}
+
