@@ -29,7 +29,8 @@ export default function PanelCompra (){
     const[nombre,setNombre]=useState('');
     const[direccion,setDireccion]=useState('');
     const[telefono,setTelefono]=useState('');
-    const[arrayCompra,setArrayCompra]=useState([])
+    const[arrayCompra,setArrayCompra]=useState([]); 
+    let arrayObjetos = [];
     
 
 
@@ -134,7 +135,7 @@ export default function PanelCompra (){
         let opcCompra = event.currentTarget.id;
         setFilterProd(listProd.filter((prod)=>prod.categoria===opcCompra));
         document.getElementById('secList').style.display='block';  
-        console.log(filterProd.length);
+        
     }  
 
 
@@ -602,20 +603,11 @@ export default function PanelCompra (){
     }
 
 
-
     
 
-    const arrCompra =(id)=>{
-        let conteo = 1;
-        for(let x=0; x<arrayCompra.length; x++){
-            if(arrayCompra[x]===id){
-                conteo++;
-            }
-        }
+    const arrCompra =(id,stock)=>{
         arrayCompra.push(id);
-        console.log(arrayCompra);
-        setArrayCompra(arrayCompra);
-        console.log(conteo);
+        console.log(arrayCompra);   
     }
 
 
@@ -629,32 +621,59 @@ export default function PanelCompra (){
 
 
 
+    
 
     const sumPedido = async()=>{
-        const formPedido = JSON.stringify({
-            pedido : arrayCompra,
-            nomPedido : nombre,
-            dirPedido : direccion,
-            telPedido : telefono,                   
-        })    
-        const response = await fetch(API+"/agregarPedido",{
-            method:"POST",
-            body:formPedido,
-            headers:{
-                //"Authorization": `Bearer ${localStorage.getItem("token")}`,
-                
-                'Content-Type':'application/json'
-            }})    
-            .then((res)=>res.json())
-            .then((data)=>{dato=data})      
-            alert(dato.mensaje);
+
+        for(let x=0; x<arrayCompra.length; x++){
+
+            let arrayFiltrado = arrayCompra.filter((id)=>id===arrayCompra[x]);
+
+            if(arrayObjetos.some(e => e.id === arrayCompra[x])) {
+                    
+                }else{                 
+                    const objeto = new Object();        
+                    objeto.id = arrayCompra[x];             
+                    objeto.cantidad = arrayFiltrado.length;
+                    arrayObjetos.push(objeto);
+                }                    
             
-            if(dato.mensaje==="Pedido cargado correctamente"){
-                iconConfirmar();
+            
+
+            
             }
+
+            console.log(arrayObjetos);
+
             
-        return(response);
+
+
+        // const formPedido = JSON.stringify({
+        //     pedido : arrayCompra,
+        //     nomPedido : nombre,
+        //     dirPedido : direccion,
+        //     telPedido : telefono,                   
+        // })    
+        // const response = await fetch(API+"/agregarPedido",{
+        //     method:"POST",
+        //     body:formPedido,
+        //     headers:{
+        //         //"Authorization": `Bearer ${localStorage.getItem("token")}`,
+                
+        //         'Content-Type':'application/json'
+        //     }})    
+        //     .then((res)=>res.json())
+        //     .then((data)=>{dato=data})      
+        //     alert(dato.mensaje);
+            
+        //     if(dato.mensaje==="Pedido cargado correctamente"){
+        //         iconConfirmar();
+        //     }
+            
+        // return(response);
     }  
+
+    
 
     
     return(

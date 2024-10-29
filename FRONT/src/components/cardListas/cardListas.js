@@ -32,7 +32,7 @@ export default function CardListas({info,sumArrCarrito,restarCarrito,sumarPrecio
             setCantidad(cantidad+1);
             sumarPrecio(info.precio);
             confirmarProducto(info.id, info.descripcion, info.marca, info.categoria, info.precio, cantidad);
-            arrCompra(info.id);
+            arrCompra(info.id,info.stock);
         }
     }
 
