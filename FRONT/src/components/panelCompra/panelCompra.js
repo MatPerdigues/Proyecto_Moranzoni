@@ -31,10 +31,8 @@ export default function PanelCompra (){
     const[telefono,setTelefono]=useState('');
     const[arrayCompra,setArrayCompra]=useState([]); 
     let arrayObjetos = [];
-    
-
-
- 
+    let dato='';
+     
 
 
 
@@ -366,8 +364,6 @@ export default function PanelCompra (){
    
 
 
-
-
     const distrMarcas = ()=>{ 
         
          let idContainerImgs = 0;
@@ -505,6 +501,9 @@ export default function PanelCompra (){
         setDireccion(dirEnvio);
         setTelefono(telEnvio);
 
+
+        console.log(nomEnvio);
+
         document.getElementById('intBorder2').style.width='100%';
         document.getElementById('intBorder2').style.opacity='1';
         document.getElementById('intBorder2').style.transition='all 2s';
@@ -625,52 +624,63 @@ export default function PanelCompra (){
 
     const sumPedido = async()=>{
 
+
+        
+
+        let stockProd = 0;
         for(let x=0; x<arrayCompra.length; x++){
-
             let arrayFiltrado = arrayCompra.filter((id)=>id===arrayCompra[x]);
-
-            if(arrayObjetos.some(e => e.id === arrayCompra[x])) {
-                    
-                }else{                 
+            if(arrayObjetos.some(e => e.id === arrayCompra[x])) {                    
+                }else{
+                    for(let y=0; y<listProd.length; y++){
+                        if(arrayCompra[x]===listProd[y].id){
+                            stockProd = listProd[y].stock
+                        }
+                    }                 
                     const objeto = new Object();        
                     objeto.id = arrayCompra[x];             
                     objeto.cantidad = arrayFiltrado.length;
+                    objeto.stock = stockProd-arrayFiltrado.length;
                     arrayObjetos.push(objeto);
-                }                    
-            
-            
-
-            
+                }           
             }
 
-            console.log(arrayObjetos);
+        const pedidoJSON = JSON.stringify(arrayObjetos);
 
-            
+        console.log(arrayObjetos);
+        
+
+        const formPedido = JSON.stringify({
+            pedido:pedidoJSON,
+            nombre:nombre,
+            direccion:direccion,
+            telefono:telefono,
+            total:total.toFixed(2)                   
+        })    
 
 
-        // const formPedido = JSON.stringify({
-        //     pedido : arrayCompra,
-        //     nomPedido : nombre,
-        //     dirPedido : direccion,
-        //     telPedido : telefono,                   
-        // })    
-        // const response = await fetch(API+"/agregarPedido",{
-        //     method:"POST",
-        //     body:formPedido,
-        //     headers:{
-        //         //"Authorization": `Bearer ${localStorage.getItem("token")}`,
+        console.log(arrayObjetos.toString());
+
+
+        const response = await fetch(API+"/agregarPedido",{
+            method:"POST",
+            body:formPedido,
+            headers:{
+                //"Authorization": `Bearer ${localStorage.getItem("token")}`,
                 
-        //         'Content-Type':'application/json'
-        //     }})    
-        //     .then((res)=>res.json())
-        //     .then((data)=>{dato=data})      
-        //     alert(dato.mensaje);
+                'Content-Type':'application/json'
+            }})    
+            .then((res)=>res.json())
+            .then((data)=>{dato=data})      
             
-        //     if(dato.mensaje==="Pedido cargado correctamente"){
-        //         iconConfirmar();
-        //     }
             
-        // return(response);
+            if(dato.mensaje==="Pedido cargado correctamente"){
+                iconConfirmar();
+            }else{
+                alert(dato.mensaje);
+            }
+            
+        return(response);
     }  
 
     
