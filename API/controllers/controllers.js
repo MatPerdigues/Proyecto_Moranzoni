@@ -181,9 +181,9 @@ const eliminarMarca = async(req,res)=>{
  
 
 const agregarPedido = async(req,res)=>{
-    const{pedido,nombre,direccion,telefono,total}=req.body;
+    const{pedido,nombre,direccion,localidad,telefono,total,fecha}=req.body;
 
-    dbConnection.query(`INSERT INTO pedidos (pedido,nombre,direccion,telefono,total) VALUES (?,?,?,?,?)`,[pedido,nombre,direccion,telefono,total],(error,data)=>{
+    dbConnection.query(`INSERT INTO pedidos (pedido,nombre,direccion,localidad,telefono,total,fecha) VALUES (?,?,?,?,?,?,?)`,[pedido,nombre,direccion,localidad,telefono,total,fecha],(error,data)=>{
         if(error){
             console.log(error);
             res.json({
@@ -212,14 +212,28 @@ const agregarPedido = async(req,res)=>{
                     });
 
                 }else{
-                    res.json({
-                        mensaje:"Pedido cargado correctamente"
-                    })
+                    // res.json({
+                    //     mensaje:"Pedido cargado correctamente"
+                    // })
+                    dbConnection.query("SELECT * FROM pedidos WHERE id = LAST_INSERT_ID()",(error,data)=>{
+                        if(error){
+                            console.log(error);
+                            res.json({
+                                mensaje:"Se ha producido un error. Si el error persiste contactese con la empresa"
+                            });
+                        }else{                       
+                            res.send(data);
+
+                        }
+                    });
                 }
             })
         }
     })
 }
+
+
+
 
 
 

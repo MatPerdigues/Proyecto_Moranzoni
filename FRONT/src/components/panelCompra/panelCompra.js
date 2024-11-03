@@ -26,12 +26,15 @@ export default function PanelCompra (){
     let nomEnvio = '';
     let dirEnvio = '';
     let telEnvio = '';
+    let localEnvio = '';
     const[nombre,setNombre]=useState('');
     const[direccion,setDireccion]=useState('');
+    const[localidad,setLocalidad]=useState('');
     const[telefono,setTelefono]=useState('');
     const[arrayCompra,setArrayCompra]=useState([]); 
     let arrayObjetos = [];
     let dato='';
+    const[numPedido,setNumPedido]=useState('');
      
 
 
@@ -495,15 +498,12 @@ export default function PanelCompra (){
         event.preventDefault();
         nomEnvio = event.target[0].value;
         dirEnvio = event.target[1].value;
-        telEnvio = event.target[2].value;
-
+        localEnvio = event.target[2].value;
+        telEnvio = event.target[3].value;
         setNombre(nomEnvio);
         setDireccion(dirEnvio);
+        setLocalidad(localEnvio);
         setTelefono(telEnvio);
-
-
-        console.log(nomEnvio);
-
         document.getElementById('intBorder2').style.width='100%';
         document.getElementById('intBorder2').style.opacity='1';
         document.getElementById('intBorder2').style.transition='all 2s';
@@ -544,19 +544,14 @@ export default function PanelCompra (){
         document.getElementById('iconConfirmar').style.left='-40px';
         document.getElementById('iconConfirmar').style.transition='all 1s';
         setTimeout(iconConfirmar1,1000);
-
-
-        console.log(arrayCompra);
-        console.log(nombre);
-        console.log(direccion);
-        console.log(telefono);
-
-
     }
+
+
 
     const home = ()=>{
         window.location.href='../';
     }
+
 
 
     const cancelProductos = ()=>{
@@ -567,6 +562,7 @@ export default function PanelCompra (){
         document.getElementById('popCompra').style.display='none';
     }
 
+    
 
     const cancelEnvio=()=>{
         document.getElementById('secEnvios').style.display='none';
@@ -605,8 +601,7 @@ export default function PanelCompra (){
     
 
     const arrCompra =(id,stock)=>{
-        arrayCompra.push(id);
-        console.log(arrayCompra);   
+        arrayCompra.push(id);           
     }
 
 
@@ -614,8 +609,7 @@ export default function PanelCompra (){
 
     const arrResta=(id)=>{
         let index = arrayCompra.indexOf(id);
-        arrayCompra.splice(index,1);
-        console.log(arrayCompra);
+        arrayCompra.splice(index,1);        
     }
 
 
@@ -624,8 +618,11 @@ export default function PanelCompra (){
 
     const sumPedido = async()=>{
 
-
-        
+        const fecha = new Date();
+        const yearActual = fecha.getFullYear();
+        const hoy = fecha.getDate();
+        const mesActual = fecha.getMonth() + 1;
+        let fecha_registro = hoy+'-'+mesActual+'-'+yearActual;
 
         let stockProd = 0;
         for(let x=0; x<arrayCompra.length; x++){
@@ -645,22 +642,17 @@ export default function PanelCompra (){
                 }           
             }
 
-        const pedidoJSON = JSON.stringify(arrayObjetos);
-
-        console.log(arrayObjetos);
-        
+        const pedidoJSON = JSON.stringify(arrayObjetos);        
 
         const formPedido = JSON.stringify({
             pedido:pedidoJSON,
             nombre:nombre,
             direccion:direccion,
+            localidad:localidad,
             telefono:telefono,
-            total:total.toFixed(2)                   
-        })    
-
-
-        console.log(arrayObjetos.toString());
-
+            total:total.toFixed(2),
+            fecha: fecha_registro
+        })   
 
         const response = await fetch(API+"/agregarPedido",{
             method:"POST",
@@ -671,15 +663,17 @@ export default function PanelCompra (){
                 'Content-Type':'application/json'
             }})    
             .then((res)=>res.json())
-            .then((data)=>{dato=data})      
+            .then((data)=>{dato=data}) 
             
             
-            if(dato.mensaje==="Pedido cargado correctamente"){
+            setNumPedido(dato[0].id);
+            
+            
+            if(typeof dato[0].id==='number'){
                 iconConfirmar();
             }else{
                 alert(dato.mensaje);
-            }
-            
+            }            
         return(response);
     }  
 
@@ -816,6 +810,14 @@ export default function PanelCompra (){
                             <input type='text' name='descripcion' class='inputProd' required></input>
                         </section>
                         <section class='secFormProd' id='secFormProd1'>
+                            <div class='catProd'><h5>Localidad</h5></div>
+                            <section class='secDivisorProd'>
+                                <div class='divisorProd' id='divisorProd1'></div>
+                                <div class='divisorProd' id='divisorProd2'></div>
+                            </section>
+                            <input type='text' name='descripcion' class='inputProd' required></input>
+                        </section>
+                        <section class='secFormProd' id='secFormProd1'>
                             <div class='catProd'><h5>Teléfono</h5></div>
                             <section class='secDivisorProd'>
                                 <div class='divisorProd' id='divisorProd1'></div>
@@ -869,7 +871,7 @@ export default function PanelCompra (){
                 </section>
                 <section class='mnsjCompra' id='mnsjCompra'>
                     <div class='contMensaje'>
-                        <h5>Muchas gracias por tu pedido! En los próximos minutos nos contactaremos para coordinar la entrega.<br/><br/>Tu número de pedido es el 23651.</h5>
+                        <h5>Muchas gracias por tu pedido! En los próximos minutos nos contactaremos para coordinar la entrega.<br/><br/>Tu número de pedido es el {numPedido}.</h5>
                     </div>
                     <div class='divFinalizar'>
                         <GiCheckMark id='iconFinalizar' onClick={home}/>
