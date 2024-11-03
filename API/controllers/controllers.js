@@ -190,16 +190,35 @@ const agregarPedido = async(req,res)=>{
                 mensaje:"Se ha producido un error. Si el error persiste contactese con la empresa"
             });
         } else{
-            res.json({
-                mensaje:"Pedido cargado correctamente"
+
+            let query = "UPDATE Productos SET stock = CASE id ";
+            const ids = [];
+
+            const cadena = pedido;
+            const arrayObjetos = JSON.parse(cadena);    
+
+            arrayObjetos.forEach((producto) => {
+                query += `WHEN ${producto.id} THEN ${producto.stock} `;
+                ids.push(producto.id);
+              });
+
+            query += `END WHERE id IN (${ids.join(",")})`;
+
+            dbConnection.query(query,(error,data)=>{
+                if(error){
+                    console.log(error);
+                    res.json({
+                        mensaje:"Se ha producido un error. Si el error persiste contactese con la empresa"
+                    });
+
+                }else{
+                    res.json({
+                        mensaje:"Pedido cargado correctamente"
+                    })
+                }
             })
         }
-
-
-
     })
-
-
 }
 
 

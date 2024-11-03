@@ -26,9 +26,10 @@ export default function CardListas({info,sumArrCarrito,restarCarrito,sumarPrecio
 
 
     const sumarCantidad = ()=>{        
-        sumArrCarrito(info.id);       
+              
         
-        if(cantidad<info.stock){
+        if(cantidad<info.stock){            
+            sumArrCarrito(info.id); 
             setCantidad(cantidad+1);
             sumarPrecio(info.precio);
             confirmarProducto(info.id, info.descripcion, info.marca, info.categoria, info.precio, cantidad);
