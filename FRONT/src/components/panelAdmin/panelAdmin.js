@@ -5,6 +5,7 @@ import {faTruckArrowRight,faEnvelope, faCartShopping, faWheatAwnCircleExclamatio
 import { useState,useEffect } from "react";
 import CardProd from '../cardsProductos/cardsProductos'
 import CardMarcas from '../cardMarcas/cardMarcas';
+import CardPedidos from '../cardPedidos/cardPedidos';
 import { FaRegStar } from "react-icons/fa";
 const API = process.env.REACT_APP_API_URL;
 
@@ -29,6 +30,7 @@ export default function PanelAdmin(){
     const [popMarca,setPopMarca]=useState('false');
     const [idMarca,setIdMarca]=useState('');
     const [marca,setMarca]=useState('');
+    const[arrayPedidos,setArrayPedidos]=useState([]);
 
 
 
@@ -227,6 +229,67 @@ export default function PanelAdmin(){
 
 
 
+
+
+
+
+    const desplegarProductos = ()=>{ 
+
+        console.log('arranca la funcion!')
+
+        if(arrayPedidos!=[] && arrProd!=[]){     
+            console.log('los arrays estan completos')       
+            for(let x=0; x<arrayPedidos.length;x++){
+                for(let y=0; y<arrProd.lenght; y++){
+                    if(arrayPedidos[x].id===arrProd[y].id){
+                        console.log('hay match!!');
+                    }else{
+                        console.log('no hay coincidencias');
+                    }
+                }
+                
+            }
+        } else{
+            console.log('alguno de los arrays sta vacio');
+        }
+        
+    }
+
+        
+
+
+
+
+
+
+
+    const traerPedidos= async()=>{
+        let productos = await fetch(API+"/traerPedidos")      
+
+        .then((res)=>res.json())
+        .then((data)=>{setArrayPedidos(data)})
+        .catch(error => console.log("Se ha producido un error... " +error));        
+        return productos
+        }
+
+
+        desplegarProductos();
+
+    useEffect(()=>{
+        traerPedidos();       
+
+    },[])
+
+
+
+
+
+
+
+
+
+
+
     const traerMarcas= async()=>{
         let marcas = await fetch(API+"/traerMarcas")
 
@@ -239,12 +302,7 @@ export default function PanelAdmin(){
 
     useEffect(()=>{
         traerMarcas();   
-    },[])
-
-
-     
-    
-
+    },[]) 
 
 
 
@@ -255,20 +313,15 @@ export default function PanelAdmin(){
          const formPausar=JSON.stringify({
             idPausa:sessionStorage.getItem('pausaProd')
         }) 
-
         const response = await fetch(API+"/pausarProducto",{
             method:"POST",
             body:formPausar,
-            headers:{
-                //"Authorization": `Bearer ${localStorage.getItem("token")}`,
-                
+            headers:{                
                 'Content-Type':'application/json'
             }})
     
             .then((res)=>res.json())
-            .then((data)=>{setArrProd(data)})
-            
-            //showMap();
+            .then((data)=>{setArrProd(data)})  
 
         return(response);
                    
@@ -289,12 +342,9 @@ export default function PanelAdmin(){
         const response = await fetch(API+"/activarProducto",{
             method:"POST",
             body:formActivar,
-            headers:{
-                //"Authorization": `Bearer ${localStorage.getItem("token")}`,
-                
+            headers:{                
                 'Content-Type':'application/json'
-            }})
-    
+            }})    
             .then((res)=>res.json())
             .then((data)=>{setArrProd(data)})          
         
@@ -307,8 +357,6 @@ export default function PanelAdmin(){
 
     const popEliminar=()=>{
         setIdEliminar(sessionStorage.getItem('elimProd'))
-        //document.getElementById('secListProd').style.display='none';
-        //document.getElementById('mapProd').style.display='none';
         document.getElementById('secListProd').style.visibility='hidden';
         document.getElementById('mapProd').style.visibility='hidden';
         document.getElementById('popEliminar').style.display='block';
@@ -319,8 +367,6 @@ export default function PanelAdmin(){
 
 
     const xEliminar=()=>{
-        //document.getElementById('secListProd').style.display='block';
-        //document.getElementById('mapProd').style.display='block';
         document.getElementById('secListProd').style.visibility='visible';
         document.getElementById('mapProd').style.visibility='visible';
         document.getElementById('popEliminar').style.display='none';
@@ -331,14 +377,10 @@ export default function PanelAdmin(){
 
 
     const eliminarProducto=async()=>{
-
         let idFila="filaProd-"+idEliminar;  
-
         const formEliminar=JSON.stringify({
             idEliminar:sessionStorage.getItem('elimProd')
         }) 
-
-
         const response = await fetch(API+"/eliminarProducto",{
             method:"DELETE",
             body:formEliminar,
@@ -346,21 +388,14 @@ export default function PanelAdmin(){
                 //"Authorization": `Bearer ${localStorage.getItem("token")}`,
                 
                 'Content-Type':'application/json'
-            }})
-    
+            }})    
             .then((res)=>res.json())
-            .then((data)=>{setArrProd(data)})                       
+            .then((data)=>{setArrProd(data)})        
 
             xEliminar();
 
             document.getElementById(idFila).style.display='none';
 
-          
-            //alert(mensajeEliminar.mensaje);
-            
-            //window.location.reload();
-   
-       
         return(response);      
 
     }
@@ -374,9 +409,7 @@ export default function PanelAdmin(){
         setPhMarca(sessionStorage.getItem('phMarca'));
         setPhCat(sessionStorage.getItem('phCat'));
         setPhStock(sessionStorage.getItem('phStock'));
-        setPhPrecio(sessionStorage.getItem('phPrecio'));       
-
-
+        setPhPrecio(sessionStorage.getItem('phPrecio')); 
         document.getElementById('secListProd').style.display='none';
         document.getElementById('mapProd').style.display='none';
         document.getElementById('popEliminar').style.display='none';
@@ -455,30 +488,21 @@ export default function PanelAdmin(){
             editPrecio:editPrecio,
             idEdit:idEdit
         })
-
         const response = await fetch(API+"/editarProducto",{
             method:"PUT",
             body:formEditar,
-            headers:{
-                //"Authorization": `Bearer ${localStorage.getItem("token")}`,
-                
+            headers:{                
                 'Content-Type':'application/json'
-            }})
-    
-            .then((res)=>res.json())
-            //.then((data)=>{setResEditar(data)})      
+            }})    
+            .then((res)=>res.json())    
             .then((data)=>{mensajeEditar=data})
-
-            //alert(resEditar.mensaje);
-
-            alert(mensajeEditar.mensaje);
-            
+            alert(mensajeEditar.mensaje);            
              if(mensajeEditar.mensaje==="Producto actualizado correctamente!"){
                 window.location.reload();
-            } 
-            
+            }             
         return(response);
     }
+
 
 
 
@@ -492,6 +516,7 @@ export default function PanelAdmin(){
 
 
 
+
     const cerrarFormMarca=()=>{
         //event.preventDefault();
         document.getElementById('formMarcas').style.display='none';
@@ -499,6 +524,7 @@ export default function PanelAdmin(){
         document.getElementById('secBtnMarca').style.display='flex';
         document.getElementById("idFormMarcas").reset();
     }
+
 
 
     
@@ -515,7 +541,6 @@ export default function PanelAdmin(){
         })
 
         const response = await fetch(API+"/enviarMarca",{
-
             method:"POST",
             body:formMarca,
             headers:{
@@ -525,9 +550,7 @@ export default function PanelAdmin(){
             }
         })
         .then((res)=>res.json())
-        .then((data)=>{confMarca=data})
-
-        
+        .then((data)=>{confMarca=data})       
 
         if(confMarca.mensaje==="Marca cargada correctamente!"){
             setPopMarca('true');
@@ -545,6 +568,9 @@ export default function PanelAdmin(){
     }
 
 
+
+
+
     const popElimMarca = ()=>{
         setIdMarca(sessionStorage.getItem('elimMarca'));
         setMarca(sessionStorage.getItem('marca'));
@@ -552,6 +578,8 @@ export default function PanelAdmin(){
         document.getElementById('secBtnMarca').style.display='none';
         document.getElementById('secPopElimMarca').style.display='block';
     }
+
+
 
 
 
@@ -597,6 +625,63 @@ export default function PanelAdmin(){
     const xConfElimMarca = ()=>{
         window.location.reload();
     }
+
+
+
+
+    // const desplegarProductos = ()=>{ 
+
+    //     console.log(arrayPedidos);
+
+    //     console.log(arrProd);
+
+    //     for(let x=0; x<arrayPedidos.length;x++){
+    //         for(let y=0; y<arrProd.lenght; y++){
+    //             if(arrayPedidos[x].id===arrProd[y].id){
+    //                 console.log(arrProd[y].id);
+    //             }
+    //         }
+                
+    //         }
+        
+
+        // for(let x=0; x<arrayPedidos.lenght; x++){              
+        //     for(let y=0; y<arrProd.lenght; y++){
+        //         if(arrayPedidos[x].id===arrProd[y].id){                    
+        //             const parent1 = document.getElementById("detalleProd"+info.id);
+        //             const child1 = document.getElementById('tabDetalle'+info.id+"-"+productos[x].id);
+                
+        //             if(parent1.contains(child1)===false){
+        //                 let tableDetalle = document.createElement('table');
+        //                 tableDetalle.setAttribute('class','tabDetalle');
+        //                 tableDetalle.setAttribute('id','tabDetalle'+info.id+"-"+productos[x].id);
+        //                 document.getElementById("detalleProd"+info.id).appendChild(tableDetalle);
+                
+        //                 let tdDetalle1 = document.createElement('td');
+        //                 tdDetalle1.setAttribute('class','tdDetalle1');
+        //                 tdDetalle1.setAttribute('id','tdDetalle1'+info.id+"-"+productos[x].id);
+        //                 tdDetalle1.innerHTML=arrayProductos[y].descripcion;
+        //                 document.getElementById('tabDetalle'+info.id+"-"+productos[x].id).appendChild(tdDetalle1);
+                
+        //                 let tdDetalle2 = document.createElement('td');
+        //                 tdDetalle2.setAttribute('class','tdDetalle2');
+        //                 tdDetalle2.setAttribute('id','tdDetalle2'+info.id+"-"+productos[x].id);
+        //                 tdDetalle2.innerHTML=productos[x].cantidad;
+        //                 document.getElementById('tabDetalle'+info.id+"-"+productos[x].id).appendChild(tdDetalle2);
+        //             }                
+        //         }
+        //     }
+        // }
+
+    
+
+
+
+
+    // useEffect(()=>{
+    //     desplegarProductos();       
+
+    // },[])
 
 
 
@@ -858,11 +943,19 @@ export default function PanelAdmin(){
                             </div>
                         </section>
                     </section>
-
-
-
                 </section>
             </section>
+
+            <section class='secPedidos' id='secPedidos'>
+                <table class='tabPedidos1'>
+                    <td id='numPedido1'><h6>Número</h6></td>
+                    <td id='nomPedido1'><h6>Nombre</h6></td>
+                    <td id='totPedido1'><h6>Total</h6></td>
+                </table>
+                {arrayPedidos.map((pedido)=>{
+                        return <CardPedidos key={pedido.id} info={pedido}/>
+                    })}  
+                </section>
 
     
         </Fragment>

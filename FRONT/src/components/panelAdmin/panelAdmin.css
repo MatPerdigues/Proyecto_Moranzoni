@@ -309,3 +309,51 @@
 #confElimMarca{
     margin-top: 0px;
 }
+
+
+
+.secPedidos{
+    border: 1px solid red;
+    display: block;
+    width: 60%;
+    height: 800px;
+    margin: auto;
+    min-height: 500px;
+    margin-bottom: 100px;
+    border-radius: 10px; 
+    overflow-y: scroll;
+    overflow-x: hidden;
+    box-sizing: content-box;
+    -ms-overflow-style: none;  
+    scrollbar-width: none;       
+}
+
+
+.secPedidos::-webkit-scrollbar{
+    display: none;
+}
+
+
+.tabPedidos1{
+   
+    width: 60%;
+    margin: auto;
+    margin-top: 70px;
+    margin-bottom: 20px;
+}
+
+#numPedido1{
+    width: 20%;
+    text-align: center;
+    
+}
+
+#nomPedido1{
+    width: 50%;
+    text-align: center;
+}    
+
+#totPedido1{
+    width: 30%;
+    text-align: center;
+}

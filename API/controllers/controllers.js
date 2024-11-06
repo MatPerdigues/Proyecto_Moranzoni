@@ -235,8 +235,21 @@ const agregarPedido = async(req,res)=>{
 
 
 
+const traerPedidos=async(req,res)=>{    
+
+    dbConnection.query("SELECT * FROM pedidos",(error,data)=>{
+        if(error){
+            console.log(error);
+            res.send(error);
+        }else{
+            res.send(data)
+        }
+    })
+}
 
 
 
 
-module.exports={agregarProducto,traerProductos,pausarProducto,activarProducto,eliminarProducto,editarProducto,enviarMarca,traerMarcas,eliminarMarca,agregarPedido};
+
+
+module.exports={agregarProducto,traerProductos,pausarProducto,activarProducto,eliminarProducto,editarProducto,enviarMarca,traerMarcas,eliminarMarca,agregarPedido,traerPedidos};
