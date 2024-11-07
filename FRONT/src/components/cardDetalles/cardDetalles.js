@@ -1,12 +1,20 @@
-// import { Fragment } from 'react';
-// import './cardDetalles.css';
+import { Fragment } from 'react';
+import './cardDetalles.css';
 
 
-// export default function CardDetalles({prodPedido,listProd}){
-//     return(
-//         <Fragment>
-//             <p>{prodPedido.id}</p>
+export default function CardDetalles({info,listProd}){
+
+    const prueba = ()=>{
+        console.log(listProd);
+       }
+
+
+
+    return(
+        <Fragment>
+            <p>{info.cantidad}</p>
+            {/* <p>{listProd.marca}</p> */}
           
-//         </Fragment>
-//     )
-// } 
+        </Fragment>
+    )
+} 

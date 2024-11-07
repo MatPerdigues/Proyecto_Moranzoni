@@ -34,6 +34,112 @@ export default function PanelAdmin(){
 
 
 
+    // const mostrarProd =()=>{
+    //     console.log(arrayPedidos);
+    //     console.log(arrProd);
+
+
+    //     for(let x=0; x<arrayPedidos.length; x++){
+
+    //         let extrPedidos = JSON.parse(arrayPedidos[x].pedido)
+    //         console.log(extrPedidos);
+
+    //         for(let y=0; y<extrPedidos.length; y++){
+
+    //             let ind = arrProd.findIndex(obj=> obj.id===extrPedidos[y].id);
+
+
+    //             // const parent1 = document.getElementById("detalleProd"+arrayPedidos[x].id);
+    //             // const child1 = document.getElementById('tabDetalle'+arrayPedidos[x].id+"-"+extrPedidos[y].id);
+
+    //             // if(parent1.contains(child1)===false){
+    //                 let tableDetalle = document.createElement('table');
+    //                 tableDetalle.setAttribute('class','tabDetalle');
+    //                 tableDetalle.setAttribute('id','tabDetalle'+arrayPedidos[x].id+"-"+extrPedidos[y].id);
+    //                 document.getElementById("detalleProd"+arrayPedidos[x].id).appendChild(tableDetalle);
+                    
+    //                 let tdDetalle1 = document.createElement('td');
+    //                 tdDetalle1.setAttribute('class','tdDetalle1');
+    //                 tdDetalle1.setAttribute('id','tdDetalle1'+arrayPedidos[x].id+"-"+extrPedidos[y].id);
+    //                 tdDetalle1.innerHTML=arrProd[ind].descripcion;
+    //                 document.getElementById('tabDetalle'+arrayPedidos[x].id+"-"+extrPedidos[y].id).appendChild(tdDetalle1);
+                    
+    //                 let tdDetalle3 = document.createElement('td');
+    //                 tdDetalle3.setAttribute('class','tdDetalle3');
+    //                 tdDetalle3.setAttribute('id','tdDetalle3'+arrayPedidos[x].id+"-"+extrPedidos[y].id);
+    //                 tdDetalle3.innerHTML=arrProd[ind].marca;
+    //                 document.getElementById('tabDetalle'+arrayPedidos[x].id+"-"+extrPedidos[y].id).appendChild(tdDetalle3);
+            
+    //                 let tdDetalle2 = document.createElement('td');
+    //                 tdDetalle2.setAttribute('class','tdDetalle2');
+    //                 tdDetalle2.setAttribute('id','tdDetalle2'+arrayPedidos[x].id+"-"+extrPedidos[y].id);
+    //                 tdDetalle2.innerHTML=extrPedidos[y].cantidad;
+    //                 document.getElementById('tabDetalle'+arrayPedidos[x].id+"-"+extrPedidos[y].id).appendChild(tdDetalle2);
+                
+                
+
+
+    //         }
+
+
+
+
+
+
+
+// }
+
+
+
+
+
+    //     for(let x=0; x<arrayPedidos.length; x++){
+    //         let ind = arrProd.findIndex(obj=> obj.id===arrayPedidos[x].id);
+    //         console.log(arrayPedidos[x].id);
+    //         console.log(arrayPedidos[x].cantidad);
+    //         console.log(arrProd[ind].descripcion);
+    //         console.log(arrProd[ind].marca);
+
+
+    //         const parent1 = document.getElementById("detalleProd"+info.id);
+    //         const child1 = document.getElementById('tabDetalle'+info.id+"-"+arrayPedidos[x].id);
+    //         if(parent1.contains(child1)===false){
+    //             let tableDetalle = document.createElement('table');
+    //             tableDetalle.setAttribute('class','tabDetalle');
+    //             tableDetalle.setAttribute('id','tabDetalle'+info.id+"-"+arrayPedidos[x].id);
+    //             document.getElementById("detalleProd"+info.id).appendChild(tableDetalle);
+                
+    //             let tdDetalle1 = document.createElement('td');
+    //             tdDetalle1.setAttribute('class','tdDetalle1');
+    //             tdDetalle1.setAttribute('id','tdDetalle1'+info.id+"-"+arrayPedidos[x].id);
+    //             tdDetalle1.innerHTML=arrProd[ind].descripcion;
+    //             document.getElementById('tabDetalle'+info.id+"-"+arrayPedidos[x].id).appendChild(tdDetalle1);
+                
+    //             let tdDetalle3 = document.createElement('td');
+    //             tdDetalle3.setAttribute('class','tdDetalle3');
+    //             tdDetalle3.setAttribute('id','tdDetalle3'+info.id+"-"+arrayPedidos[x].id);
+    //             tdDetalle3.innerHTML=arrProd[ind].marca;
+    //             document.getElementById('tabDetalle'+info.id+"-"+arrayPedidos[x].id).appendChild(tdDetalle3);
+        
+    //             let tdDetalle2 = document.createElement('td');
+    //             tdDetalle2.setAttribute('class','tdDetalle2');
+    //             tdDetalle2.setAttribute('id','tdDetalle2'+info.id+"-"+arrayPedidos[x].id);
+    //             tdDetalle2.innerHTML=arrayPedidos[x].cantidad;
+    //             document.getElementById('tabDetalle'+info.id+"-"+arrayPedidos[x].id).appendChild(tdDetalle2);
+            
+    //         }
+    // }
+
+
+    // }
+
+
+
+
+
+
+
+
 
     const optMarcas = ()=>{       
         for(let x=0; x<arrMarcas.length;x++){
@@ -51,6 +157,8 @@ export default function PanelAdmin(){
 
 
 
+
+
      const optMarcas1 = ()=>{       
         for(let x=0; x<arrMarcas.length;x++){
             if(document.getElementById('inputProd1').contains(document.getElementById(arrMarcas[x].nombre+"1"))){
@@ -63,6 +171,8 @@ export default function PanelAdmin(){
             }
         }  
      }
+
+
 
 
 
@@ -226,35 +336,6 @@ export default function PanelAdmin(){
     },[])
 
 
-
-
-
-
-
-
-
-    const desplegarProductos = ()=>{ 
-
-        console.log('arranca la funcion!')
-
-        if(arrayPedidos!=[] && arrProd!=[]){     
-            console.log('los arrays estan completos')       
-            for(let x=0; x<arrayPedidos.length;x++){
-                for(let y=0; y<arrProd.lenght; y++){
-                    if(arrayPedidos[x].id===arrProd[y].id){
-                        console.log('hay match!!');
-                    }else{
-                        console.log('no hay coincidencias');
-                    }
-                }
-                
-            }
-        } else{
-            console.log('alguno de los arrays sta vacio');
-        }
-        
-    }
-
         
 
 
@@ -271,9 +352,7 @@ export default function PanelAdmin(){
         .catch(error => console.log("Se ha producido un error... " +error));        
         return productos
         }
-
-
-        desplegarProductos();
+     
 
     useEffect(()=>{
         traerPedidos();       
@@ -953,9 +1032,9 @@ export default function PanelAdmin(){
                     <td id='totPedido1'><h6>Total</h6></td>
                 </table>
                 {arrayPedidos.map((pedido)=>{
-                        return <CardPedidos key={pedido.id} info={pedido}/>
+                        return <CardPedidos key={pedido.id} info={pedido} listProd={arrProd}/>
                     })}  
-                </section>
+            </section>
 
     
         </Fragment>
