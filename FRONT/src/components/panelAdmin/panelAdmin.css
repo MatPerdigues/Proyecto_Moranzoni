@@ -313,7 +313,7 @@
 
 
 .secPedidos{
-    border: 1px solid red;
+    
     display: block;
     width: 60%;
     height: 800px;
@@ -334,12 +334,12 @@
 }
 
 
-.tabPedidos1{
-   
+.tabPedidos1{   
     width: 60%;
     margin: auto;
     margin-top: 70px;
     margin-bottom: 20px;
+    text-decoration: underline;
 }
 
 #numPedido1{

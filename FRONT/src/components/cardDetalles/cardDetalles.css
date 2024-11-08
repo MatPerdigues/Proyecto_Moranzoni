@@ -1,0 +1,21 @@
+.tablaDetalle{
+    border-bottom: 1px solid orange;
+    width: 90%;
+    margin-left: 20px;
+    height: 50px;
+    vertical-align: middle;
+}
+
+.tdCardDetalle1{
+    width: 70%;
+}
+
+
+.tdCardDetalle2{
+    width: 20%;
+}
+
+
+.tdCardDetalle3{
+    width: 10%;
+}
