@@ -183,7 +183,7 @@ const eliminarMarca = async(req,res)=>{
 const agregarPedido = async(req,res)=>{
     const{pedido,nombre,direccion,localidad,telefono,total,fecha}=req.body;
 
-    dbConnection.query(`INSERT INTO pedidos (pedido,nombre,direccion,localidad,telefono,total,fecha) VALUES (?,?,?,?,?,?,?)`,[pedido,nombre,direccion,localidad,telefono,total,fecha],(error,data)=>{
+    dbConnection.query(`INSERT INTO pedidos (pedido,nombre,direccion,localidad,telefono,total,fecha,estado) VALUES (?,?,?,?,?,?,?,?)`,[pedido,nombre,direccion,localidad,telefono,total,fecha,"pendiente"],(error,data)=>{
         if(error){
             console.log(error);
             res.json({

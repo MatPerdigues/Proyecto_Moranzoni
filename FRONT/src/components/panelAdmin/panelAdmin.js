@@ -7,6 +7,7 @@ import CardProd from '../cardsProductos/cardsProductos'
 import CardMarcas from '../cardMarcas/cardMarcas';
 import CardPedidos from '../cardPedidos/cardPedidos';
 import { FaRegStar } from "react-icons/fa";
+import { FaExclamationTriangle } from "react-icons/fa";
 const API = process.env.REACT_APP_API_URL;
 
 
@@ -17,6 +18,7 @@ export default function PanelAdmin(){
     let mensajeEditar='';
     let confMarca='';
     let confElimMarca='';
+
     
     const [arrMarcas,setArrMarcas]=useState([]);
     const [arrProd,setArrProd]=useState([]);
@@ -30,7 +32,9 @@ export default function PanelAdmin(){
     const [popMarca,setPopMarca]=useState('false');
     const [idMarca,setIdMarca]=useState('');
     const [marca,setMarca]=useState('');
-    const[arrayPedidos,setArrayPedidos]=useState([]);
+    const [arrayPedidos,setArrayPedidos]=useState([]);
+    const [pedidosFilter,setPedidosFilter]=useState([]);
+
 
 
 
@@ -244,20 +248,25 @@ export default function PanelAdmin(){
 
         .then((res)=>res.json())
         .then((data)=>{setArrayPedidos(data)})
-        .catch(error => console.log("Se ha producido un error... " +error));        
+        .catch(error => console.log("Se ha producido un error... " +error));     
+        // filtradoPedidos = arrayPedidos.filter((pedido)=>pedido.estado==="pendiente");
+        
+            
         return productos
-        }
-     
+    }
 
-    useEffect(()=>{
-        traerPedidos();       
+        
 
+    useEffect(()=>{            
+        const filtradoPedidos = arrayPedidos.filter((pedido)=>pedido.estado==="pendiente");   
+        setPedidosFilter(filtradoPedidos);
+    },[arrayPedidos])
+
+
+
+    useEffect(()=>{            
+        traerPedidos();   
     },[])
-
-
-
-
-
 
 
 
@@ -611,7 +620,13 @@ export default function PanelAdmin(){
 
 
             <div class='secPanel'>
+                
                 <div class='grpPanel' id='grpPanel1'>
+                    <div class='grpPanelIcon'>
+                        {pedidosFilter.length>0?
+                        <FaExclamationTriangle />
+                        :""}
+                    </div>
                     <div class='iconPanel' id='iconPanel1'>
                         <FontAwesomeIcon icon={faTruckArrowRight} size='3x'/>
                     </div>
@@ -870,7 +885,7 @@ export default function PanelAdmin(){
                     <td id='nomPedido1'><h6>Nombre</h6></td>
                     <td id='totPedido1'><h6>Total</h6></td>
                 </table>
-                {arrayPedidos.map((pedido)=>{
+                {pedidosFilter.map((pedido)=>{
                         return <CardPedidos key={pedido.id} info={pedido} listProd={arrProd}/>
                     })}  
             </section>

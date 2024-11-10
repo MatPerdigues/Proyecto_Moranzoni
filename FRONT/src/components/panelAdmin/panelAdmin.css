@@ -357,3 +357,24 @@
     width: 30%;
     text-align: center;
 }
+
+#grpPanel1{
+
+    display: block;
+
+}
+
+.grpPanelIcon{
+    color: red;
+    font-size: 20px;
+    height: 20px;
+    width: 100%;
+    position: relative;
+    top: -15px;
+    display: flex;
+    justify-content: end;
+}
+
+#iconPanel1{
+    margin-top: -5px;
+}
