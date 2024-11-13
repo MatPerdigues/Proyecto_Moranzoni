@@ -18,6 +18,7 @@ export default function PanelAdmin(){
     let mensajeEditar='';
     let confMarca='';
     let confElimMarca='';
+    
 
     
     const [arrMarcas,setArrMarcas]=useState([]);
@@ -34,6 +35,7 @@ export default function PanelAdmin(){
     const [marca,setMarca]=useState('');
     const [arrayPedidos,setArrayPedidos]=useState([]);
     const [pedidosFilter,setPedidosFilter]=useState([]);
+    // const [nombrePedido,setNombrePedido]=useState("");
 
 
 
@@ -611,6 +613,17 @@ export default function PanelAdmin(){
 
 
 
+    // const xElimPedido = ()=>{
+    //     document.getElementById("secPopPedido").style.display='none';
+    //     document.getElementById("secPedidos").style.display='block';
+    //     // document.getElementById("popPedido").style.display='none';
+
+    // }
+
+
+    // const nomPedido = ()=>{
+    //     setNombrePedido(sessionStorage.getItem('nomPedido'));
+    // }
 
 
 
@@ -886,9 +899,20 @@ export default function PanelAdmin(){
                     <td id='totPedido1'><h6>Total</h6></td>
                 </table>
                 {pedidosFilter.map((pedido)=>{
-                        return <CardPedidos key={pedido.id} info={pedido} listProd={arrProd}/>
+                        return <CardPedidos key={pedido.id} info={pedido} listProd={arrProd} />
                     })}  
             </section>
+
+
+            {/* <section class='secPopMarca' id='secPopPedido'>
+                <section class='popEliminar' id='popPedido'>
+                    <h5 class='h4Eliminar'>¿Seguro querés cancelar el pedido de {nombrePedido}?</h5>
+                    <div class='btnsEliminar'>
+                        <button class='btnEliminar' onClick={xElimPedido}><FontAwesomeIcon icon={faXmark} /></button>                            
+                        <button class='btnEliminar' onClick={eliminarMarca}><FontAwesomeIcon icon={faCheck} /></button>
+                    </div>
+                </section>
+            </section> */}
 
     
         </Fragment>

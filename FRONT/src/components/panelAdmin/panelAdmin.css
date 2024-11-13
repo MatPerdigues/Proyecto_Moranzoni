@@ -223,7 +223,8 @@
 }
 
 .btnEliminar:hover{
-    background-color: rgb(255, 187, 0);
+    /* background-color: rgb(255, 187, 0); */
+    background-color: rgb(255, 196, 0);
 }
 
 #phMarca{
@@ -377,4 +378,9 @@
 
 #iconPanel1{
     margin-top: -5px;
+}
+
+
+#secPopPedido{
+    margin-top: 250px;
 }

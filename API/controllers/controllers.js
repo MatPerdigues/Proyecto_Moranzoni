@@ -249,7 +249,40 @@ const traerPedidos=async(req,res)=>{
 
 
 
+const cancelarPedido = async(req,res)=>{
+    const{nuevoStock}=req.body;
+    let query = "UPDATE Productos SET stock = CASE id ";
+    const ids = [];
+
+    console.log(nuevoStock.length);
+
+    nuevoStock.forEach((producto) => {
+        query += `WHEN ${producto.id} THEN ${producto.stock} `;
+        ids.push(producto.id);
+      });
+
+    query += `END WHERE id IN (${ids.join(",")})`;
+
+    dbConnection.query(query,(error,data)=>{
+        if(error){
+            console.log(error);
+            res.json({
+                mensaje:"Se ha producido un error"
+            });
+
+        }else{
+            
+            res.json({
+                mensaje:"Stock actualizado"
+            });
+        }
+    
+    })
+
+
+}
 
 
 
-module.exports={agregarProducto,traerProductos,pausarProducto,activarProducto,eliminarProducto,editarProducto,enviarMarca,traerMarcas,eliminarMarca,agregarPedido,traerPedidos};
+
+module.exports={agregarProducto,traerProductos,pausarProducto,activarProducto,eliminarProducto,editarProducto,enviarMarca,traerMarcas,eliminarMarca,agregarPedido,traerPedidos,cancelarPedido};

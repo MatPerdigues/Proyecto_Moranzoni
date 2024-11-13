@@ -1,7 +1,7 @@
 const express=require('express');
 const router=express.Router();
 
-const{agregarProducto,traerProductos,pausarProducto,activarProducto,eliminarProducto,editarProducto,enviarMarca,traerMarcas,eliminarMarca,agregarPedido,traerPedidos}=require('../controllers/controllers')
+const{agregarProducto,traerProductos,pausarProducto,activarProducto,eliminarProducto,editarProducto,enviarMarca,traerMarcas,eliminarMarca,agregarPedido,traerPedidos,cancelarPedido}=require('../controllers/controllers')
 
 router.post('/agregarProducto',agregarProducto);
 router.get('/traerProductos',traerProductos);
@@ -14,6 +14,7 @@ router.get('/traerMarcas',traerMarcas);
 router.delete('/eliminarMarca',eliminarMarca);
 router.post('/agregarPedido',agregarPedido);
 router.get('/traerPedidos',traerPedidos);
+router.post('/cancelarPedido',cancelarPedido);
 
 
 module.exports=router;
