@@ -101,6 +101,7 @@ export default function PanelAdmin(){
         optMarcas1();
         optMarcas2();
 
+        document.getElementById('secPedidos').style.display='none';
         document.getElementById('secProductos').style.display='block';
     }
 
@@ -146,7 +147,7 @@ export default function PanelAdmin(){
             document.getElementById('secBtnMarca').style.display='flex';
             document.getElementById('formMarcas').style.display='none';
             document.getElementById('secPopElimMarca').style.display='none';
-            document.getElementById('confElimMarca').style.display='none';   
+            // document.getElementById('confElimMarca').style.display='none';   
 
         }
     }
@@ -538,7 +539,9 @@ export default function PanelAdmin(){
         .then((data)=>{confMarca=data})       
 
         if(confMarca.mensaje==="Marca cargada correctamente!"){
-            setPopMarca('true');
+            // setPopMarca('true');
+            document.getElementById('formMarcas').style.display='none';
+            document.getElementById('secPopMarca').style.display='block';
         }
         return(response);
     }
@@ -587,7 +590,8 @@ export default function PanelAdmin(){
 
         if(confElimMarca.mensaje==="Marca eliminada correctamente!"){
             document.getElementById('secPopElimMarca').style.display='none'; 
-            document.getElementById('confElimMarca').style.display='block';       
+            document.getElementById('popConfElimMarca').style.display='block';  
+               
         } 
 
         return(response);
@@ -613,17 +617,11 @@ export default function PanelAdmin(){
 
 
 
-    // const xElimPedido = ()=>{
-    //     document.getElementById("secPopPedido").style.display='none';
-    //     document.getElementById("secPedidos").style.display='block';
-    //     // document.getElementById("popPedido").style.display='none';
+    const showPedidos = ()=>{
+        document.getElementById('secProductos').style.display='none';
+        document.getElementById('secPedidos').style.display='block';
+    }
 
-    // }
-
-
-    // const nomPedido = ()=>{
-    //     setNombrePedido(sessionStorage.getItem('nomPedido'));
-    // }
 
 
 
@@ -640,7 +638,7 @@ export default function PanelAdmin(){
                         <FaExclamationTriangle />
                         :""}
                     </div>
-                    <div class='iconPanel' id='iconPanel1'>
+                    <div class='iconPanel' id='iconPanel1' onClick={showPedidos}>
                         <FontAwesomeIcon icon={faTruckArrowRight} size='3x'/>
                     </div>
                 </div>
@@ -665,8 +663,8 @@ export default function PanelAdmin(){
 
             <section class='secProductos' id='secProductos'>
                 <section class='btnsProductos' id='btnsProductos'>
-                    <button class='btnProd' id='btnProd1' onClick={fondoBtn}><FontAwesomeIcon icon={faCartArrowDown} size='2x'/></button>
                     <button class='btnProd' id='btnProd2' onClick={fondoBtn}><FontAwesomeIcon icon={faList} size='2x'/></button>
+                    <button class='btnProd' id='btnProd1' onClick={fondoBtn}><FontAwesomeIcon icon={faCartArrowDown} size='2x'/></button>                    
                     <button class='btnProd' id='btnProd3' onClick={fondoBtn}><FaRegStar class='iconMarca'/></button>
                 </section>
                 
@@ -838,7 +836,6 @@ export default function PanelAdmin(){
                         <button class='btnMarca' onClick={crearMarca}><FontAwesomeIcon icon={faPlus} size='2x'/></button>
                     </section>
                     </section>
-                    {popMarca==='false'?
                     <section class='formMarcas' id='formMarcas'>
                         <form class='formProductos' id='idFormMarcas' onSubmit={(event)=>{enviarMarca(event)}}>
                             <section class='secFormProd' id='secFormProd1'>
@@ -863,14 +860,19 @@ export default function PanelAdmin(){
                             </section>
                         </form>
                     </section>
-                    : <section class='secPopMarca' id='secPopMarca'>
+                  
+                    <section class='secPopMarca' id='secPopMarca'>
                         <section class='popEliminar' id='popMarca'>
                             <h4 class='h4Eliminar'>Marca cargada correctamente!</h4>
                             <div class='btnsEliminar'>                            
                                 <button class='btnEliminar' onClick={cerrarPopMarca}><FontAwesomeIcon icon={faCheck} /></button>
                             </div>
                         </section>
-                    </section>} 
+                    </section>
+              
+
+
+                    
                     <section class='secPopMarca' id='secPopElimMarca'>
                         <section class='popEliminar' id='popElimMarca'>
                             <h4 class='h4Eliminar'>Seguro querés eliminar la marca {marca}?</h4>
@@ -902,17 +904,6 @@ export default function PanelAdmin(){
                         return <CardPedidos key={pedido.id} info={pedido} listProd={arrProd} />
                     })}  
             </section>
-
-
-            {/* <section class='secPopMarca' id='secPopPedido'>
-                <section class='popEliminar' id='popPedido'>
-                    <h5 class='h4Eliminar'>¿Seguro querés cancelar el pedido de {nombrePedido}?</h5>
-                    <div class='btnsEliminar'>
-                        <button class='btnEliminar' onClick={xElimPedido}><FontAwesomeIcon icon={faXmark} /></button>                            
-                        <button class='btnEliminar' onClick={eliminarMarca}><FontAwesomeIcon icon={faCheck} /></button>
-                    </div>
-                </section>
-            </section> */}
 
     
         </Fragment>

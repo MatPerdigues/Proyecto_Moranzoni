@@ -18,6 +18,8 @@
     border-radius: 10px;
     height: 50px;
     overflow: hidden;
+   scale: 1;
+   /* background-color: rgb(88, 218, 13,0.2); */
 
 }
 

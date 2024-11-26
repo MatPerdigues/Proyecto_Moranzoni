@@ -250,20 +250,26 @@ const traerPedidos=async(req,res)=>{
 
 
 const cancelarPedido = async(req,res)=>{
-    const{nuevoStock}=req.body;
-    let query = "UPDATE Productos SET stock = CASE id ";
+    const{nuevoStock,idPedido}=req.body;
+    let queryStock = "UPDATE Productos SET stock = CASE id ";
     const ids = [];
+    const estado = "cancelado"
 
-    console.log(nuevoStock.length);
+    
 
     nuevoStock.forEach((producto) => {
-        query += `WHEN ${producto.id} THEN ${producto.stock} `;
+        queryStock += `WHEN ${producto.id} THEN ${producto.stock} `;
         ids.push(producto.id);
       });
 
-    query += `END WHERE id IN (${ids.join(",")})`;
+    queryStock += `END WHERE id IN (${ids.join(",")})`;
 
-    dbConnection.query(query,(error,data)=>{
+
+    const queryEstado = `UPDATE pedidos SET estado = "cancelado" WHERE id = ${idPedido};`;
+
+
+
+    dbConnection.query(queryStock,(error,data)=>{
         if(error){
             console.log(error);
             res.json({
@@ -271,18 +277,39 @@ const cancelarPedido = async(req,res)=>{
             });
 
         }else{
-            
-            res.json({
-                mensaje:"Stock actualizado"
-            });
-        }
-    
+            dbConnection.query(queryEstado,(error,data)=>{
+                if(error){
+                    console.log(error);
+                    res.json({
+                        mensaje:"Se ha producido un error"
+                    });
+                }else{
+                    res.json({
+                        mensaje:"Stock actualizado"
+                    });
+                }
+            })  
+        }   
     })
-
-
 }
 
 
 
 
-module.exports={agregarProducto,traerProductos,pausarProducto,activarProducto,eliminarProducto,editarProducto,enviarMarca,traerMarcas,eliminarMarca,agregarPedido,traerPedidos,cancelarPedido};
+const procesarPedido = async(req,res)=>{
+
+    const{id}=req.body;
+    let estado = "procesado"
+    dbConnection.query(`UPDATE pedidos SET estado="procesado" WHERE id=${id}`,(error,data)=>{
+        if(error){
+            console.log(error);
+            res.json({
+                mensaje:"Se ha producido un error"
+            });
+        }
+    })}
+
+
+
+
+module.exports={agregarProducto,traerProductos,pausarProducto,activarProducto,eliminarProducto,editarProducto,enviarMarca,traerMarcas,eliminarMarca,agregarPedido,traerPedidos,cancelarPedido,procesarPedido};

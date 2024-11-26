@@ -10,37 +10,44 @@ export default function CardPedidos({info,listProd}){
 
     const productos = JSON.parse(info.pedido); 
     let dato = "";
+    let dato1="";
 
 
 
-    const onHover=()=>{
-        document.getElementById("infoPedido" + info.id).style.backgroundColor='rgb(255, 165, 0, 0.2)';
+    const onHover=(color)=>{
+        document.getElementById("infoPedido" + info.id).style.backgroundColor=color;
     }
 
 
-    const outHover=()=>{
-        document.getElementById("infoPedido" + info.id).style.backgroundColor='white';
+
+    const outHover=(color)=>{
+        document.getElementById("infoPedido" + info.id).style.backgroundColor=color;
     }
+
 
 
     const expandirInfo = ()=>{
         document.getElementById("infoPedido" + info.id).style.backgroundColor='white';
         document.getElementById("infoPedido" + info.id).style.cursor='default';
-         document.getElementById("infoPedido" + info.id).style.height='auto';
+        document.getElementById("infoPedido" + info.id).style.height='auto';
         document.getElementById("infoPedido" + info.id).style.backgroundColor='rgb(255, 165, 0, 0.2)';
-        document.getElementById("infoPedido" + info.id).onmouseover = function() {onHover()};
-        document.getElementById("infoPedido" + info.id).onmouseout = function() {outHover()};
-        
-
-
+        document.getElementById("infoPedido" + info.id).onmouseover = function() {onHover('rgb(255, 165, 0, 0.2)')};
+        document.getElementById("infoPedido" + info.id).onmouseout = function() {outHover('white')};   
     }
+
 
 
     const contraerInfo=()=>{
         document.getElementById("infoPedido" + info.id).style.cursor='pointer';
         document.getElementById("infoPedido" + info.id).style.height='50px';
-        document.getElementById("infoPedido" + info.id).onmouseover = function() {onHover()};
-        document.getElementById("infoPedido" + info.id).onmouseout = function() {outHover()};        
+        document.getElementById("infoPedido" + info.id).onmouseover = function() {onHover('rgb(255, 165, 0, 0.2)')};
+        document.getElementById("infoPedido" + info.id).onmouseout = function() {outHover('white')};        
+    }
+
+
+
+    const esconderPedido = ()=>{
+        document.getElementById("infoPedido" + info.id).style.display='none'; 
     }
 
 
@@ -60,13 +67,9 @@ export default function CardPedidos({info,listProd}){
         }
 
         const formCancelacion=JSON.stringify({
-            nuevoStock:arrStock
+            nuevoStock:arrStock,
+            idPedido:info.id 
         }) 
-
-        console.log('el pedido ha sido cancelado');
-        console.log(pedido);
-        console.log(arrStock);
-        console.log(formCancelacion);
 
         const response = await fetch(API+"/cancelarPedido",{
             method:"POST",
@@ -79,18 +82,70 @@ export default function CardPedidos({info,listProd}){
             
             if(dato.mensaje==="Se ha producido un error"){
                 alert("Se ha producido un error");
-            }        
-        // sessionStorage.setItem("nomPedido",info.nombre);
-        // nomPedido();
-        // document.getElementById("secPedidos").style.display='none';
-        // document.getElementById("secPopPedido").style.display='block';
-        // document.getElementById("popPedido").style.display='block';
+            } 
+                        
+
+
+
+        document.getElementById("infoPedido" + info.id).style.transition='all 1s'; 
+        document.getElementById("infoPedido" + info.id).style.height='50px';
+        document.getElementById("infoPedido" + info.id).style.backgroundColor='rgb(255, 0, 0, 0.2)';
+        document.getElementById("infoPedido" + info.id).style.border='none';
+        document.getElementById("infoPedido" + info.id).onmouseover = function() {onHover('rgb(255, 0, 0, 0.2)')};
+        document.getElementById("infoPedido" + info.id).onmouseout = function() {outHover('rgb(255, 0, 0, 0.2)')}; 
+        setTimeout(esconderPedido, 1000);   
+
+
         return(response);
     }
 
 
-    const procesarPedido = ()=>{
+
+
+    const procesarPedido = async()=>{
         console.log('el pedido esta siendo procesado');
+        let id=info.id;
+
+        console.log(id);
+
+        document.getElementById("infoPedido" + info.id).style.transition='all 1s'; 
+        document.getElementById("infoPedido" + info.id).style.height='50px';
+        document.getElementById("infoPedido" + info.id).style.backgroundColor='rgb(88, 218, 13,0.2)';
+        document.getElementById("infoPedido" + info.id).style.border='none';
+        document.getElementById("infoPedido" + info.id).onmouseover = function() {onHover('rgb(88, 218, 13,0.2)')};
+        document.getElementById("infoPedido" + info.id).onmouseout = function() {outHover('rgb(88, 218, 13,0.2)')}; 
+        setTimeout(esconderPedido, 1000);   
+
+
+
+
+        const formProcesar=JSON.stringify({
+            id:id            
+        }) 
+
+
+        const response = await fetch(API+"/procesarPedido",{
+            method:"POST",
+            body:formProcesar,
+            headers:{                
+                'Content-Type':'application/json'
+            }})    
+            .then((res)=>res.json())
+            .then((data)=>{dato1=data})              
+            
+            if(dato1.mensaje==="Se ha producido un error"){
+                alert("Se ha producido un error");
+            } 
+
+
+
+    
+    
+            return(response);
+
+
+
+
     }
 
     

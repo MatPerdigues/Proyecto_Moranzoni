@@ -16,6 +16,11 @@ export default function CardListas({info,sumArrCarrito,restarCarrito,sumarPrecio
             let cantidadCarrito = parseInt(document.getElementById("cant"+info.id).innerHTML);           
             setCantidad(cantidadCarrito);     
         }
+
+        if(info.stock===0){
+            document.getElementById("cantList"+info.id).style.backgroundColor="rgb(255, 0, 0, 0.2)";
+            
+        }
     }
 
     useEffect(()=>{

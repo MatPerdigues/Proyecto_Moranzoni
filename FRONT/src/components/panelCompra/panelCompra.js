@@ -144,7 +144,7 @@ export default function PanelCompra (){
     const listener = (event)=>{        
 
         let opcCompra1 = event.currentTarget.id;
-        setFilterProd(listProd.filter((prod)=>prod.marca===opcCompra1));
+        setFilterProd(listProd.filter((prod)=>prod.marca===opcCompra1 && prod.activo==='true'));
         document.getElementById('secList').style.display='block';
     }
 
