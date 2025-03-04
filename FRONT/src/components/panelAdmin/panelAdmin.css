@@ -326,7 +326,7 @@
 
 
 .secPedidos{
-    
+
     display: none;
     width: 60%;
     height: 800px;
@@ -405,3 +405,50 @@
 #formEditar{
     display: block;
 }
+
+.busqFecha{
+    width: 20%;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-right: 30%;
+
+}
+
+.divFecha{
+    width: 70%;
+    height: 50px;
+    display: flex;
+    justify-content: end;
+
+    margin: auto;
+    margin-top: 50px;
+}
+
+#calendar{
+    font-size: 30px;
+}
+
+#calendar:hover{
+    cursor: pointer;
+}
+
+
+.hidden-date-input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none; /* Evita que el usuario haga clic directamente */
+    width: 0;
+  }
+  
+  .date-picker-container {
+    position: relative;
+    border: none;
+  }
+
+  .calendar-icon{
+    border: none;
+    background-color: white;
+  }
+

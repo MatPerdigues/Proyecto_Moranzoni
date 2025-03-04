@@ -2,12 +2,13 @@ import { Fragment } from 'react';
 import './panelAdmin.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faTruckArrowRight,faEnvelope, faCartShopping, faWheatAwnCircleExclamation,faCartArrowDown,faList,faShare,faCheck,faXmark,faArrowsRotate,faX,faPlus} from '@fortawesome/free-solid-svg-icons';
-import { useState,useEffect } from "react";
+import { useState,useEffect,useRef } from "react";
 import CardProd from '../cardsProductos/cardsProductos'
 import CardMarcas from '../cardMarcas/cardMarcas';
 import CardPedidos from '../cardPedidos/cardPedidos';
 import { FaRegStar } from "react-icons/fa";
 import { FaExclamationTriangle } from "react-icons/fa";
+import { FcCalendar } from "react-icons/fc";
 const API = process.env.REACT_APP_API_URL;
 
 
@@ -35,6 +36,9 @@ export default function PanelAdmin(){
     const [marca,setMarca]=useState('');
     const [arrayPedidos,setArrayPedidos]=useState([]);
     const [pedidosFilter,setPedidosFilter]=useState([]);
+    const [selectedDate, setSelectedDate] = useState("");
+    const dateInputRef = useRef(null);
+
     // const [nombrePedido,setNombrePedido]=useState("");
 
 
@@ -235,10 +239,8 @@ export default function PanelAdmin(){
     useEffect(()=>{
         traerProductos();       
 
-    },[])
+    },[])        
 
-
-        
 
 
 
@@ -624,6 +626,32 @@ export default function PanelAdmin(){
 
 
 
+    const verFecha = ()=>{
+        console.log(selectedDate);
+      }
+
+
+
+
+    const handleIconClick = () => {
+        dateInputRef.current.showPicker(); // Abre el calendario nativo
+      };
+    
+      const handleDateChange = (event) => {
+        const newDate = event.target.value;
+        console.log(newDate);
+        setSelectedDate(newDate);
+      };
+
+
+
+
+
+
+
+
+
+
 
 
     return(
@@ -895,6 +923,14 @@ export default function PanelAdmin(){
             </section>
 
             <section class='secPedidos' id='secPedidos'>
+                <div class='divFecha'>
+                    <div class='date-picker-container'>
+                        <button onClick={handleIconClick} className="calendar-icon">
+                          <FcCalendar id='calendar'/>
+                        </button>
+                        <input type="date" ref={dateInputRef} value={selectedDate} onChange={handleDateChange}className="hidden-date-input"/>                
+                    </div>                              
+                </div>    
                 <table class='tabPedidos1'>
                     <td id='numPedido1'><h6>Número</h6></td>
                     <td id='nomPedido1'><h6>Nombre</h6></td>
