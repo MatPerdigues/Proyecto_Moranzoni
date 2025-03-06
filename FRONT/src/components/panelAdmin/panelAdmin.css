@@ -326,8 +326,7 @@
 
 
 .secPedidos{
-
-    display: none;
+    display: block;
     width: 60%;
     height: 800px;
     margin: auto;
@@ -417,11 +416,10 @@
 }
 
 .divFecha{
-    width: 70%;
+    width: 50%;
     height: 50px;
     display: flex;
     justify-content: end;
-
     margin: auto;
     margin-top: 50px;
 }
@@ -450,5 +448,10 @@
   .calendar-icon{
     border: none;
     background-color: white;
+  }
+
+  .containerPedidos{
+    height: auto;
+    display: none;
   }
 

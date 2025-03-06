@@ -36,7 +36,7 @@ export default function PanelAdmin(){
     const [marca,setMarca]=useState('');
     const [arrayPedidos,setArrayPedidos]=useState([]);
     const [pedidosFilter,setPedidosFilter]=useState([]);
-    const [selectedDate, setSelectedDate] = useState("");
+    // const [selectedDate, setSelectedDate] = useState("");
     const dateInputRef = useRef(null);
 
     // const [nombrePedido,setNombrePedido]=useState("");
@@ -105,7 +105,7 @@ export default function PanelAdmin(){
         optMarcas1();
         optMarcas2();
 
-        document.getElementById('secPedidos').style.display='none';
+        document.getElementById('containerPedidos').style.display='none';
         document.getElementById('secProductos').style.display='block';
     }
 
@@ -621,14 +621,11 @@ export default function PanelAdmin(){
 
     const showPedidos = ()=>{
         document.getElementById('secProductos').style.display='none';
-        document.getElementById('secPedidos').style.display='block';
+        document.getElementById('containerPedidos').style.display='block';
     }
 
 
 
-    const verFecha = ()=>{
-        console.log(selectedDate);
-      }
 
 
 
@@ -636,16 +633,28 @@ export default function PanelAdmin(){
     const handleIconClick = () => {
         dateInputRef.current.showPicker(); // Abre el calendario nativo
       };
+
+
+
     
       const handleDateChange = (event) => {
-        const newDate = event.target.value;
-        console.log(newDate);
-        setSelectedDate(newDate);
+        const fechaCalendario = event.target.value;
+        const arrayFecha = fechaCalendario.split("-");
+        let dia = arrayFecha[2];
+        if(dia<10){
+            dia = dia.slice(-1);
+        } else {
+            dia = arrayFecha[2];
+        }        
+        let fechaPedido = dia+'-'+arrayFecha[1]+'-'+arrayFecha[0];
+        if(fechaPedido==='undefined-undefined-'){
+            const filtradoPedidos = arrayPedidos.filter((pedido)=>pedido.estado==='pendiente');  
+            setPedidosFilter(filtradoPedidos);
+        } else{
+            const filtradoPedidos = arrayPedidos.filter((pedido)=>pedido.fecha===fechaPedido);   
+            setPedidosFilter(filtradoPedidos);
+        }
       };
-
-
-
-
 
 
 
@@ -922,24 +931,29 @@ export default function PanelAdmin(){
                 </section>
             </section>
 
-            <section class='secPedidos' id='secPedidos'>
-                <div class='divFecha'>
-                    <div class='date-picker-container'>
-                        <button onClick={handleIconClick} className="calendar-icon">
-                          <FcCalendar id='calendar'/>
-                        </button>
-                        <input type="date" ref={dateInputRef} value={selectedDate} onChange={handleDateChange}className="hidden-date-input"/>                
-                    </div>                              
-                </div>    
-                <table class='tabPedidos1'>
-                    <td id='numPedido1'><h6>Número</h6></td>
-                    <td id='nomPedido1'><h6>Nombre</h6></td>
-                    <td id='totPedido1'><h6>Total</h6></td>
-                </table>
-                {pedidosFilter.map((pedido)=>{
-                        return <CardPedidos key={pedido.id} info={pedido} listProd={arrProd} />
-                    })}  
+            <section class='containerPedidos' id='containerPedidos'>
+                    <div class='divFecha'>
+                        <div class='date-picker-container'>
+                            <button onClick={handleIconClick} className="calendar-icon">
+                              <FcCalendar id='calendar'/>
+                            </button>
+                            <input type="date" ref={dateInputRef} onChange={handleDateChange}className="hidden-date-input"/>                
+                        </div>                              
+                    </div> 
+
+                <section class='secPedidos' id='secPedidos'>   
+                    <table class='tabPedidos1'>
+                        <td id='numPedido1'><h6>Número</h6></td>
+                        <td id='nomPedido1'><h6>Nombre</h6></td>
+                        <td id='totPedido1'><h6>Total</h6></td>
+                    </table>
+                    {pedidosFilter.map((pedido)=>{
+                            return <CardPedidos key={pedido.id} info={pedido} listProd={arrProd} />
+                        })}  
+                </section>
             </section>
+
+            
 
     
         </Fragment>
