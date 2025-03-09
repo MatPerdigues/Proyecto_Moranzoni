@@ -1,0 +1,49 @@
+
+
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+#divisorContacto1{
+  border-bottom: none;
+  border-left: none;
+  border-radius: 0 5px 0 0;
+}
+
+#divisorContacto{
+  border-bottom: none;
+  border-right: none;
+  border-radius: 5px 0 0 0;
+}
+
+.contenedorContacto{
+  height: auto;
+  min-height: 600px;
+  width: 30%;
+  margin: auto
+}
+
+
+
+#subContacto{
+  margin: auto;
+  width: 100%;
+}
+
+#mensajeContacto{
+  height: 150px;
+  padding: 10px;
+  margin-bottom: 0;
+}
+
+.numCaracteres{
+    display: flex;
+    justify-content: center;
+    font-size: 13px;
+}
+
+#secMensaje{
+    margin-bottom: 0;
+}

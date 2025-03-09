@@ -635,7 +635,6 @@
     width: 25%;
     height: 70px;
     margin: auto;
-
     display: flex;
     justify-content: space-around;
 }
