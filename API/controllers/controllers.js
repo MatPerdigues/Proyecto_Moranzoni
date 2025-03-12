@@ -310,6 +310,29 @@ const procesarPedido = async(req,res)=>{
     })}
 
 
+const enviarMensaje = async(req,res)=>{
+    const{fechaMensaje,telefono,mail,msg}=req.body;
 
 
-module.exports={agregarProducto,traerProductos,pausarProducto,activarProducto,eliminarProducto,editarProducto,enviarMarca,traerMarcas,eliminarMarca,agregarPedido,traerPedidos,cancelarPedido,procesarPedido};
+    dbConnection.query(`INSERT INTO mensajes (fecha,telefono,email,mensaje) VALUES (?,?,?,?)`,[fechaMensaje,telefono,mail,msg],(error,data)=>{
+        if(error){
+            console.log(error)
+            res.json({
+                mensaje:'Se ha producido un error. Intentalo nuevamente.'
+            })
+        } else {
+            res.json({
+                mensaje:'Muchas gracias por tu mensaje!! Nos contacteremos a la brevedad.'
+            })
+        }
+    }
+)
+}
+
+
+
+
+
+
+
+module.exports={agregarProducto,traerProductos,pausarProducto,activarProducto,eliminarProducto,editarProducto,enviarMarca,traerMarcas,eliminarMarca,agregarPedido,traerPedidos,cancelarPedido,procesarPedido,enviarMensaje};

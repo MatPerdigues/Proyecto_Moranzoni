@@ -2,35 +2,80 @@ import './formContacto.css';
 import { Fragment,useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faShare} from '@fortawesome/free-solid-svg-icons';
+import { FaCheck } from "react-icons/fa";
+
+const API = process.env.REACT_APP_API_URL;
 
 
 export default function FomrContacto (){
 
-    const [caracteres,setCarateres] = useState(0);;
+    const [caracteres,setCarateres] = useState(0);
+    const [mensajeEnviado,setMensajeEnviado] = useState(false);
+    // const [rtaMensaje,setrtaMensaje] = useState('');
+    const [mensajePop,setMensajePop] = useState('');
     let mensaje = '';
+    let rtaMensaje='';
 
 
-
-    const sumProd1 = (event)=>{
-        event.preventDefault();
-        console.log('Hola Mundito');
-        console.log(event.target[0].value);
-        console.log(event.target[1].value);        
-    }
     
     const sumCaracter=(event)=>{        
         mensaje = event.target.value;
-        setCarateres(mensaje.length)
+        setCarateres(mensaje.length)        
+    }
 
+
+    const enviarMensaje = async(event)=>{
+
+        event.preventDefault();
+
+        const fecha = new Date();
+        const yearActual = fecha.getFullYear();
+        const hoy = fecha.getDate();
+        const mesActual = fecha.getMonth() + 1;
+        let fecha_envio = hoy+'-'+mesActual+'-'+yearActual;
+ 
+        const formMensaje = JSON.stringify({
+            fechaMensaje:fecha_envio,
+            telefono:event.target[0].value,
+            mail:event.target[1].value,
+            msg:event.target[2].value
+        });
+
+        const response = await fetch(API+"/enviarMensaje",{
+            method:"POST",
+            body:formMensaje,
+            headers:{
+                //"Authorization": `Bearer ${localStorage.getItem("token")}`,
+                
+                'Content-Type':'application/json'
+            }})    
+            .then((res)=>res.json())
+            .then((data)=>{rtaMensaje=data});  
+            // .then((data)=>(setrtaMensaje(data)));
+            
+
+            if(rtaMensaje.mensaje !== ''){
+                setMensajeEnviado(true);
+                setMensajePop(rtaMensaje.mensaje);
+            }
         
+            return(response);
+    }
+
+
+    const home = ()=>{
+        window.location.href='../';
     }
     
     return(
 
         <Fragment>
 
-            <section class='contenedorContacto'>          
-                <form class='formContacto' id='formContacto' onSubmit={(event)=>{sumProd1(event)}}>
+            <section class='contenedorContacto'> 
+
+                {mensajeEnviado===false?
+
+                <form class='formContacto' id='formContacto' onSubmit={(event)=>{enviarMensaje(event)}}>
                     {/* <input type='number'></input> */}
                     <section class='secFormProd' id='telContacto'>
                         <div class='catProd'><h5>Teléfono</h5></div>
@@ -61,9 +106,18 @@ export default function FomrContacto (){
                     </div>
                      <button class='subForm' id='subContacto'><FontAwesomeIcon icon={faShare} size='2x'/></button>
                     
-                </form>
+                </form>                
+                :
+
+                <section class='popMensaje'>
+                    <h6 class='h6popMensaje'>{mensajePop}</h6>
+                    <button type='submit' class='btnConf' id='btnMensaje'><FaCheck onClick={home}/></button>
+                </section>
+
+                }
+
             </section>
-     
+                
         </Fragment>
 
     )

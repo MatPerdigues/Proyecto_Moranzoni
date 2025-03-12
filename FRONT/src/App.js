@@ -22,8 +22,14 @@ const contacto=()=>{
 }
 
 
+const verProductos =()=>{
+  window.location.href='../panelCompra';
+}
+
+
+
 const tipIn = (event)=>{
-  console.log(event.currentTarget.id);
+
 
   if(event.currentTarget.id==='iconContact2'){
     document.getElementById('tip1').style.opacity='100%';  
@@ -64,7 +70,7 @@ const tipOut =()=>{
       <header class='header'> 
           <section class='contactIcons'>
             
-            <div class='contactoDiv'><a href='https://www.instagram.com/distribuidora.moranzoni/'><SiInstagram class='iconContact' id='iconContact2' onMouseOver={tipIn} onMouseOut={tipOut}/></a>
+            <div class='contactoDiv'><a href='https://www.instagram.com/distribuidora.moranzoni/' ><SiInstagram class='iconContact' id='iconContact2' onMouseOver={tipIn} onMouseOut={tipOut}/></a>
               <div class='tip' id='tip1'>
                 <p class='pContact'>Instagram</p>
               </div>           
@@ -79,7 +85,7 @@ const tipOut =()=>{
                 <p class='pContact'>Encontranos</p>
               </div> 
             </div>
-            <div class='contactoDiv'><BiCartDownload class='iconContact' id='iconContact1' onMouseOver={tipIn} onMouseOut={tipOut}/>
+            <div class='contactoDiv'><BiCartDownload class='iconContact' id='iconContact1' onMouseOver={tipIn} onMouseOut={tipOut} onClick={verProductos}/>
               <div class='tip' id='tip4'>
                 <p class='pContact'>Productos</p>
               </div> 
@@ -87,8 +93,8 @@ const tipOut =()=>{
           </section>
       </header>
       <section class='fondo'>
-        <img class='imgFondo' src={fondo} alt='fondoMoranzoni.png'></img>
-        <div class='logoFondo'></div>
+       <img class='imgFondo' src={fondo} alt='fondoMoranzoni.png'></img>
+       <a href='../'><div class='logoFondo'></div></a>
       </section>
       <div className="App">
         <Router/>
