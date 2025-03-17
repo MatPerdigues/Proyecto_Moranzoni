@@ -3,7 +3,7 @@ import Home from '../home/home';
 import Admin from '../admin/admin';
 import PanelAdmin from '../panelAdmin/panelAdmin';
 import PanelCompra from '../panelCompra/panelCompra';
-import FormContacto from '../../formContacto/formContacto';
+import FormContacto from '../formContacto/formContacto';
 
 
 export default function Router(){

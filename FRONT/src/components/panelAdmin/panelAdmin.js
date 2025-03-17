@@ -6,6 +6,7 @@ import { useState,useEffect,useRef } from "react";
 import CardProd from '../cardsProductos/cardsProductos'
 import CardMarcas from '../cardMarcas/cardMarcas';
 import CardPedidos from '../cardPedidos/cardPedidos';
+import CardMensajes from '../cardMensajes/cardMensajes';
 import { FaRegStar } from "react-icons/fa";
 import { FaExclamationTriangle } from "react-icons/fa";
 import { FcCalendar } from "react-icons/fc";
@@ -36,6 +37,7 @@ export default function PanelAdmin(){
     const [marca,setMarca]=useState('');
     const [arrayPedidos,setArrayPedidos]=useState([]);
     const [pedidosFilter,setPedidosFilter]=useState([]);
+    const [arrayMensajes,setArrayMensajes] =useState([]);
     // const [selectedDate, setSelectedDate] = useState("");
     const dateInputRef = useRef(null);
 
@@ -99,15 +101,15 @@ export default function PanelAdmin(){
 
 
 
-    const showProd=()=>{
+    // const showProd=()=>{
 
-        optMarcas();
-        optMarcas1();
-        optMarcas2();
+    //     optMarcas();
+    //     optMarcas1();
+    //     optMarcas2();
 
-        document.getElementById('containerPedidos').style.display='none';
-        document.getElementById('secProductos').style.display='block';
-    }
+    //     document.getElementById('containerPedidos').style.display='none';
+    //     document.getElementById('secProductos').style.display='block';
+    // }
 
     
 
@@ -291,6 +293,23 @@ export default function PanelAdmin(){
     useEffect(()=>{
         traerMarcas();   
     },[]) 
+
+
+
+
+    const traerMensajes= async()=>{
+        let mensajes = await fetch(API+"/traerMensajes")      
+
+        .then((res)=>res.json())
+        .then((data)=>{setArrayMensajes(data)})
+        .catch(error => console.log("Se ha producido un error... " +error));        
+        return mensajes
+        }
+
+
+    useEffect(()=>{
+        traerMensajes();       
+    },[])    
 
 
 
@@ -619,10 +638,10 @@ export default function PanelAdmin(){
 
 
 
-    const showPedidos = ()=>{
-        document.getElementById('secProductos').style.display='none';
-        document.getElementById('containerPedidos').style.display='block';
-    }
+    // const showPedidos = ()=>{
+    //     document.getElementById('secProductos').style.display='none';
+    //     document.getElementById('containerPedidos').style.display='block';
+    // }
 
 
 
@@ -659,7 +678,34 @@ export default function PanelAdmin(){
 
 
 
+    const btnAdmin = (event)=>{
+        if(event.currentTarget.id==='grpPanel1'){
+            document.getElementById('secProductos').style.display='none';
+            document.getElementById('containerMensajes').style.display='none';
+            document.getElementById('containerPedidos').style.display='block';
+        }
 
+        if(event.currentTarget.id==='grpPanel2'){
+            optMarcas();
+            optMarcas1();
+            optMarcas2();    
+            document.getElementById('containerPedidos').style.display='none';
+            document.getElementById('containerMensajes').style.display='none';
+            document.getElementById('secProductos').style.display='block';
+        }
+
+        if(event.currentTarget.id==='grpPanel3'){
+            document.getElementById('containerPedidos').style.display='none';
+            document.getElementById('secProductos').style.display='none';
+            document.getElementById('containerMensajes').style.display='block';
+        }
+
+    }
+
+
+    const popEliminarMensaje=()=>{
+        document.getElementById('mapMensajes').style.display='none';
+    }
 
 
 
@@ -669,26 +715,35 @@ export default function PanelAdmin(){
 
             <div class='secPanel'>
                 
-                <div class='grpPanel' id='grpPanel1'>
+                <div class='grpPanel' id='grpPanel1' onClick={btnAdmin}>
                     <div class='grpPanelIcon'>
                         {pedidosFilter.length>0?
                         <FaExclamationTriangle />
                         :""}
                     </div>
-                    <div class='iconPanel' id='iconPanel1' onClick={showPedidos}>
+                    {/* <div class='iconPanel' id='iconPanel1' onClick={showPedidos}> */}
+                    <div class='iconPanel' id='iconPanel1' >
                         <FontAwesomeIcon icon={faTruckArrowRight} size='3x'/>
                     </div>
                 </div>
-                <div class='grpPanel' id='grpPanel2' onClick={showProd}>
-                    <div class='iconPanel' id='iconPanel2'>
-                        <FontAwesomeIcon icon={faCartShopping} size='3x'/>
+
+                <div class='grpPanel' id='grpPanel3' onClick={btnAdmin}>
+                    <div class='grpPanelIcon'>
+                        {arrayMensajes.length>0?
+                        <FaExclamationTriangle />
+                        :""}
                     </div>
-                </div>
-                <div class='grpPanel' id='grpPanel3'>
                     <div class='iconPanel' id='iconPanel3'>
                         <FontAwesomeIcon icon={faEnvelope} size='3x'/>
                     </div>
                 </div>
+
+                <div class='grpPanel' id='grpPanel2' onClick={btnAdmin}>
+                    <div class='iconPanel' id='iconPanel2'>
+                        <FontAwesomeIcon icon={faCartShopping} size='3x'/>
+                    </div>
+                </div>
+
                 <div class='grpPanel' id='grpPanel4'>
                     <div class='iconPanel' id='iconPanel4'>
                         <FontAwesomeIcon icon={faWheatAwnCircleExclamation} size='3x'/>
@@ -952,6 +1007,22 @@ export default function PanelAdmin(){
                         })}  
                 </section>
             </section>
+
+            <section class='containerMensajes' id='containerMensajes'>
+                <section class='mapMensajes' id='mapMensajes'>
+                    {arrayMensajes.map((mensaje)=>{
+                        return <CardMensajes key={mensaje.id} info={mensaje} popEliminarMensaje={popEliminarMensaje}></CardMensajes>
+                    })}
+                </section>
+                <div class='popElimMensaje'>
+                    <h6>¿Seguro querés eliminar este mensaje?</h6>
+                    <div class='btnsEliminar'>                            
+                        <button class='btnEliminar' id='xElimMensaje'><FontAwesomeIcon icon={faXmark} /></button>
+                        <button class='btnEliminar' id='vElimMensaje'><FontAwesomeIcon icon={faCheck} /></button>
+                    </div>
+                </div>
+            </section>   
+
 
             
 

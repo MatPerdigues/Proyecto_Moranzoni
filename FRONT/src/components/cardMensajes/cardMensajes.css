@@ -1,0 +1,100 @@
+
+/* .containerMensajes{
+    width: 100%;
+} */
+
+.secMensaje{
+    width: 100%;
+    border: 1px solid orange;
+    /* padding-bottom: 20px;
+    padding-top: 10px; */
+    min-height: 60px;
+    padding-left: 1%;
+    margin: auto;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    border-radius: 10px;
+    height: auto;
+    overflow: hidden;
+   
+    
+}
+
+.tableMensaje{
+    display: flex;
+    justify-content: center;    
+    width: 100%;    
+    margin: auto;  
+    height: auto;
+    min-height: 60px; 
+    align-items: center; 
+
+    
+}
+
+.tdMensaje{
+    width: 100%;
+    /* border: 1px solid violet; */
+    display: flex;
+    /* justify-content: center;   */
+    word-break:break-all;  
+    /* align-items: center; */
+}
+
+#tdMensaje1,#tdMensaje2{
+    width: 40%;
+}
+
+#tdMensaje3{
+    width: 15%;
+}
+
+#tdMensaje4{
+    width: 5%;
+    align-items: center;
+}
+
+#tdMensaje1{
+    font-weight: 500;
+}
+
+.secMensaje:hover{
+    cursor: pointer;
+    background-color: rgb(255, 165, 0, 0.2);
+}
+
+#elimMensaje:hover{    
+    color: orangered;
+}
+
+.telMensaje{    
+    width: 100%;
+    height: 40px;
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    margin-top: 10px;
+    display: none;
+}
+
+.textMensaje{
+    border-top: 2px solid orangered;
+    width: 98%;
+    height: auto;
+    margin: auto;
+    padding-top: 10px;
+    display: none;
+}
+
+.closeMensaje{
+
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    display: none;
+    height: 40px;
+    align-items: center;
+    font-size: 35px;
+    margin-top: 30px;
+}
+

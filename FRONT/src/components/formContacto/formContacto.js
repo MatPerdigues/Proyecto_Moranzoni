@@ -36,9 +36,10 @@ export default function FomrContacto (){
  
         const formMensaje = JSON.stringify({
             fechaMensaje:fecha_envio,
-            telefono:event.target[0].value,
-            mail:event.target[1].value,
-            msg:event.target[2].value
+            nomMensaje:event.target[0].value,
+            telefono:event.target[1].value,
+            mail:event.target[2].value,
+            msg:event.target[3].value
         });
 
         const response = await fetch(API+"/enviarMensaje",{
@@ -77,6 +78,14 @@ export default function FomrContacto (){
 
                 <form class='formContacto' id='formContacto' onSubmit={(event)=>{enviarMensaje(event)}}>
                     {/* <input type='number'></input> */}
+                    <section class='secFormProd' id='telContacto'>
+                        <div class='catProd'><h5>Nombre y apellido</h5></div>
+                        <section class='secDivisorProd'>
+                            <div class='divisorProd' id='divisorContacto'></div>
+                            <div class='divisorProd' id='divisorContacto1'></div>
+                        </section>
+                        <input type='text' required name='nomContacto' class='inputProd'></input>
+                    </section>
                     <section class='secFormProd' id='telContacto'>
                         <div class='catProd'><h5>Teléfono</h5></div>
                         <section class='secDivisorProd'>

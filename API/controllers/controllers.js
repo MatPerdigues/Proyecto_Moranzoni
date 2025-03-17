@@ -311,10 +311,10 @@ const procesarPedido = async(req,res)=>{
 
 
 const enviarMensaje = async(req,res)=>{
-    const{fechaMensaje,telefono,mail,msg}=req.body;
+    const{nomMensaje,fechaMensaje,telefono,mail,msg}=req.body;
 
 
-    dbConnection.query(`INSERT INTO mensajes (fecha,telefono,email,mensaje) VALUES (?,?,?,?)`,[fechaMensaje,telefono,mail,msg],(error,data)=>{
+    dbConnection.query(`INSERT INTO mensajes (nombre,fecha,telefono,email,mensaje) VALUES (?,?,?,?,?)`,[nomMensaje,fechaMensaje,telefono,mail,msg],(error,data)=>{
         if(error){
             console.log(error)
             res.json({
@@ -330,9 +330,22 @@ const enviarMensaje = async(req,res)=>{
 }
 
 
+const traerMensajes=async(req,res)=>{    
+
+    dbConnection.query("SELECT * FROM mensajes",(error,data)=>{
+        if(error){
+            console.log(error);
+            res.send(error);
+        }else{
+            res.send(data)
+        }
+    })
+}
 
 
 
 
 
-module.exports={agregarProducto,traerProductos,pausarProducto,activarProducto,eliminarProducto,editarProducto,enviarMarca,traerMarcas,eliminarMarca,agregarPedido,traerPedidos,cancelarPedido,procesarPedido,enviarMensaje};
+
+
+module.exports={agregarProducto,traerProductos,pausarProducto,activarProducto,eliminarProducto,editarProducto,enviarMarca,traerMarcas,eliminarMarca,agregarPedido,traerPedidos,cancelarPedido,procesarPedido,enviarMensaje,traerMensajes};

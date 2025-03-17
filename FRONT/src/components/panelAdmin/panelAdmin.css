@@ -6,6 +6,7 @@
     display: flex;
     justify-content: space-around;
 
+
 }
 
 
@@ -45,6 +46,7 @@
     width: 60%;
     height: 800px;
     margin: auto;
+    margin-top: 50px;
     min-height: 500px;
     margin-bottom: 100px;
     border-radius: 10px;    
@@ -330,6 +332,7 @@
     width: 60%;
     height: 800px;
     margin: auto;
+    margin-top: -50px;
     min-height: 500px;
     margin-bottom: 100px;
     border-radius: 10px; 
@@ -371,9 +374,11 @@
 }
 
 #grpPanel1{
-
     display: block;
+}
 
+#grpPanel3{
+    display: block;
 }
 
 .grpPanelIcon{
@@ -389,6 +394,10 @@
 
 #iconPanel1{
     margin-top: -5px;
+}
+
+#iconPanel3{
+    margin-top: 0px;
 }
 
 
@@ -455,3 +464,27 @@
     display: none;
   }
 
+.containerMensajes{
+    width: 60%;
+    height: 600px;
+    min-height: 600px;
+    margin: auto;
+    margin-bottom: 100px;
+    margin-top: 70px;
+}
+
+
+.popElimMensaje{
+    border: 1px solid orange;
+    width: 30%;
+    height: 200px;
+    margin: auto;
+    border-radius: 10px;
+    text-align: center;
+    /* display: flex; */
+    padding-top: 40px;
+}
+
+#xElimMensaje:hover,#vElimMensaje:hover{
+    background-color: rgb(245, 158, 11, 0.7);
+}

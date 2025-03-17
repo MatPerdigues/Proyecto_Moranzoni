@@ -103,7 +103,7 @@ export default function CardPedidos({info,listProd}){
 
 
     const procesarPedido = async()=>{
-        console.log('el pedido esta siendo procesado');
+   
         let id=info.id;
 
         console.log(id);
