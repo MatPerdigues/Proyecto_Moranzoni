@@ -21,6 +21,7 @@ export default function PanelAdmin(){
     let mensajeEditar='';
     let confMarca='';
     let confElimMarca='';
+    let pedidosPendientes = [];
 
     
 
@@ -236,12 +237,7 @@ export default function PanelAdmin(){
         traerProductos();  
         setArrayStock(arrProd.filter((producto)=>producto.stock===0));     
 
-    },[])        
-
-
-
-
-
+    },[])       
 
 
 
@@ -251,7 +247,6 @@ export default function PanelAdmin(){
         .then((res)=>res.json())
         .then((data)=>{setArrayPedidos(data)})
         .catch(error => console.log("Se ha producido un error... " +error));     
-        // filtradoPedidos = arrayPedidos.filter((pedido)=>pedido.estado==="pendiente");   
                 
         return productos
     }
@@ -261,11 +256,7 @@ export default function PanelAdmin(){
     useEffect(()=>{            
         const filtradoPedidos = arrayPedidos.filter((pedido)=>pedido.estado==="pendiente");   
         setPedidosFilter(filtradoPedidos);
-        setFechaPedido(filtradoPedidos);
-        console.log(arrayPedidos);
-        console.log(filtradoPedidos);
-        console.log(pedidosFilter);
-        
+        setFechaPedido(filtradoPedidos);        
         if(filtradoPedidos.length>0){
             document.getElementById('warning1').style.visibility='visible';
         }
@@ -655,10 +646,9 @@ export default function PanelAdmin(){
 
 
 
+
     
-      const handleDateChange = (event) => {
-        // console.log(pedidosFilter.length);
-        // setPedidosFilter(arrayPedidos.filter((pedido)=>pedido.estado==='pendiente'));
+      const handleDateChange = (event) => {       
         document.getElementById('warning1').style.visibility='hidden';
         const fechaCalendario = event.target.value;
         const arrayFecha = fechaCalendario.split("-");
@@ -668,15 +658,12 @@ export default function PanelAdmin(){
         } else {
             dia = arrayFecha[2];
         }        
-        let fechaPedido = dia+'-'+arrayFecha[1]+'-'+arrayFecha[0];   
-        if(fechaPedido==='undefined-undefined-'){    
-           const fechaPendiente = arrayPedidos.filter((pedido)=>pedido.estado==='pendiente')      
-           setPedidosFilter(fechaPendiente); 
-        //    setPedidosFilter(arrayPedidos.filter((pedido)=>pedido.estado==='pendiente'));              
-            // const pedidosLenght = arrayPedidos.filter((pedido)=>pedido.estado==='pendiente');
-            const pedidosLenght = 0;
-            console.log(pedidosLenght.length);
-            if(pedidosLenght.length>0){
+        let fechaPedido = dia+'-'+arrayFecha[1]+'-'+arrayFecha[0];      
+    
+         if(fechaPedido==='undefined-undefined-'){  
+            const nuevosPedidos = arrayPedidos.filter((pedido) => pedido.estado === 'pendiente');
+            setPedidosFilter(nuevosPedidos);
+            if(nuevosPedidos.length>0){
                 document.getElementById('warning1').style.visibility='visible';
             }
 
@@ -762,16 +749,15 @@ export default function PanelAdmin(){
 
 
     const descPedido=()=>{
-        
+
         let idPedido = parseInt(sessionStorage.getItem("descPedidoId"));
-        for(let x=0; x<pedidosFilter.length;x++){
-            if(pedidosFilter[x].id===idPedido){
-               
-                setPedidosFilter( pedidosFilter.splice(x,1));
+        for(let x=0; x<arrayPedidos.length;x++){
+            if(arrayPedidos[x].id===idPedido){               
+                arrayPedidos.splice(x,1);
             }
         }
-        console.log(pedidosFilter.length); 
-        if(pedidosFilter.length===0){
+        pedidosPendientes = arrayPedidos.filter((pedido)=>pedido.estado==='pendiente');
+        if(pedidosPendientes.length===0){
             document.getElementById('warning1').style.visibility='hidden';
         }
     }
