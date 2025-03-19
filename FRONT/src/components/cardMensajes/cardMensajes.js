@@ -19,16 +19,17 @@ export default function CardMensajes ({info,popEliminarMensaje}){
     }
 
     const popElimMensaje=()=>{
+        sessionStorage.setItem('idMensaje',info.id);
         popEliminarMensaje();       
     }
     
     return(
         <Fragment>
             <section class='secMensaje' id='secMensaje' >
-                <table class='tableMensaje' onClick={showMensaje}>
-                    <td class='tdMensaje' id='tdMensaje1'>{info.nombre}</td>
-                    <td class='tdMensaje' id='tdMensaje2'>{info.email}</td>
-                    <td class='tdMensaje' id='tdMensaje3'>{info.fecha}</td>
+                <table class='tableMensaje' >
+                    <td class='tdMensaje' id='tdMensaje1'onClick={showMensaje}>{info.nombre}</td>
+                    <td class='tdMensaje' id='tdMensaje2'onClick={showMensaje}>{info.email}</td>
+                    <td class='tdMensaje' id='tdMensaje3'onClick={showMensaje}>{info.fecha}</td>
                     <td class='tdMensaje' id='tdMensaje4'><TfiTrash id='elimMensaje' onClick={popElimMensaje}/></td>                    
                 </table>
                 <div class='telMensaje' id={"telMensaje" + info.id}>Teléfono: {info.telefono}</div>

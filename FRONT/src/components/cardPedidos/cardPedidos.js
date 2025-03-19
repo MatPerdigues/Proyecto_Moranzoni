@@ -6,11 +6,12 @@ import { FaTruckArrowRight } from "react-icons/fa6";
 import { FcCancel } from "react-icons/fc";
 const API = process.env.REACT_APP_API_URL;
 
-export default function CardPedidos({info,listProd}){
+export default function CardPedidos({info,listProd,descPedido}){
 
     const productos = JSON.parse(info.pedido); 
     let dato = "";
     let dato1="";
+
 
 
 
@@ -52,6 +53,8 @@ export default function CardPedidos({info,listProd}){
 
 
     const cancelarPedido = async()=>{
+        sessionStorage.setItem("descPedidoId",info.id);
+        descPedido();
 
         let pedido = JSON.parse(info.pedido);
         // document.getElementById("infoPedido" + info.id).style.display='none';
@@ -103,9 +106,9 @@ export default function CardPedidos({info,listProd}){
 
 
     const procesarPedido = async()=>{
-   
+        sessionStorage.setItem("descPedidoId",info.id);
+        descPedido();   
         let id=info.id;
-
         console.log(id);
 
         document.getElementById("infoPedido" + info.id).style.transition='all 1s'; 

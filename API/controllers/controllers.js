@@ -344,8 +344,32 @@ const traerMensajes=async(req,res)=>{
 
 
 
+const eliminarMensaje = async (req,res)=>{
+
+   
+    const{idMsg}=req.body;
+
+    dbConnection.query(`DELETE FROM mensajes WHERE id="${idMsg}"`,(error,data)=>{
+        if(error){
+            console.log(error);
+        }else{            
+            dbConnection.query("SELECT * FROM mensajes",(error,data)=>{
+                if(error){
+                    console.log(error);
+                    res.send(error);
+                }else{                   
+                    res.json(data);
+                }
+            })
+
+
+        }
+
+    })
+}    
 
 
 
 
-module.exports={agregarProducto,traerProductos,pausarProducto,activarProducto,eliminarProducto,editarProducto,enviarMarca,traerMarcas,eliminarMarca,agregarPedido,traerPedidos,cancelarPedido,procesarPedido,enviarMensaje,traerMensajes};
+
+module.exports={agregarProducto,traerProductos,pausarProducto,activarProducto,eliminarProducto,editarProducto,enviarMarca,traerMarcas,eliminarMarca,agregarPedido,traerPedidos,cancelarPedido,procesarPedido,enviarMensaje,traerMensajes,eliminarMensaje};

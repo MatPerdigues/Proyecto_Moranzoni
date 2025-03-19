@@ -10,6 +10,7 @@ import CardMensajes from '../cardMensajes/cardMensajes';
 import { FaRegStar } from "react-icons/fa";
 import { FaExclamationTriangle } from "react-icons/fa";
 import { FcCalendar } from "react-icons/fc";
+import { LiaXbox } from 'react-icons/lia';
 const API = process.env.REACT_APP_API_URL;
 
 
@@ -20,6 +21,7 @@ export default function PanelAdmin(){
     let mensajeEditar='';
     let confMarca='';
     let confElimMarca='';
+
     
 
     
@@ -37,9 +39,13 @@ export default function PanelAdmin(){
     const [marca,setMarca]=useState('');
     const [arrayPedidos,setArrayPedidos]=useState([]);
     const [pedidosFilter,setPedidosFilter]=useState([]);
+    const [fechaPedido,setFechaPedido]=useState([]);
     const [arrayMensajes,setArrayMensajes] =useState([]);
     // const [selectedDate, setSelectedDate] = useState("");
     const dateInputRef = useRef(null);
+    const [arrayStock,setArrayStock]=useState([]);
+
+    
 
     // const [nombrePedido,setNombrePedido]=useState("");
 
@@ -162,22 +168,15 @@ export default function PanelAdmin(){
 
 
 
- 
     const showMap=(event)=>{
-
-        setArrFiltro([]);
-        
+        setArrFiltro([]);        
         let datoFiltro="";
-
         document.getElementById('mapProd').style.display='block';
-
         if(event===undefined){
             datoFiltro=sessionStorage.getItem('marca');
         }else{
             datoFiltro = event.target.value;
         }
-
-
         for(let x=0;x<arrProd.length;x++){
             if(datoFiltro===arrProd[x].marca){
                 let filtradoMarca = arrProd.filter((prod)=>prod.marca===datoFiltro);
@@ -200,8 +199,7 @@ export default function PanelAdmin(){
             categoria : event.target[2].value,
             stock : event.target[3].value,
             precio : event.target[4].value           
-        })    
-
+        })  
         const response = await fetch(API+"/agregarProducto",{
             method:"POST",
             body:formProducto,
@@ -209,16 +207,13 @@ export default function PanelAdmin(){
                 //"Authorization": `Bearer ${localStorage.getItem("token")}`,
                 
                 'Content-Type':'application/json'
-            }})
-    
+            }})    
             .then((res)=>res.json())
             .then((data)=>{dato=data})      
-            alert(dato.mensaje);
-            
+            alert(dato.mensaje);            
             if(dato.mensaje==="Producto cargado correctamente!"){
                 document.getElementById("formProductos").reset()
-            }
-            
+            }            
         return(response);
     }  
 
@@ -229,17 +224,17 @@ export default function PanelAdmin(){
 
 
     const traerProductos= async()=>{
-        let productos = await fetch(API+"/traerProductos")      
-
+        let productos = await fetch(API+"/traerProductos")  
         .then((res)=>res.json())
         .then((data)=>{setArrProd(data)})
-        .catch(error => console.log("Se ha producido un error... " +error));        
+        .catch(error => console.log("Se ha producido un error... " +error));   
         return productos
         }
 
 
     useEffect(()=>{
-        traerProductos();       
+        traerProductos();  
+        setArrayStock(arrProd.filter((producto)=>producto.stock===0));     
 
     },[])        
 
@@ -256,9 +251,8 @@ export default function PanelAdmin(){
         .then((res)=>res.json())
         .then((data)=>{setArrayPedidos(data)})
         .catch(error => console.log("Se ha producido un error... " +error));     
-        // filtradoPedidos = arrayPedidos.filter((pedido)=>pedido.estado==="pendiente");
-        
-            
+        // filtradoPedidos = arrayPedidos.filter((pedido)=>pedido.estado==="pendiente");   
+                
         return productos
     }
 
@@ -267,15 +261,21 @@ export default function PanelAdmin(){
     useEffect(()=>{            
         const filtradoPedidos = arrayPedidos.filter((pedido)=>pedido.estado==="pendiente");   
         setPedidosFilter(filtradoPedidos);
+        setFechaPedido(filtradoPedidos);
+        console.log(arrayPedidos);
+        console.log(filtradoPedidos);
+        console.log(pedidosFilter);
+        
+        if(filtradoPedidos.length>0){
+            document.getElementById('warning1').style.visibility='visible';
+        }
     },[arrayPedidos])
 
 
 
     useEffect(()=>{            
         traerPedidos();   
-    },[])
-
-
+    },[])   
 
 
 
@@ -657,6 +657,9 @@ export default function PanelAdmin(){
 
     
       const handleDateChange = (event) => {
+        // console.log(pedidosFilter.length);
+        // setPedidosFilter(arrayPedidos.filter((pedido)=>pedido.estado==='pendiente'));
+        document.getElementById('warning1').style.visibility='hidden';
         const fechaCalendario = event.target.value;
         const arrayFecha = fechaCalendario.split("-");
         let dia = arrayFecha[2];
@@ -665,13 +668,20 @@ export default function PanelAdmin(){
         } else {
             dia = arrayFecha[2];
         }        
-        let fechaPedido = dia+'-'+arrayFecha[1]+'-'+arrayFecha[0];
-        if(fechaPedido==='undefined-undefined-'){
-            const filtradoPedidos = arrayPedidos.filter((pedido)=>pedido.estado==='pendiente');  
-            setPedidosFilter(filtradoPedidos);
+        let fechaPedido = dia+'-'+arrayFecha[1]+'-'+arrayFecha[0];   
+        if(fechaPedido==='undefined-undefined-'){    
+           const fechaPendiente = arrayPedidos.filter((pedido)=>pedido.estado==='pendiente')      
+           setPedidosFilter(fechaPendiente); 
+        //    setPedidosFilter(arrayPedidos.filter((pedido)=>pedido.estado==='pendiente'));              
+            // const pedidosLenght = arrayPedidos.filter((pedido)=>pedido.estado==='pendiente');
+            const pedidosLenght = 0;
+            console.log(pedidosLenght.length);
+            if(pedidosLenght.length>0){
+                document.getElementById('warning1').style.visibility='visible';
+            }
+
         } else{
-            const filtradoPedidos = arrayPedidos.filter((pedido)=>pedido.fecha===fechaPedido);   
-            setPedidosFilter(filtradoPedidos);
+            setPedidosFilter(arrayPedidos.filter((pedido)=>pedido.fecha===fechaPedido)); 
         }
       };
 
@@ -682,6 +692,7 @@ export default function PanelAdmin(){
         if(event.currentTarget.id==='grpPanel1'){
             document.getElementById('secProductos').style.display='none';
             document.getElementById('containerMensajes').style.display='none';
+            document.getElementById('containerStock').style.display='none';
             document.getElementById('containerPedidos').style.display='block';
         }
 
@@ -691,13 +702,23 @@ export default function PanelAdmin(){
             optMarcas2();    
             document.getElementById('containerPedidos').style.display='none';
             document.getElementById('containerMensajes').style.display='none';
+            document.getElementById('containerStock').style.display='none';
             document.getElementById('secProductos').style.display='block';
         }
 
         if(event.currentTarget.id==='grpPanel3'){
             document.getElementById('containerPedidos').style.display='none';
             document.getElementById('secProductos').style.display='none';
+            document.getElementById('containerStock').style.display='none';
             document.getElementById('containerMensajes').style.display='block';
+        }
+
+
+        if(event.currentTarget.id==='grpPanel4'){
+            document.getElementById('containerPedidos').style.display='none';
+            document.getElementById('secProductos').style.display='none';
+            document.getElementById('containerMensajes').style.display='none';
+            document.getElementById('containerStock').style.display='block';
         }
 
     }
@@ -705,7 +726,56 @@ export default function PanelAdmin(){
 
     const popEliminarMensaje=()=>{
         document.getElementById('mapMensajes').style.display='none';
+        document.getElementById('popElimMensaje').style.display='block';
     }
+
+
+
+    const cerrarPopElimMensaje=()=>{
+        document.getElementById('popElimMensaje').style.display='none';
+        document.getElementById('mapMensajes').style.display='block';
+    }
+
+
+
+    const confElimMensaje=async()=>{
+       
+        const formEliminarMensaje=JSON.stringify({
+            idMsg:sessionStorage.getItem('idMensaje')
+        }) 
+        const response = await fetch(API+"/eliminarMensaje",{
+            method:"DELETE",
+            body:formEliminarMensaje,
+            headers:{
+                //"Authorization": `Bearer ${localStorage.getItem("token")}`,
+                
+                'Content-Type':'application/json'
+            }})    
+            .then((res)=>res.json())
+            .then((data)=>{setArrayMensajes(data)})     
+            document.getElementById('popElimMensaje').style.display='none';
+            document.getElementById('mapMensajes').style.display='block';
+
+        return(response);          
+    }
+
+
+
+    const descPedido=()=>{
+        
+        let idPedido = parseInt(sessionStorage.getItem("descPedidoId"));
+        for(let x=0; x<pedidosFilter.length;x++){
+            if(pedidosFilter[x].id===idPedido){
+               
+                setPedidosFilter( pedidosFilter.splice(x,1));
+            }
+        }
+        console.log(pedidosFilter.length); 
+        if(pedidosFilter.length===0){
+            document.getElementById('warning1').style.visibility='hidden';
+        }
+    }
+
 
 
 
@@ -717,9 +787,9 @@ export default function PanelAdmin(){
                 
                 <div class='grpPanel' id='grpPanel1' onClick={btnAdmin}>
                     <div class='grpPanelIcon'>
-                        {pedidosFilter.length>0?
-                        <FaExclamationTriangle />
-                        :""}
+                        {/* {pedidosFilter.length>0? */}
+                        <FaExclamationTriangle  id='warning1'/>
+                        {/* :""}                      */}
                     </div>
                     {/* <div class='iconPanel' id='iconPanel1' onClick={showPedidos}> */}
                     <div class='iconPanel' id='iconPanel1' >
@@ -738,17 +808,19 @@ export default function PanelAdmin(){
                     </div>
                 </div>
 
+                <div class='grpPanel' id='grpPanel4' onClick={btnAdmin}>
+                    <div class='iconPanel' id='iconPanel4'>
+                        <FontAwesomeIcon icon={faWheatAwnCircleExclamation} size='3x'/>
+                    </div>
+                </div>
+
                 <div class='grpPanel' id='grpPanel2' onClick={btnAdmin}>
                     <div class='iconPanel' id='iconPanel2'>
                         <FontAwesomeIcon icon={faCartShopping} size='3x'/>
                     </div>
                 </div>
 
-                <div class='grpPanel' id='grpPanel4'>
-                    <div class='iconPanel' id='iconPanel4'>
-                        <FontAwesomeIcon icon={faWheatAwnCircleExclamation} size='3x'/>
-                    </div>
-                </div>
+
             </div>
 
 
@@ -987,25 +1059,36 @@ export default function PanelAdmin(){
             </section>
 
             <section class='containerPedidos' id='containerPedidos'>
-                    <div class='divFecha'>
-                        <div class='date-picker-container'>
-                            <button onClick={handleIconClick} className="calendar-icon">
-                              <FcCalendar id='calendar'/>
-                            </button>
-                            <input type="date" ref={dateInputRef} onChange={handleDateChange}className="hidden-date-input"/>                
-                        </div>                              
-                    </div> 
 
+                {/* {pedidosFilter.length>0? */}
+                <div class='divFecha' id='divFecha'>
+                    <div class='date-picker-container'>
+                        <button onClick={handleIconClick} className="calendar-icon">
+                          <FcCalendar id='calendar'/>
+                        </button>
+                        <input type="date" ref={dateInputRef} onChange={handleDateChange}className="hidden-date-input"/>                
+                    </div>                              
+                </div> 
+                {/* // :''} */}
+
+                {/* {pedidosFilter.length>0? */}
                 <section class='secPedidos' id='secPedidos'>   
-                    <table class='tabPedidos1'>
+                    {/* <table class='tabPedidos1' id='tabPedidos1'>
                         <td id='numPedido1'><h6>Número</h6></td>
                         <td id='nomPedido1'><h6>Nombre</h6></td>
                         <td id='totPedido1'><h6>Total</h6></td>
-                    </table>
+                    </table> */}
                     {pedidosFilter.map((pedido)=>{
-                            return <CardPedidos key={pedido.id} info={pedido} listProd={arrProd} />
-                        })}  
+                        return <CardPedidos key={pedido.id} info={pedido} listProd={arrProd} descPedido={descPedido}/>
+                    })}  
                 </section>
+                {/* :''} */}
+
+                {pedidosFilter.length===0?
+                <div class='popElimMensaje' id='popNoPedido'>
+                    <h6>No hay pedidos registrados</h6>
+                </div>
+                :''}
             </section>
 
             <section class='containerMensajes' id='containerMensajes'>
@@ -1014,14 +1097,27 @@ export default function PanelAdmin(){
                         return <CardMensajes key={mensaje.id} info={mensaje} popEliminarMensaje={popEliminarMensaje}></CardMensajes>
                     })}
                 </section>
-                <div class='popElimMensaje'>
+                <div class='popElimMensaje' id='popElimMensaje'>
                     <h6>¿Seguro querés eliminar este mensaje?</h6>
                     <div class='btnsEliminar'>                            
-                        <button class='btnEliminar' id='xElimMensaje'><FontAwesomeIcon icon={faXmark} /></button>
-                        <button class='btnEliminar' id='vElimMensaje'><FontAwesomeIcon icon={faCheck} /></button>
+                        <button class='btnEliminar' id='xElimMensaje' onClick={cerrarPopElimMensaje}><FontAwesomeIcon icon={faXmark} /></button>
+                        <button class='btnEliminar' id='vElimMensaje' onClick={confElimMensaje}><FontAwesomeIcon icon={faCheck} /></button>
                     </div>
                 </div>
+                {arrayMensajes.length===0?
+                <div class='popElimMensaje' id='popNoMsg'>
+                    <h6>No hay mensajes nuevos</h6>
+                </div>
+                :''}
             </section>   
+
+            <section class='containerStock' id='containerStock'>
+                {arrayStock.map((prod)=>{
+                    return <CardProd key={prod.id} info={prod} pausarProd={pausarProd} activarProd={activarProd} popEliminar={popEliminar} editarProducto={editarProducto}></CardProd>
+                })}
+
+            </section>
+
 
 
             

@@ -1,7 +1,7 @@
 const express=require('express');
 const router=express.Router();
 
-const{agregarProducto,traerProductos,pausarProducto,activarProducto,eliminarProducto,editarProducto,enviarMarca,traerMarcas,eliminarMarca,agregarPedido,traerPedidos,cancelarPedido,procesarPedido,enviarMensaje,traerMensajes}=require('../controllers/controllers')
+const{agregarProducto,traerProductos,pausarProducto,activarProducto,eliminarProducto,editarProducto,enviarMarca,traerMarcas,eliminarMarca,agregarPedido,traerPedidos,cancelarPedido,procesarPedido,enviarMensaje,traerMensajes,eliminarMensaje}=require('../controllers/controllers')
 
 router.post('/agregarProducto',agregarProducto);
 router.get('/traerProductos',traerProductos);
@@ -18,6 +18,7 @@ router.post('/cancelarPedido',cancelarPedido);
 router.post('/procesarPedido',procesarPedido);
 router.post('/enviarMensaje',enviarMensaje);
 router.get('/traerMensajes',traerMensajes);
+router.delete('/eliminarMensaje',eliminarMensaje)
 
 
 module.exports=router;
