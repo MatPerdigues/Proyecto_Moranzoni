@@ -7,6 +7,7 @@ import CardProd from '../cardsProductos/cardsProductos'
 import CardMarcas from '../cardMarcas/cardMarcas';
 import CardPedidos from '../cardPedidos/cardPedidos';
 import CardMensajes from '../cardMensajes/cardMensajes';
+import CardStock from '../cardStock/cardStock';
 import { FaRegStar } from "react-icons/fa";
 import { FaExclamationTriangle } from "react-icons/fa";
 import { FcCalendar } from "react-icons/fc";
@@ -237,7 +238,14 @@ export default function PanelAdmin(){
         traerProductos();  
         setArrayStock(arrProd.filter((producto)=>producto.stock===0));     
 
-    },[])       
+    },[]) 
+    
+    
+
+    useEffect(()=>{            
+        const arrayStock1 = arrProd.filter((producto)=>producto.stock===0);
+        setArrayStock(arrayStock1);
+    },[arrProd]);
 
 
 
@@ -629,16 +637,6 @@ export default function PanelAdmin(){
 
 
 
-    // const showPedidos = ()=>{
-    //     document.getElementById('secProductos').style.display='none';
-    //     document.getElementById('containerPedidos').style.display='block';
-    // }
-
-
-
-
-
-
 
     const handleIconClick = () => {
         dateInputRef.current.showPicker(); // Abre el calendario nativo
@@ -795,6 +793,11 @@ export default function PanelAdmin(){
                 </div>
 
                 <div class='grpPanel' id='grpPanel4' onClick={btnAdmin}>
+                    <div class='grpPanelIcon'>
+                        {arrayStock.length>0?
+                        <FaExclamationTriangle />
+                        :""}
+                    </div>
                     <div class='iconPanel' id='iconPanel4'>
                         <FontAwesomeIcon icon={faWheatAwnCircleExclamation} size='3x'/>
                     </div>
@@ -902,7 +905,7 @@ export default function PanelAdmin(){
                     })}
                 </section>
                 <section class='popEliminar' id='popEliminar'>
-                    <h4 class='h4Eliminar'>¿Seguro querés eliminar el producto n° {idEliminar}?</h4>
+                    <h5 class='h4Eliminar'>¿Seguro querés eliminar el producto n° {idEliminar}?</h5>
                     <div class='btnsEliminar'>                            
                         <button class='btnEliminar' onClick={xEliminar}><FontAwesomeIcon icon={faXmark} /></button>
                         <button class='btnEliminar' onClick={eliminarProducto}><FontAwesomeIcon icon={faCheck} /></button>
@@ -1013,7 +1016,7 @@ export default function PanelAdmin(){
                   
                     <section class='secPopMarca' id='secPopMarca'>
                         <section class='popEliminar' id='popMarca'>
-                            <h4 class='h4Eliminar'>Marca cargada correctamente!</h4>
+                            <h5 class='h4Eliminar'>Marca cargada correctamente!</h5>
                             <div class='btnsEliminar'>                            
                                 <button class='btnEliminar' onClick={cerrarPopMarca}><FontAwesomeIcon icon={faCheck} /></button>
                             </div>
@@ -1025,7 +1028,7 @@ export default function PanelAdmin(){
                     
                     <section class='secPopMarca' id='secPopElimMarca'>
                         <section class='popEliminar' id='popElimMarca'>
-                            <h4 class='h4Eliminar'>Seguro querés eliminar la marca {marca}?</h4>
+                            <h5 class='h4Eliminar'>Seguro querés eliminar la marca {marca}?</h5>
                             <div class='btnsEliminar'>
                                 <button class='btnEliminar' onClick={xElimMarca}><FontAwesomeIcon icon={faXmark} /></button>                            
                                 <button class='btnEliminar' onClick={eliminarMarca}><FontAwesomeIcon icon={faCheck} /></button>
@@ -1034,7 +1037,7 @@ export default function PanelAdmin(){
                     </section>
                     <section class='secPopMarca' id='popConfElimMarca'>
                         <section class='popEliminar' id='confElimMarca'>
-                            <h4 class='h4Eliminar'>La marca se eliminó correctamente</h4>
+                            <h5 class='h4Eliminar'>La marca se eliminó correctamente</h5>
                             <div class='btnsEliminar'>
                                 <button class='btnEliminar' onClick={xConfElimMarca}><FontAwesomeIcon icon={faXmark} /></button>                            
                                 
@@ -1084,7 +1087,7 @@ export default function PanelAdmin(){
                     })}
                 </section>
                 <div class='popElimMensaje' id='popElimMensaje'>
-                    <h6>¿Seguro querés eliminar este mensaje?</h6>
+                    <h5>¿Seguro querés eliminar este mensaje?</h5>
                     <div class='btnsEliminar'>                            
                         <button class='btnEliminar' id='xElimMensaje' onClick={cerrarPopElimMensaje}><FontAwesomeIcon icon={faXmark} /></button>
                         <button class='btnEliminar' id='vElimMensaje' onClick={confElimMensaje}><FontAwesomeIcon icon={faCheck} /></button>
@@ -1099,7 +1102,7 @@ export default function PanelAdmin(){
 
             <section class='containerStock' id='containerStock'>
                 {arrayStock.map((prod)=>{
-                    return <CardProd key={prod.id} info={prod} pausarProd={pausarProd} activarProd={activarProd} popEliminar={popEliminar} editarProducto={editarProducto}></CardProd>
+                    return <CardStock key={prod.id} info={prod}></CardStock>
                 })}
 
             </section>

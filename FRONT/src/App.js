@@ -93,8 +93,10 @@ const tipOut =()=>{
           </section>
       </header>
       <section class='fondo'>
-       <img class='imgFondo' src={fondo} alt='fondoMoranzoni.png'></img>
-       <a href='../'><div class='logoFondo'></div></a>
+        <img class='imgFondo' src={fondo} alt='fondoMoranzoni.png'></img>
+        <div class='containerLogo'>
+          <a href='../'><div class='logoFondo'></div></a>
+        </div>
       </section>
       <div className="App">
         <Router/>

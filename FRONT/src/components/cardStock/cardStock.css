@@ -1,0 +1,40 @@
+.tableStock{
+    width: 100%;
+    margin: auto;
+    margin-bottom: 10px;
+    height: auto;
+    min-height: 50px;
+    border: 1px solid orange;
+    border-radius: 10px;
+    vertical-align: middle;
+    border-collapse: separate; /* Permite el border-radius */
+    border-spacing: 0; /* Evita separación entre celdas */
+    border-radius: 10px; /* Ajustá según necesites */
+    overflow: hidden; /* Ayuda con el redondeo */    
+}
+
+.tdStock{
+    text-align: center;
+ 
+}
+
+#tdStock2{
+    width: 40%;
+}
+
+#tdStock3{
+    width: 20%;
+}
+
+#tdStock1, #tdStock5{
+    width: 10%;
+}
+
+#tdStock4, #tdStock6{
+    width: 10%;
+}
+
+#tdStock5{
+    color: orangered;
+    font-weight: 600;
+}

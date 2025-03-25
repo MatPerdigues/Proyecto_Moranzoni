@@ -52,12 +52,12 @@ export default function CardProd ({info,pausarProd,activarProd,popEliminar,edita
     return(
         <Fragment>
             <table class='tabProd' id={idFila}>
-                <td class='tdProd' id='tdProd7'>{info.id}</td>
+                <td class='tdProd' id='tdProd7'> Cod. {info.id}</td>
                 <td class='tdProd' id='tdProd1'>{info.descripcion}</td>
                 <td class='tdProd' id='tdProd2'>{info.marca}</td>
                 <td class='tdProd' id='tdProd3'>{info.categoria}</td>
                 <td class='tdProd' id='tdProd4'>{info.stock}</td>
-                <td class='tdProd' id='tdProd5'>{info.precio}</td>
+                <td class='tdProd' id='tdProd5'>$ {info.precio}</td>
                 <td class='tdProd' id='tdProd9'><FontAwesomeIcon icon={faPencil} className='iconTable3' onClick={editarProd}/></td>
                 <td class='tdProd' id='tdProd6'>
                  {activo==='true'?
@@ -68,9 +68,7 @@ export default function CardProd ({info,pausarProd,activarProd,popEliminar,edita
                 </td>
                 <td class='tdProd' id='tdProd8'><FontAwesomeIcon icon={faTrashCan} className='iconTable' id='iconTable2' onClick={elimProd}/></td>
             </table>
-            <section class='contMapProd'>
 
-            </section>
         </Fragment>
     )
 }
