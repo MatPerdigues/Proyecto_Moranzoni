@@ -423,6 +423,16 @@ export default function PanelAdmin(){
     }
 
 
+    const editarProductoStock=()=>{
+        setPhDesc(sessionStorage.getItem('phDesc'));
+        setPhMarca(sessionStorage.getItem('phMarca'));
+        setPhCat(sessionStorage.getItem('phCat'));
+        setPhStock(sessionStorage.getItem('phStock'));
+        setPhPrecio(sessionStorage.getItem('phPrecio')); 
+        document.getElementById('mapStock').style.display='none';
+        document.getElementById('secEditarStock').style.display='block';
+    }
+
 
 
 
@@ -438,6 +448,13 @@ export default function PanelAdmin(){
         document.getElementById('secEditar').style.display='none';
         document.getElementById('secListProd').style.display='block'; 
         document.getElementById('mapProd').style.display='block'; 
+    }
+
+
+    const cerrarFormStock=(event)=>{
+        event.preventDefault();
+        document.getElementById('secEditarStock').style.display='none';
+        document.getElementById('mapStock').style.display='block';
     }
 
 
@@ -1100,14 +1117,87 @@ export default function PanelAdmin(){
                 :''}
             </section>   
 
-            <section class='containerStock' id='containerStock'>
-                {arrayStock.map((prod)=>{
-                    return <CardStock key={prod.id} info={prod}></CardStock>
-                })}
-
+            
+            
+            <section class='containerStock' id='containerStock'>    
+                <section className='mapStock' id='mapStock'>
+                    {arrayStock.map((prod)=>{
+                        return <CardStock key={prod.id} info={prod} editarProductoStock={editarProductoStock}></CardStock>
+                    })}
+                </section>
+                <section class='secEditar' id='secEditarStock'>                    
+                    <form class='formProductos' id='formEditar' onSubmit={(event)=>{actProd(event)}}>
+                        <section class='secFormProd' id='secFormProd1'>
+                            <div class='catProd'><h5>Descripción</h5></div>
+                            <section class='secDivisorProd'>
+                                <div class='divisorProd' id='divisorProd1'></div>
+                                <div class='divisorProd' id='divisorProd2'></div>
+                            </section>
+                            <input type='text' name='descripcion' class='inputProd' placeholder={phDesc}></input>
+                        </section>
+                        <section class='secFormProd' id='secFormProd1'>
+                            <div class='catProd'><h5>Marca</h5></div>
+                            <section class='secDivisorProd'>
+                                <div class='divisorProd' id='divisorProd1'></div>
+                                <div class='divisorProd' id='divisorProd2'></div>
+                            </section>
+                            <select class='inputProd' id='inputProd2'>
+                                <option value='' selected disabled id='phMarca'>{phMarca}</option>
+                            </select>                        
+                        </section>
+                        <section class='secFormProd' id='secFormProd1'>
+                            <div class='catProd'><h5>Categoría</h5></div>
+                            <section class='secDivisorProd'>
+                                <div class='divisorProd' id='divisorProd1'></div>
+                                <div class='divisorProd' id='divisorProd2'></div>
+                            </section>
+                            <select class='inputProd'>
+                                <option value='' selected disabled id='phMarca'>{phCat}</option>
+                                <option value='Galletitas'>Alfajores</option>
+                                <option value='Barritas'>Barritas</option>
+                                <option value='Batidos'>Batidos</option>
+                                <option value='Bebidas'>Bebidas</option>
+                                <option value='Cereales'>Cereales</option>
+                                <option value='Chocolates'>Chocolates</option>
+                                <option value='Especias'>Especias</option>
+                                <option value='Galletas de arroz'>Galletas de arroz</option>
+                                <option value='Galletitas'>Galletitas</option>
+                                <option value='Golosinas'>Golosinas</option>
+                                <option value='Granolas'>Granolas</option>
+                                <option value='Pastas'>Pastas</option>
+                                <option value='Pastelería'>Pastelería</option>
+                                <option value='Potres'>Postres</option>
+                                <option value='Premezclas'>Premezclas</option>
+                                <option value='Rebozadores'>Rebozadores</option>
+                                <option value='Snacks'>Snacks</option>
+                            </select>                        
+                        </section>
+                        <section class='secFormProd' id='secFormProd1'>
+                            <div class='catProd'><h5>Stock</h5></div>
+                            <section class='secDivisorProd'>
+                                <div class='divisorProd' id='divisorProd1'></div>
+                                <div class='divisorProd' id='divisorProd2'></div>
+                            </section>
+                            <input type='number' name='descripcion' class='inputProd' placeholder={phStock}></input>
+                        </section>
+                        <section class='secFormProd' id='secFormProd1'>
+                            <div class='catProd'><h5>Precio</h5></div>
+                            <section class='secDivisorProd'>
+                                <div class='divisorProd' id='divisorProd1'></div>
+                                <div class='divisorProd' id='divisorProd2'></div>
+                            </section>
+                            <input type='number' name='descripcion' class='inputProd' step=".01" placeholder={phPrecio}></input>
+                        </section>
+                         <section class='contSubForm' id='btnsEditar'>
+                            <button class='subForm' ><FontAwesomeIcon icon={faX} size='2x' onClick={cerrarFormStock}/></button>
+                            <button type='submit' class='subForm'><FontAwesomeIcon icon={faArrowsRotate} size='2x'/></button>
+                        </section> 
+                    </form>   
+                </section>
             </section>
-
-
+ 
+                
+                
 
             
 

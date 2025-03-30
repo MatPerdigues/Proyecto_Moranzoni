@@ -1,8 +1,11 @@
-.tableStock{
+.infoProdStock{
     width: 100%;
+    min-width: 400px;
+    max-width: 800px;
     margin: auto;
-    margin-bottom: 10px;
-    height: auto;
+    margin-bottom: 20px;
+    /* margin-left: 0%; */
+    height: 50px;
     min-height: 50px;
     border: 1px solid orange;
     border-radius: 10px;
@@ -10,31 +13,86 @@
     border-collapse: separate; /* Permite el border-radius */
     border-spacing: 0; /* Evita separación entre celdas */
     border-radius: 10px; /* Ajustá según necesites */
-    overflow: hidden; /* Ayuda con el redondeo */    
+    overflow: hidden; /* Ayuda con el redondeo */  
+    padding-left: 20px;  
+}
+
+
+.infoProdStock:hover{
+    cursor: pointer;
+    background-color: rgb(255, 165, 0, 0.2);
 }
 
 .tdStock{
-    text-align: center;
- 
+    /* text-align: center; */
+    font-weight: 600;
+
+    vertical-align: middle;
 }
 
-#tdStock2{
-    width: 40%;
-}
 
 #tdStock3{
-    width: 20%;
+    width: 40%;
+    text-align: center;
 }
 
 #tdStock1, #tdStock5{
-    width: 10%;
+    width: 20%;
 }
 
-#tdStock4, #tdStock6{
-    width: 10%;
+#tdStock6{
+    width: 20%;
+
+
+    /* display: flex; */
 }
 
 #tdStock5{
-    color: orangered;
+
     font-weight: 600;
+    text-align: center;
+    color: orangered;
+}
+
+.tableStock{
+    width: 100%;
+    /* margin-bottom: 15px; */
+}
+
+.DescSpan{
+    font-weight: 600;
+}
+
+.descProdStock{
+    margin-bottom: 10px;
+
+}
+
+
+.contIconsStock{
+
+    display: flex;
+    height: 50px;
+    width: 100%;
+}
+
+.contIconStock{
+    /* border: 1px solid red; */
+    width: 33%;
+    height: 30px;
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.iconTable3:hover{
+    color: orangered;
+}
+
+
+.closeInfoStock{
+    width: 100%;
+    padding-right: 20px;
+    text-align: center;
+    font-size: 30px;
 }

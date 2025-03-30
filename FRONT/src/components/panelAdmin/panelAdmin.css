@@ -78,7 +78,7 @@
 }
 
 .formProductos{
-    width: 50%; 
+    width: 40%; 
     height: 400px;
     margin: auto;
     margin-top: 40px;
@@ -129,7 +129,7 @@
 
 .secFormProd{
     margin-bottom: 40px;
-    width: 60%;
+    width: 100%;
     margin: auto;
     margin-bottom: 50px;
   
@@ -162,7 +162,7 @@
 
 .secListProd{
     display: block;
-    width: 60%;
+    width: 40%;
     height: auto;
     /* min-height: 400px; */
     margin: auto;
@@ -528,7 +528,6 @@
 }
 
 #containerStock{
-
     width: 60%;
     height: auto;
     /* min-height: 600px; */
@@ -541,4 +540,8 @@
 
 #warning1{
     visibility: hidden;
+}
+
+#secEditarStock{
+    display: none;
 }
