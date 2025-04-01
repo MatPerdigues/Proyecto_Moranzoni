@@ -103,6 +103,22 @@ export default function PanelAdmin(){
             }
         }  
      }
+
+     
+
+     const optMarcas3 = ()=>{       
+        for(let x=0; x<arrMarcas.length;x++){
+            if(document.getElementById('inputProd3').contains(document.getElementById(arrMarcas[x].nombre+"1"))){
+            }else{
+                let option = document.createElement('option');
+                option.setAttribute("value",arrMarcas[x].nombre);
+                option.setAttribute("id",arrMarcas[x].nombre+"1");
+                option.innerHTML = arrMarcas[x].nombre;
+                document.getElementById('inputProd3').appendChild(option);        
+            }
+        }  
+
+    }
  
  
 
@@ -370,6 +386,15 @@ export default function PanelAdmin(){
     }
 
 
+    const popEliminar1=()=>{
+        setIdEliminar(sessionStorage.getItem('elimProd'))
+        document.getElementById('mapStock').style.display='none';
+        document.getElementById('popEliminar1').style.display='block';
+
+
+    }
+
+
 
 
     const xEliminar=()=>{
@@ -379,12 +404,19 @@ export default function PanelAdmin(){
     }
 
 
+    const xEliminar1=()=>{
+        document.getElementById('popEliminar1').style.display='none';
+        document.getElementById('mapStock').style.display='block';
+    }
+
+
 
 
 
     const eliminarProducto=async()=>{
-        let idFila="filaProd-"+idEliminar;  
-        const formEliminar=JSON.stringify({
+        let idFila="filaProd-"+idEliminar;
+        let trash=sessionStorage.getItem('trash');
+          const formEliminar=JSON.stringify({
             idEliminar:sessionStorage.getItem('elimProd')
         }) 
         const response = await fetch(API+"/eliminarProducto",{
@@ -396,9 +428,15 @@ export default function PanelAdmin(){
                 'Content-Type':'application/json'
             }})    
             .then((res)=>res.json())
-            .then((data)=>{setArrProd(data)})        
+            .then((data)=>{setArrProd(data)})
+            
+            if(trash==='trashProducto'){
+                xEliminar();
+            }else{
+                xEliminar1();
+            }
 
-            xEliminar();
+
 
             document.getElementById(idFila).style.display='none';
 
@@ -717,6 +755,7 @@ export default function PanelAdmin(){
 
 
         if(event.currentTarget.id==='grpPanel4'){
+            optMarcas3();  
             document.getElementById('containerPedidos').style.display='none';
             document.getElementById('secProductos').style.display='none';
             document.getElementById('containerMensajes').style.display='none';
@@ -784,8 +823,7 @@ export default function PanelAdmin(){
         <Fragment>
 
 
-            <div class='secPanel'>
-                
+            <div class='secPanel'>                
                 <div class='grpPanel' id='grpPanel1' onClick={btnAdmin}>
                     <div class='grpPanelIcon'>
                         {/* {pedidosFilter.length>0? */}
@@ -825,9 +863,8 @@ export default function PanelAdmin(){
                         <FontAwesomeIcon icon={faCartShopping} size='3x'/>
                     </div>
                 </div>
-
-
             </div>
+
 
 
 
@@ -840,7 +877,7 @@ export default function PanelAdmin(){
                 
                 <form class='formProductos' id='formProductos' onSubmit={(event)=>{sumProd(event)}}>
                     <section class='secFormProd' id='secFormProd1'>
-                        <div class='catProd'><h5>Descripción</h5></div>
+                        <div class='catProd'><h6>Descripción</h6></div>
                         <section class='secDivisorProd'>
                             <div class='divisorProd' id='divisorProd1'></div>
                             <div class='divisorProd' id='divisorProd2'></div>
@@ -848,7 +885,7 @@ export default function PanelAdmin(){
                         <input type='text' required name='descripcion' class='inputProd'></input>
                     </section>
                     <section class='secFormProd' id='secFormProd1'>
-                        <div class='catProd'><h5>Marca</h5></div>
+                        <div class='catProd'><h6>Marca</h6></div>
                         <section class='secDivisorProd'>
                             <div class='divisorProd' id='divisorProd1'></div>
                             <div class='divisorProd' id='divisorProd2'></div>
@@ -858,7 +895,7 @@ export default function PanelAdmin(){
                         </select>                        
                     </section>
                     <section class='secFormProd' id='secFormProd1'>
-                        <div class='catProd'><h5>Categoría</h5></div>
+                        <div class='catProd'><h6>Categoría</h6></div>
                         <section class='secDivisorProd'>
                             <div class='divisorProd' id='divisorProd1'></div>
                             <div class='divisorProd' id='divisorProd2'></div>
@@ -885,7 +922,7 @@ export default function PanelAdmin(){
                         </select>                        
                     </section>
                     <section class='secFormProd' id='secFormProd1'>
-                        <div class='catProd'><h5>Stock</h5></div>
+                        <div class='catProd'><h6>Stock</h6></div>
                         <section class='secDivisorProd'>
                             <div class='divisorProd' id='divisorProd1'></div>
                             <div class='divisorProd' id='divisorProd2'></div>
@@ -893,7 +930,7 @@ export default function PanelAdmin(){
                         <input type='number' required name='descripcion' class='inputProd'></input>
                     </section>
                     <section class='secFormProd' id='secFormProd1'>
-                        <div class='catProd'><h5>Precio</h5></div>
+                        <div class='catProd'><h6>Precio</h6></div>
                         <section class='secDivisorProd'>
                             <div class='divisorProd' id='divisorProd1'></div>
                             <div class='divisorProd' id='divisorProd2'></div>
@@ -906,7 +943,7 @@ export default function PanelAdmin(){
                 </form>
                 <section class='secListProd' id='secListProd'>
                     <section class='secFormProd' id='sec'>
-                        <div class='catProd'><h5>Marca</h5></div>
+                        <div class='catProd'><h6>Marca</h6></div>
                         <section class='secDivisorProd'>
                             <div class='divisorProd' id='divisorProd1'></div>
                             <div class='divisorProd' id='divisorProd2'></div>
@@ -931,7 +968,7 @@ export default function PanelAdmin(){
                 <section class='secEditar' id='secEditar'>                    
                     <form class='formProductos' id='formEditar' onSubmit={(event)=>{actProd(event)}}>
                         <section class='secFormProd' id='secFormProd1'>
-                            <div class='catProd'><h5>Descripción</h5></div>
+                            <div class='catProd'><h6>Descripción</h6></div>
                             <section class='secDivisorProd'>
                                 <div class='divisorProd' id='divisorProd1'></div>
                                 <div class='divisorProd' id='divisorProd2'></div>
@@ -939,7 +976,7 @@ export default function PanelAdmin(){
                             <input type='text' name='descripcion' class='inputProd' placeholder={phDesc}></input>
                         </section>
                         <section class='secFormProd' id='secFormProd1'>
-                            <div class='catProd'><h5>Marca</h5></div>
+                            <div class='catProd'><h6>Marca</h6></div>
                             <section class='secDivisorProd'>
                                 <div class='divisorProd' id='divisorProd1'></div>
                                 <div class='divisorProd' id='divisorProd2'></div>
@@ -949,7 +986,7 @@ export default function PanelAdmin(){
                             </select>                        
                         </section>
                         <section class='secFormProd' id='secFormProd1'>
-                            <div class='catProd'><h5>Categoría</h5></div>
+                            <div class='catProd'><h6>Categoría</h6></div>
                             <section class='secDivisorProd'>
                                 <div class='divisorProd' id='divisorProd1'></div>
                                 <div class='divisorProd' id='divisorProd2'></div>
@@ -976,7 +1013,7 @@ export default function PanelAdmin(){
                             </select>                        
                         </section>
                         <section class='secFormProd' id='secFormProd1'>
-                            <div class='catProd'><h5>Stock</h5></div>
+                            <div class='catProd'><h6>Stock</h6></div>
                             <section class='secDivisorProd'>
                                 <div class='divisorProd' id='divisorProd1'></div>
                                 <div class='divisorProd' id='divisorProd2'></div>
@@ -984,7 +1021,7 @@ export default function PanelAdmin(){
                             <input type='number' name='descripcion' class='inputProd' placeholder={phStock}></input>
                         </section>
                         <section class='secFormProd' id='secFormProd1'>
-                            <div class='catProd'><h5>Precio</h5></div>
+                            <div class='catProd'><h6>Precio</h6></div>
                             <section class='secDivisorProd'>
                                 <div class='divisorProd' id='divisorProd1'></div>
                                 <div class='divisorProd' id='divisorProd2'></div>
@@ -1039,10 +1076,6 @@ export default function PanelAdmin(){
                             </div>
                         </section>
                     </section>
-              
-
-
-                    
                     <section class='secPopMarca' id='secPopElimMarca'>
                         <section class='popEliminar' id='popElimMarca'>
                             <h5 class='h4Eliminar'>Seguro querés eliminar la marca {marca}?</h5>
@@ -1063,6 +1096,11 @@ export default function PanelAdmin(){
                     </section>
                 </section>
             </section>
+
+
+
+
+
 
             <section class='containerPedidos' id='containerPedidos'>
 
@@ -1097,6 +1135,10 @@ export default function PanelAdmin(){
                 :''}
             </section>
 
+
+
+
+
             <section class='containerMensajes' id='containerMensajes'>
                 <section class='mapMensajes' id='mapMensajes'>
                     {arrayMensajes.map((mensaje)=>{
@@ -1117,18 +1159,19 @@ export default function PanelAdmin(){
                 :''}
             </section>   
 
+
             
             
             <section class='containerStock' id='containerStock'>    
                 <section className='mapStock' id='mapStock'>
                     {arrayStock.map((prod)=>{
-                        return <CardStock key={prod.id} info={prod} editarProductoStock={editarProductoStock}></CardStock>
+                        return <CardStock key={prod.id} info={prod} editarProductoStock={editarProductoStock} pausarProd={pausarProd} activarProd={activarProd} popEliminar1={popEliminar1}></CardStock>
                     })}
                 </section>
                 <section class='secEditar' id='secEditarStock'>                    
                     <form class='formProductos' id='formEditar' onSubmit={(event)=>{actProd(event)}}>
                         <section class='secFormProd' id='secFormProd1'>
-                            <div class='catProd'><h5>Descripción</h5></div>
+                            <div class='catProd'><h6>Descripción</h6></div>
                             <section class='secDivisorProd'>
                                 <div class='divisorProd' id='divisorProd1'></div>
                                 <div class='divisorProd' id='divisorProd2'></div>
@@ -1136,17 +1179,17 @@ export default function PanelAdmin(){
                             <input type='text' name='descripcion' class='inputProd' placeholder={phDesc}></input>
                         </section>
                         <section class='secFormProd' id='secFormProd1'>
-                            <div class='catProd'><h5>Marca</h5></div>
+                            <div class='catProd'><h6>Marca</h6></div>
                             <section class='secDivisorProd'>
                                 <div class='divisorProd' id='divisorProd1'></div>
                                 <div class='divisorProd' id='divisorProd2'></div>
                             </section>
-                            <select class='inputProd' id='inputProd2'>
+                            <select class='inputProd' id='inputProd3'>
                                 <option value='' selected disabled id='phMarca'>{phMarca}</option>
                             </select>                        
                         </section>
                         <section class='secFormProd' id='secFormProd1'>
-                            <div class='catProd'><h5>Categoría</h5></div>
+                            <div class='catProd'><h6>Categoría</h6></div>
                             <section class='secDivisorProd'>
                                 <div class='divisorProd' id='divisorProd1'></div>
                                 <div class='divisorProd' id='divisorProd2'></div>
@@ -1173,7 +1216,7 @@ export default function PanelAdmin(){
                             </select>                        
                         </section>
                         <section class='secFormProd' id='secFormProd1'>
-                            <div class='catProd'><h5>Stock</h5></div>
+                            <div class='catProd'><h6>Stock</h6></div>
                             <section class='secDivisorProd'>
                                 <div class='divisorProd' id='divisorProd1'></div>
                                 <div class='divisorProd' id='divisorProd2'></div>
@@ -1181,7 +1224,7 @@ export default function PanelAdmin(){
                             <input type='number' name='descripcion' class='inputProd' placeholder={phStock}></input>
                         </section>
                         <section class='secFormProd' id='secFormProd1'>
-                            <div class='catProd'><h5>Precio</h5></div>
+                            <div class='catProd'><h6>Precio</h6></div>
                             <section class='secDivisorProd'>
                                 <div class='divisorProd' id='divisorProd1'></div>
                                 <div class='divisorProd' id='divisorProd2'></div>
@@ -1193,6 +1236,13 @@ export default function PanelAdmin(){
                             <button type='submit' class='subForm'><FontAwesomeIcon icon={faArrowsRotate} size='2x'/></button>
                         </section> 
                     </form>   
+                </section>
+                <section class='popEliminar' id='popEliminar1'>
+                    <h5 class='h4Eliminar'>¿Seguro querés eliminar el producto n° {idEliminar}?</h5>
+                    <div class='btnsEliminar'>                            
+                        <button class='btnEliminar' onClick={xEliminar1}><FontAwesomeIcon icon={faXmark} /></button>
+                        <button class='btnEliminar' onClick={eliminarProducto}><FontAwesomeIcon icon={faCheck} /></button>
+                    </div>
                 </section>
             </section>
  

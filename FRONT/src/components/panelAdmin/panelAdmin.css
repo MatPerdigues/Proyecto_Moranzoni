@@ -43,7 +43,7 @@
 
 .secProductos{
     display: none;
-    width: 100%;
+    width: 60%;
     height: auto;
     margin: auto;
     margin-top: 0px;
@@ -105,6 +105,7 @@
     display: flex;
     justify-content: center;
     margin: auto; 
+
 }
 
 .inputProd{
@@ -171,7 +172,7 @@
 
 .mapProd{
     display: none;
-    width: 60%;
+    width: 100%;
     height: auto;
     margin: auto;
     /* margin-top: -250px; */
@@ -205,8 +206,8 @@
 }
 
 .popEliminar{
-    border: 1px solid grey;
-    width: 25%;
+    border: 1px solid orange;
+    width: 50%;
     height: 200px;
     display: none;
     text-align: center;
@@ -426,6 +427,7 @@
 
 #formEditar{
     display: block;
+    max-width: 800px;
 }
 
 .busqFecha{
@@ -544,4 +546,11 @@
 
 #secEditarStock{
     display: none;
+}
+
+
+#popEliminar1{
+    display: none;
+    border: 1px solid orange;
+    margin-top: 0px;
 }

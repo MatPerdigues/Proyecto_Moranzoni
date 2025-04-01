@@ -17,10 +17,9 @@ export default function CardProd ({info,pausarProd,activarProd,popEliminar,edita
   
 
 
-
-
     const elimProd=()=>{
         sessionStorage.setItem('elimProd',info.id);
+        sessionStorage.setItem('trash','trashProducto');
         popEliminar();
     }
 
